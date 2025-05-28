@@ -1,0 +1,9 @@
+{
+	"title": "Vite Template | Strona „Kontakt”",
+	"description": "Skontaktuj się z twórcami Vite Template – wsparcie i dokumentacja.",
+	"keywords": "vite template, kontakt, wsparcie, dokumentacja",
+	"robots": "index, follow",
+	"url": "https://twojadomena.pl/contact.html",
+	"cssUrl": "/src/styles/contact.css",
+	"og_image": "https://twojadomena.pl/dist/img/og_image_contact_vitetemplate.webp"
+}

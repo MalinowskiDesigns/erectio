@@ -1,0 +1,53 @@
+<head>
+	<meta charset="UTF-8" />
+	<title><%= meta.title %></title>
+	<meta name="description" content="<%= meta.description %>" />
+	<meta name="keywords" content="<%= meta.keywords %>" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="robots" content="<%= meta.robots %>" />
+	<meta
+		name="author"
+		content="DigiDraft - Agencja Marketingowa / Interaktywna"
+	/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<link rel="canonical" href="<%= meta.url %>" />
+	<!-- OpenGraph -->
+	<meta property="og:url" content="<%= meta.url %>" />
+	<meta property="og:title" content="<%= meta.title %>" />
+	<meta property="og:description" content="<%= meta.description %>" />
+	<meta property="og:type" content="website" />
+	<meta property="og:image" content="<%= meta.VITE_SITE_URL %>/og_image.jpg" />
+	<meta property="og:site_name" content="Vite Template" />
+	<meta property="og:locale" content="pl_PL" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta
+		property="og:image:alt"
+		content="Logotyp Vite Template, na jasnym tle."
+	/>
+	<!-- Twitter -->
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta property="twitter:domain" content="<%= meta.VITE_SITE_URL %>" />
+	<meta property="twitter:url" content="<%= meta.url %>" />
+	<meta name="twitter:title" content="<%= meta.title %>" />
+	<meta name="twitter:description" content="<%= meta.description %>" />
+	<meta name="twitter:image" content="<%= meta.VITE_SITE_URL %>/og_image.jpg" />
+
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="google" content="notranslate" />
+
+	<!-- JSON-LD Schema.org -->
+	<!-- <script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "Organization",
+			"name": "Vite Template – Szablon Multipage",
+			"legalName": "Vite Template",
+			"description": "<%= meta.description %>",
+			"url": "<%= meta.url %>",
+			"logo": "<%= meta.VITE_SITE_URL %>/logo.svg",
+			"image": "<%= meta.VITE_SITE_URL %>/logo.svg"
+			/* Dodaj tu inne statyczne dane, jeśli potrzebujesz: kontakt, adres itp. */
+		}
+	</script> -->
+</head>
