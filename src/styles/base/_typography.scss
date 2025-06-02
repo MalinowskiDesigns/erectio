@@ -84,15 +84,6 @@ blockquote {
 	font-weight: 400;
 }
 
-/* Lists ------------------------------------------------ */
-ul ul,
-ol ol {
-	margin-left: $gap-m;
-}
-li {
-	margin-bottom: math.div($gap-xs, 2);
-}
-
 /* Inline utilities ----------------------------------- */
 .u-text-center {
 	text-align: center !important;

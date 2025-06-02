@@ -1,0 +1,74 @@
+<nav class="nav">
+	<div class="nav__container wrapper">
+		<!-- logo -->
+		<a href="/" class="nav__logo" aria-label="Erectio – Strona główna">
+			<img src="/logo.svg" alt="" width="3.2rem" height="3.2rem" />
+			<span class="nav__brand">Erectio</span>
+		</a>
+
+		<!-- hamburger -->
+		<button class="nav__toggle" aria-expanded="false" aria-controls="nav-list">
+			<span class="nav__toggle-line"></span>
+		</button>
+
+		<!-- główna lista -->
+		<ul id="nav-list" class="nav__list">
+			<li class="nav__item">
+				<a href="/zaburzenia-erekcji" class="nav__link">Zaburzenia erekcji</a>
+			</li>
+
+			<!-- dropdown -->
+			<li class="nav__item nav__item--dropdown">
+				<a
+					href="/metody-leczenia"
+					class="nav__link"
+					aria-haspopup="true"
+					aria-expanded="false"
+				>
+					Metody leczenia
+				</a>
+
+				<ul class="nav__sublist">
+					<li class="nav__subitem">
+						<a href="/metody-leczenia/zmiana-stylu-zycia" class="nav__sublink"
+							>Zmiana stylu życia</a
+						>
+					</li>
+					<li class="nav__subitem">
+						<a
+							href="/metody-leczenia/terapia-psychologiczna"
+							class="nav__sublink"
+							>Terapia psychologiczna</a
+						>
+					</li>
+					<li class="nav__subitem">
+						<a
+							href="/metody-leczenia/leczenie-farmakologiczne"
+							class="nav__sublink"
+							>Leczenie farmakologiczne</a
+						>
+					</li>
+					<li class="nav__subitem">
+						<a href="/metody-leczenia/konsultacja-lekarska" class="nav__sublink"
+							>Konsultacja lekarska</a
+						>
+					</li>
+				</ul>
+			</li>
+
+			<li class="nav__item">
+				<a href="/porady-eksperckie" class="nav__link">Porady eksperckie</a>
+			</li>
+
+			<!-- CTA -->
+			<li class="nav__item nav__item--cta">
+				<a
+					href="#mapa-specjalistow"
+					class="btn btn--primary"
+				>
+					Znajdź specjalistę
+				</a>
+			</li>
+		</ul>
+	</div>
+</nav>

@@ -66,13 +66,21 @@ export default defineConfig(({ mode }) => {
 				ejsOptions: {
 					filename: resolve(__dirname, `${slug}.html`),
 					localsName: 'meta',
-					views: [resolve(__dirname, 'src/templates')],
+					views: [
+						resolve(__dirname, 'src/templates'),
+						resolve(__dirname, 'src/components'),
+					],
 				},
 			},
 		};
 	});
 
 	return {
+		resolve: {
+			alias: {
+				'@common': resolve(__dirname, 'src/js/common'),
+			},
+		},
 		plugins: [
 			Inspect(),
 			clean({ targets: ['./dist'] }),
@@ -85,61 +93,61 @@ export default defineConfig(({ mode }) => {
 			),
 
 			/* PWA */
-			VitePWA({
-				registerType: 'autoUpdate',
-				injectRegister: 'script', // gwarantuje dołączenie SW nawet w SPA/MPA
-				devOptions: { enabled: true }, // pełne PWA offline w trybie dev
-				strategies: 'generateSW', // najszybszy start unless potrzebujesz własnego SW
-				manifest: {
-					name: env.VITE_SITE_NAME,
-					short_name: env.VITE_SITE_NAME,
-					display: 'standalone',
-					icons: [
-						{
-							src: '/android-chrome-192x192.png',
-							sizes: '192x192',
-							type: 'image/png',
-							purpose: 'any', // podstawowa ikona
-						},
-						{
-							src: '/android-chrome-256x256.png',
-							sizes: '256x256',
-							type: 'image/png',
-							purpose: 'any', // (opcjonalna) średnia rozdzielczość
-						},
-						{
-							src: '/android-chrome-512x512.png',
-							sizes: '512x512',
-							type: 'image/png',
-							purpose: 'any maskable', // duża + maskable dla adapt. ikon (Android 12+)
-						},
-					],
-					theme_color: env.VITE_SITE_PRIMARY_COLOR,
-					background_color: env.VITE_SITE_BACKGROUND_COLOR,
-				},
-				workbox: {
-					navigateFallback: '/index.html',
-					globPatterns: ['**/*.{js,css,html,avif,webp,png,jpg,svg,ico}'],
-					runtimeCaching: [
-						{
-							urlPattern: /^https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/i,
-							handler: 'CacheFirst',
-							options: {
-								cacheName: 'google-fonts',
-								expiration: {
-									maxEntries: 30,
-									maxAgeSeconds: 60 * 60 * 24 * 365,
-								},
-							},
-						},
-					],
-				},
-				includeAssets: [
-					'browserconfig.xml',
-					'yandex-browser-manifest.json',
-					'og_image.jpg',
-				],
-			}),
+			// VitePWA({
+			// 	registerType: 'autoUpdate',
+			// 	injectRegister: 'script', // gwarantuje dołączenie SW nawet w SPA/MPA
+			// 	devOptions: { enabled: true }, // pełne PWA offline w trybie dev
+			// 	strategies: 'generateSW', // najszybszy start unless potrzebujesz własnego SW
+			// 	manifest: {
+			// 		name: env.VITE_SITE_NAME,
+			// 		short_name: env.VITE_SITE_NAME,
+			// 		display: 'standalone',
+			// 		icons: [
+			// 			{
+			// 				src: '/android-chrome-192x192.png',
+			// 				sizes: '192x192',
+			// 				type: 'image/png',
+			// 				purpose: 'any', // podstawowa ikona
+			// 			},
+			// 			{
+			// 				src: '/android-chrome-256x256.png',
+			// 				sizes: '256x256',
+			// 				type: 'image/png',
+			// 				purpose: 'any', // (opcjonalna) średnia rozdzielczość
+			// 			},
+			// 			{
+			// 				src: '/android-chrome-512x512.png',
+			// 				sizes: '512x512',
+			// 				type: 'image/png',
+			// 				purpose: 'any maskable', // duża + maskable dla adapt. ikon (Android 12+)
+			// 			},
+			// 		],
+			// 		theme_color: env.VITE_SITE_PRIMARY_COLOR,
+			// 		background_color: env.VITE_SITE_BACKGROUND_COLOR,
+			// 	},
+			// 	workbox: {
+			// 		navigateFallback: '/index.html',
+			// 		globPatterns: ['**/*.{js,css,html,avif,webp,png,jpg,svg,ico}'],
+			// 		runtimeCaching: [
+			// 			{
+			// 				urlPattern: /^https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/i,
+			// 				handler: 'CacheFirst',
+			// 				options: {
+			// 					cacheName: 'google-fonts',
+			// 					expiration: {
+			// 						maxEntries: 30,
+			// 						maxAgeSeconds: 60 * 60 * 24 * 365,
+			// 					},
+			// 				},
+			// 			},
+			// 		],
+			// 	},
+			// 	includeAssets: [
+			// 		'browserconfig.xml',
+			// 		'yandex-browser-manifest.json',
+			// 		'og_image.jpg',
+			// 	],
+			// }),
 			mkcert(),
 			FullReload(['src/templates/**/*', 'src/pages/**/*.json']),
 			createHtmlPlugin({ minify: true, pages, inject: { data: env } }),
@@ -165,6 +173,8 @@ export default defineConfig(({ mode }) => {
 				enableBuild: false,
 				eslint: false,
 				stylelint: {
+					fix: true,
+					include: ['src/**/*.{css,scss}'],
 					lintCommand: 'stylelint "./src/**/*.{css,scss}"',
 					dev: { logLevel: ['error', 'warning'] },
 				},

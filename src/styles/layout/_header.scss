@@ -1,3 +1,8 @@
-.example {
-	font-size: 0;
+@use '../abstracts/variables' as *;
+@use '../abstracts/functions' as f;
+
+.header {
+	padding: $gap-l 0;
+	background-color: $color-bg;
+	border-bottom: 1px solid $color-border;
 }

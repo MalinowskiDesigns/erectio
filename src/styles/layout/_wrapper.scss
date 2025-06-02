@@ -1,0 +1,25 @@
+// src/styles/layout/_wrapper.scss
+
+@use '../abstracts/variables' as *; // mamy $gap-s itp.
+@use '../abstracts/breakpoints' as bp; // do media queries
+@use '../abstracts/functions' as *;
+
+.wrapper {
+	position: relative;
+	clear: both;
+	width: 100%;
+	max-width: 1280px;
+	margin: 0 auto;
+	padding-right: $gap-s;
+	padding-left: $gap-s; // mobile: ~16px
+
+	@include bp.respond(tablet) {
+		padding-right: $gap-l;
+		padding-left: $gap-l; // 24px → 2.4rem
+	}
+
+	@include bp.respond(desktop) {
+		padding-right: $gap-xl;
+		padding-left: $gap-xl; // 32px → 3.2rem
+	}
+}

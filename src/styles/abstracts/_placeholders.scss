@@ -1,31 +1,39 @@
-// Flexbox center
-@mixin flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+// src/styles/abstracts/_placeholders.scss
+
+@use 'variables' as *;
+@use '../abstracts/functions' as *;
+
+/* ----------------------------------------
+   Wspólne cechy przycisków
+   ---------------------------------------- */
+%button-base {
+	font-size: $fs-xxs;
+	display: inline-block;
+	padding: $gap-s $gap-l;
+	cursor: pointer;
+	transition: background-color 0.2s ease-in-out;
+	text-align: center;
+	white-space: nowrap;
+	text-decoration: none;
+	letter-spacing: 0.2rem;
+	text-transform: uppercase;
+	border: none;
+	border-radius: $radius-s;
+	font-family: $font-main;
+	font-weight: 400;
 }
 
-// Aspect-ratio (fallbacky dla starszych przeglądarek)
-@mixin aspect-ratio($w, $h) {
-  position: relative;
-  &::before {
-    content: '';
-    display: block;
-    padding-top: ($h / $w) * 100%;
-  }
-  & > * {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-  }
-}
-
-// prefers-reduced-motion
-@mixin reduce-motion {
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation: none !important;
-      transition: none !important;
-      scroll-behavior: auto !important;
-    }
-  }
+/* ----------------------------------------
+   Ukrycie wizualne (screen-reader only)
+   ---------------------------------------- */
+%visually-hidden {
+	position: absolute !important;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	white-space: nowrap;
+	border: 0;
 }
