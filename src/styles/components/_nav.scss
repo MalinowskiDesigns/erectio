@@ -1,5 +1,3 @@
-// src/styles/components/_nav.scss
-
 @use '../abstracts/mixins' as mixins;
 @use '../abstracts/placeholders' as ph;
 @use '../abstracts/functions' as f;
@@ -9,6 +7,26 @@
 
 .nav {
 	background-color: $color-bg;
+
+	// =======================
+	//  STAN „OTWARTY” – :hover (desktop z kursorem)
+	// =======================
+	@media #{bp.$hover} {
+		&__item--dropdown:hover .nav__sublist {
+			visibility: visible; // natychmiast
+			transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out,
+				visibility 0s ease-in-out 0s;
+			transform: translateY(0);
+			pointer-events: auto;
+			opacity: 1;
+
+			.nav__dropdown-icon svg {
+				transform: rotate(
+					180deg
+				); // obróć o 180 stopni, aby strzałka pokazała się „do góry”
+			}
+		}
+	}
 
 	&__container {
 		display: flex;
@@ -38,45 +56,58 @@
 		color: $color-primary;
 	}
 
-	&__toggle {
-		display: none;
-		padding: $gap-xs;
-		cursor: pointer;
-		border: none;
-		background: none;
+	&__toggle-line {
+		width: 2rem;
+		height: 0.3rem;
+		transition: width 0.2s ease-in-out, transform 0.2s ease-in-out;
+		background: $color-white;
 
-		@include bp.respond(tablet, max) {
-			display: block;
+		&:first-of-type {
+			width: 1.6rem;
+		}
+
+		&:last-of-type {
+			width: 1.2rem;
 		}
 	}
 
-	&__toggle-line {
-		display: block;
-		position: relative;
-		width: 2.4rem;
-		height: 0.2rem;
-		background: $color-text;
+	&__toggle {
+		display: none;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+		min-width: 3.6rem;
+		min-height: 3.6rem;
+		padding: 0.8rem;
+		cursor: pointer;
+		border: none;
+		border-radius: $radius-s;
+		background: $color-primary;
+		gap: 0.5rem;
 
-		&::before,
-		&::after {
-			content: '';
-			display: block;
-			position: absolute;
-			left: 0;
-			width: 2.4rem;
-			height: 0.2rem;
-			background: $color-text;
+		@include bp.respond(tablet, max) {
+			display: flex;
 		}
-		&::before {
-			top: 6px;
-		}
-		&::after {
-			top: 6px;
+
+		&[aria-expanded='true'] {
+			.nav__toggle-line {
+				width: 0;
+			}
+
+			.nav__toggle-line:first-of-type {
+				width: 2rem;
+				transform: translateY(0.8rem) rotate(45deg);
+			}
+
+			.nav__toggle-line:last-of-type {
+				width: 2rem;
+				transform: translateY(-0.8rem) rotate(-45deg);
+			}
 		}
 	}
 
 	&__list {
-		display: flex; // DOMYŚLNIE widoczne
+		display: flex; // DOMYŚLNIE widoczne na desktopie
 		align-items: center;
 		justify-content: space-between;
 		margin: 0;
@@ -84,17 +115,46 @@
 
 		@include bp.respond(tablet, max) {
 			display: none;
+			width: 100%;
+			padding: $gap-s 0;
+			box-shadow: 2px 4px 6px rgba($color-black, 0.1);
 		}
 
 		&--open {
-			display: flex; // przy hamburgerze rzucone zostaje nav__list--open
+			display: flex; // przy otwartym hamburgerze na mobilkach/tabletach
+			position: absolute;
+			top: calc(100% + 2.4rem);
+			left: 0.4rem;
+			align-items: flex-start;
+			flex-direction: column;
+			justify-content: flex-start;
+
+			@include bp.respond(tablet, max) {
+				left: 0;
+			}
 		}
 	}
 
 	&__item {
 		letter-spacing: 0.2rem;
+
 		&--dropdown {
 			position: relative;
+			@include bp.respond(tablet, max) {
+				display: inline-flex;
+				align-items: center;
+				justify-content: space-between;
+				width: 100%;
+			}
+
+			&::after {
+				content: '';
+				position: absolute;
+				top: 100%;
+				left: 0;
+				width: 100%;
+				height: 2.5rem; // równoważne temu, o ile podnosimy sublistę
+			}
 		}
 
 		&--cta {
@@ -102,6 +162,10 @@
 
 			@include bp.respond(desktop) {
 				margin-left: $gap-s;
+			}
+
+			@include bp.respond(tablet, max) {
+				display: none;
 			}
 		}
 	}
@@ -115,32 +179,64 @@
 		font-size: $fs-xxs;
 		color: $color-text;
 
-		&--dropdown {
-			cursor: pointer;
-
-			&::after {
-				content: '▾';
-				margin-left: $gap-xs;
-				font-size: 0.75em;
-			}
-		}
-
 		@media #{bp.$hover} {
 			&:hover {
 				color: $color-primary;
 			}
 		}
+
+		@include bp.respond(tablet, max) {
+			padding: $gap-s $gap-m;
+		}
+
+		&--dropdown {
+			display: block;
+			position: relative;
+			width: 100%;
+			padding-right: 3.2rem; // miejsce na strzałkę
+			cursor: pointer;
+		}
 	}
 
+	&__dropdown-icon {
+		display: inline-flex;
+		align-items: center;
+		flex-shrink: 0; // nie pozwól, żeby ikonę ścinali, jeśli parent ma display:flex
+		justify-content: center;
+		width: 1.2rem; // np. 1.2rem × 1.2rem — dopasuj do pliku SVG
+		height: 1.2rem;
+
+		svg {
+			width: 100%;
+			height: 100%;
+			transition: transform 0.2s ease-in-out;
+			fill: $color-text;
+		}
+	}
+
+	// =======================
+	//  ANIMOWANA SUBLISTA
+	// =======================
 	&__sublist {
-		display: none;
 		position: absolute;
 		top: calc(100% + 2.5rem);
 		left: 0;
+		visibility: hidden;
 		margin: 0;
-		padding: $gap-s;
+		padding: $gap-s; // padding wewnątrz listy
 		list-style: none;
-		box-shadow: 0 4px 4px rgba($color-black, 0.1);
+
+		// Transition:
+		// - opacity i transform trwają 0.2s ease-in-out (zgodnie z wytycznymi)
+		// - visibility: hidden zmienia się dopiero po 0.2s (czyli po zakończeniu fade-out/slide-out)
+		transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out,
+			visibility 0s ease-in-out 0.2s;
+		transform: translateY(3.2rem);
+		pointer-events: none;
+
+		// Domyślnie ukrywamy:
+		opacity: 0;
+		box-shadow: 2px 4px 6px rgba($color-black, 0.1);
 		background: $color-bg;
 	}
 
@@ -160,7 +256,22 @@
 		}
 	}
 
+	// =======================
+	//  STAN „OTWARTY” – aria-expanded="true"
+	// =======================
 	&__item--dropdown[aria-expanded='true'] .nav__sublist {
-		display: block;
+		// Przy wejściu (zarówno kliknięcie, jak i hover w JS):
+		visibility: visible; // natychmiast (delay 0s)
+
+		// Transition bez opóźnienia dla visibility:
+		transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out,
+			visibility 0s ease-in-out 0s;
+		transform: translateY(0);
+		pointer-events: auto;
+		opacity: 1;
+
+		.nav__dropdown-icon svg {
+			transform: rotate(180deg);
+		}
 	}
 }

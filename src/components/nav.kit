@@ -9,6 +9,8 @@
 		<!-- hamburger -->
 		<button class="nav__toggle" aria-expanded="false" aria-controls="nav-list">
 			<span class="nav__toggle-line"></span>
+			<span class="nav__toggle-line"></span>
+			<span class="nav__toggle-line"></span>
 		</button>
 
 		<!-- główna lista -->
@@ -21,11 +23,18 @@
 			<li class="nav__item nav__item--dropdown">
 				<a
 					href="/metody-leczenia"
-					class="nav__link"
+					class="nav__link nav__link--dropdown"
+					aria-controls="nav-sublist"
+					aria-label="Metody leczenia – rozwijane menu"
 					aria-haspopup="true"
 					aria-expanded="false"
 				>
 					Metody leczenia
+					<span class="nav__dropdown-icon">
+						<svg aria-hidden="true" focusable="false">
+							<use href="#i-solid-anchor-down" />
+						</svg>
+					</span>
 				</a>
 
 				<ul class="nav__sublist">
@@ -62,10 +71,7 @@
 
 			<!-- CTA -->
 			<li class="nav__item nav__item--cta">
-				<a
-					href="#mapa-specjalistow"
-					class="btn btn--primary"
-				>
+				<a href="#mapa-specjalistow" class="btn btn--primary">
 					Znajdź specjalistę
 				</a>
 			</li>

@@ -34,3 +34,10 @@
 		}
 	}
 }
+
+// transition
+
+@mixin transition($properties, $duration: v.$transition-duration, $timing: v.$transition-timing) {
+	transition: map.get($properties, 'all', $properties) $duration $timing;
+}
+

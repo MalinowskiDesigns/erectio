@@ -49,6 +49,8 @@ const makeInput = (dirs) =>
 /* — konfiguracja — */
 export default defineConfig(({ mode }) => {
 	const env = loadEnv(mode, process.cwd(), 'VITE_');
+	const rawBreakpoints = (env.VITE_SITE_BREAKPOINTS || '').replace(/['"]/g, '');
+	const brk = rawBreakpoints.split(',')[0] || '319';
 	const dirs = pageDirs();
 
 	/* lista stron dla vite-plugin-html */
@@ -90,6 +92,22 @@ export default defineConfig(({ mode }) => {
 					manifest: false,
 				},
 				{ failGraciously: true }
+			),
+
+			webfontDownload(
+				[
+					// 1) możesz podać gotowy URL Google Fonts
+					env.VITE_SITE_FONTS_URL,
+
+					// 2) albo lokalny CSS z @font-face
+					// resolve(__dirname, 'src/styles/my-fonts.css')
+				],
+				{
+					injectAsStyleTag: false, // wygeneruje <link rel="stylesheet">
+					async: true, // dodaje tag <link rel="preload" … as="style" onload="this.rel='stylesheet'">
+					minifyCss: true, // inline/external CSS przeleci przez clean-CSS
+					fontsSubfolder: 'fonts', // <-- nowa poprawna opcja od v3.10.x
+				}
 			),
 
 			/* PWA */
@@ -151,6 +169,7 @@ export default defineConfig(({ mode }) => {
 			mkcert(),
 			FullReload(['src/templates/**/*', 'src/pages/**/*.json']),
 			createHtmlPlugin({ minify: true, pages, inject: { data: env } }),
+			
 
 			htmlMinifier({
 				minifierOptions: {
@@ -166,6 +185,17 @@ export default defineConfig(({ mode }) => {
 				},
 				filter: /\.html$/, // minifikuj tylko pliki .html
 			}),
+			createSvgIconsPlugin({
+				iconDirs: [
+					resolve(__dirname, 'src/assets/icons/solid'),
+					resolve(__dirname, 'src/assets/icons/outline'),
+				],
+				symbolId: 'i-[dir]-[name]',
+				inject: 'body-first', // wstrzykuj <symbol> na początku <body>
+				svgoOptions: {
+					plugins: [{ name: 'removeAttrs', params: { attrs: 'fill' } }],
+				},
+			}),
 
 			eslint({ include: ['src/**/*.js'], exclude: ['node_modules'] }),
 
@@ -180,34 +210,6 @@ export default defineConfig(({ mode }) => {
 				},
 			}),
 
-			createSvgIconsPlugin({
-				iconDirs: [
-					resolve(process.cwd(), 'src/assets/icons/solid'),
-					resolve(process.cwd(), 'src/assets/icons/outline'),
-				],
-				symbolId: 'i-[dir]-[name]',
-				inject: 'body-first', // wstrzykuj <symbol> na początku <body>
-				svgoOptions: {
-					plugins: [{ name: 'removeAttrs', params: { attrs: 'fill' } }],
-				},
-			}),
-
-			webfontDownload(
-				[
-					// 1) możesz podać gotowy URL Google Fonts
-					env.VITE_SITE_FONTS_URL,
-
-					// 2) albo lokalny CSS z @font-face
-					// resolve(__dirname, 'src/styles/my-fonts.css')
-				],
-				{
-					injectAsStyleTag: false, // wygeneruje <link rel="stylesheet">
-					async: true, // dodaje tag <link rel="preload" … as="style" onload="this.rel='stylesheet'">
-					minifyCss: true, // inline/external CSS przeleci przez clean-CSS
-					fontsSubfolder: 'fonts', // <-- nowa poprawna opcja od v3.10.x
-				}
-			),
-
 			/* ----------  IMAGES PIPELINE  ---------- */
 
 			/* 1) auto-doklej query do <img> i CSS url() */
@@ -219,6 +221,7 @@ export default defineConfig(({ mode }) => {
 				/* 1) HTML ---------------------------------------------------------------- */
 				transformIndexHtml(html) {
 					// podmień TYLKO <img> bez srcset | data-src
+
 					const IMG_RE =
 						/(<img\b[^>]*?\s)(?<!\bsrcset=["'][^"']*)(src=["'])([^"']+\.(?:jpe?g|png))(?![^>]*\bsrcset)/gi;
 
