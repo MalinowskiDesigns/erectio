@@ -1,0 +1,733 @@
+@charset "UTF-8";
+/* ========= 1. Abstrakcje ========= */
+/* ---------- Kolory bazowe ---------- */
+/* ---------- Kolory semantyczne ---------- */
+/* ---------- Typografia ---------- */
+/* ---------- Przestrzenie & promienie ---------- */
+/* ========= 1. Abstrakcje ========= */
+/* ========= 2. Vendor (jeśli używasz) ========= */
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+ul[role=list],
+ol[role=list] {
+  list-style: none;
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+a:not([class]) {
+  -webkit-text-decoration-skip: ink;
+          text-decoration-skip-ink: auto;
+}
+
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    -webkit-animation-duration: 0.01ms !important;
+            animation-duration: 0.01ms !important;
+    -webkit-animation-iteration-count: 1 !important;
+            animation-iteration-count: 1 !important;
+    -webkit-transition-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* ========= 3. Baza ========= */
+/* ========= 1. Abstrakcje ========= */
+/* --- elementarny reset --- */
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl {
+  margin: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+:focus-visible {
+  outline: 0.2rem solid #387abc;
+  outline-offset: 0.2rem;
+}
+
+button {
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+textarea,
+input,
+select {
+  font: inherit;
+}
+
+::-moz-selection {
+  color: #fdfeff;
+  background: #387abc;
+}
+
+::selection {
+  color: #fdfeff;
+  background: #387abc;
+}
+
+/* ========= 1. Abstrakcje ========= */
+/* -------------------------------------------------
+   base/_typography.scss – global typographic rules
+   -------------------------------------------------- */
+/* =======================================
+   Breakpoints helpers  |  abstracts/_breakpoints.scss
+   ======================================= */
+/* 1. Centralna mapa przerwań  (mobile-first, w rem-ach) */
+/* 2. Syntactic sugar → funkcja bp() */
+/* 3. Mixin respond()
+   @include respond(tablet) { … }  => min-width
+   @include respond(mobile, max) { … } => max-width   */
+/* 4. Gotowe media-query stringi – wygodne, gdy potrzebujesz inline */
+/* -------------------------------------------------
+   Headings (H1-H6)
+   -------------------------------------------------- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  color: #363940;
+  margin: 0 0 1.2rem 0;
+}
+
+h1 {
+  /* płynna skala 360-1200 px → 3.6-4.4 rem */
+  font-size: clamp(3.6rem, 2.6rem + 2vw, 4.4rem);
+  line-height: 1.5;
+}
+
+h2 {
+  font-size: clamp(2.2rem, 1.7rem + 1vw, 3.2rem);
+  line-height: 1.5;
+}
+
+h3 {
+  font-size: 2.4rem;
+  line-height: 1.5;
+}
+
+h4 {
+  font-size: 1.8rem;
+  line-height: 1.4;
+}
+
+h5 {
+  font-size: 1.5rem;
+  line-height: 1.4;
+}
+
+h6 {
+  font-size: 1.4rem;
+  line-height: 1.4;
+}
+
+/* -- mobile tweaks ------------------------------------------------------ */
+@media (max-width: 319px) {
+  h3 {
+    font-size: 2rem;
+  }
+  h4 {
+    font-size: 1.6rem;
+  }
+}
+/* -------------------------------------------------
+   Body copy & lists
+   -------------------------------------------------- */
+p,
+ul,
+ol,
+dl,
+blockquote {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.5;
+  color: #363940;
+  margin: 0 0 1.2rem 0;
+}
+
+/* Lead paragraph (większy tekst wstępny) */
+.lead {
+  font-size: 1.8rem;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+/* Inline utilities ----------------------------------- */
+.u-text-center {
+  text-align: center !important;
+}
+
+.u-text-right {
+  text-align: right !important;
+}
+
+.u-text-uppercase {
+  text-transform: uppercase !important;
+}
+
+/* -------------------------------------------------
+   Expose base size/leading to CSS vars (for JS)
+   -------------------------------------------------- */
+:root {
+  --fs-base: 1.6rem;
+  --lh-base: 1.5;
+}
+
+.example {
+  font-size: 0;
+}
+
+/* ========= 4. Layout ========= */
+.example {
+  font-size: 0;
+}
+
+/* ========= 1. Abstrakcje ========= */
+.header {
+  padding: 2.4rem 0;
+  background-color: #fdfeff;
+  border-bottom: 1px solid rgba(54, 57, 64, 0.1);
+  z-index: 10;
+}
+
+.example {
+  font-size: 0;
+}
+
+.example {
+  font-size: 0;
+}
+
+/* ========= 5. Komponenty ========= */
+/* ========= 1. Abstrakcje ========= */
+/* ========= 1. Abstrakcje ========= */
+/* ----------------------------------------
+   Wspólne cechy przycisków
+   ---------------------------------------- */
+.btn--primary, .btn--outline {
+  font-size: 1.4rem;
+  display: inline-block;
+  padding: 1.2rem 2.4rem;
+  cursor: pointer;
+  -webkit-transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
+  text-align: center;
+  white-space: nowrap;
+  text-decoration: none;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.4rem;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+}
+
+/* ----------------------------------------
+   Ukrycie wizualne (screen-reader only)
+   ---------------------------------------- */
+/* ==========================================================================
+   Button styles
+   ========================================================================== */
+/* 
+  Użycie w HTML:
+    <button class="btn btn--primary">POZNAJ PRZYCZYNY</button>
+    <button class="btn btn--outline">METODY LECZENIA</button>
+*/
+.btn {
+  /* ---------- Filled primary ---------- */
+  /* ---------- Outline secondary ---------- */
+}
+.btn--primary {
+  background-color: #387abc;
+  color: #fdfeff;
+  border: none;
+}
+.btn--primary:hover {
+  background-color: #2f669d;
+}
+.btn--outline {
+  background-color: transparent;
+  color: #387abc;
+  border: 0.1rem solid #387abc;
+}
+.btn--outline:hover {
+  background-color: #2f669d;
+  color: #fdfeff;
+}
+
+/* ========= 1. Abstrakcje ========= */
+/* -------------------------------------------------
+   base/_typography.scss – global typographic rules
+   -------------------------------------------------- */
+/* ========= 1. Abstrakcje ========= */
+/* -------------------------------------------------
+   base/_typography.scss – global typographic rules
+   -------------------------------------------------- */
+.wrapper {
+  position: relative;
+  clear: both;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-right: 1.6rem;
+  padding-left: 1.6rem;
+}
+@media (min-width: 743px) {
+  .wrapper {
+    padding-right: 2.4rem;
+    padding-left: 2.4rem;
+  }
+}
+@media (min-width: 1200px) {
+  .wrapper {
+    padding-right: 3.2rem;
+    padding-left: 3.2rem;
+  }
+}
+
+.nav {
+  background-color: #fdfeff;
+}
+.nav__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.nav__logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-decoration: none;
+  gap: 1.6rem;
+}
+@media (max-width: 319px) {
+  .nav__logo {
+    gap: 0.6rem;
+  }
+}
+.nav__logo img {
+  width: 3.6rem;
+  height: 3.6rem;
+}
+.nav__brand {
+  font-family: "Open Sans", sans-serif;
+  font-size: 2.4rem;
+  color: #387abc;
+}
+.nav__toggle-line {
+  width: 2rem;
+  height: 0.3rem;
+  -webkit-transition: width 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
+  transition: width 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
+  transition: width 0.2s ease-in-out, transform 0.2s ease-in-out;
+  transition: width 0.2s ease-in-out, transform 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
+  background: #fdfeff;
+}
+.nav__toggle-line:first-of-type {
+  width: 1.6rem;
+}
+.nav__toggle-line:last-of-type {
+  width: 1.2rem;
+}
+.nav__toggle {
+  display: none;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  min-width: 3.6rem;
+  min-height: 3.6rem;
+  padding: 0.8rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 0.4rem;
+  background: #387abc;
+  gap: 0.5rem;
+}
+@media (max-width: 743px) {
+  .nav__toggle {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+.nav__toggle[aria-expanded=true] .nav__toggle-line {
+  width: 0;
+}
+.nav__toggle[aria-expanded=true] .nav__toggle-line:first-of-type {
+  width: 2rem;
+  -webkit-transform: translateY(0.8rem) rotate(45deg);
+          transform: translateY(0.8rem) rotate(45deg);
+}
+.nav__toggle[aria-expanded=true] .nav__toggle-line:last-of-type {
+  width: 2rem;
+  -webkit-transform: translateY(-0.8rem) rotate(-45deg);
+          transform: translateY(-0.8rem) rotate(-45deg);
+}
+.nav__list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 0;
+  padding: 0;
+}
+@media (max-width: 743px) {
+  .nav__list {
+    display: none;
+    width: 100%;
+    padding: 1.2rem 0;
+    -webkit-box-shadow: 2px 4px 6px rgba(54, 57, 64, 0.1);
+            box-shadow: 2px 4px 6px rgba(54, 57, 64, 0.1);
+  }
+}
+.nav__list--open {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: calc(100% + 2.4rem);
+  left: 0.4rem;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+@media (max-width: 743px) {
+  .nav__list--open {
+    left: 0;
+  }
+}
+.nav__item {
+  letter-spacing: 0.2rem;
+}
+.nav__item--dropdown {
+  position: relative;
+}
+@media (max-width: 743px) {
+  .nav__item--dropdown {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    width: 100%;
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .nav__item--dropdown:hover .nav__sublist {
+    visibility: visible;
+    -webkit-transition: opacity 0.2s ease-in-out, visibility 0s ease-in-out 0s, -webkit-transform 0.2s ease-in-out;
+    transition: opacity 0.2s ease-in-out, visibility 0s ease-in-out 0s, -webkit-transform 0.2s ease-in-out;
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out, visibility 0s ease-in-out 0s;
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out, visibility 0s ease-in-out 0s, -webkit-transform 0.2s ease-in-out;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    pointer-events: auto;
+    opacity: 1;
+  }
+  .nav__item--dropdown:hover .nav__dropdown-icon svg {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+  }
+}
+.nav__item--dropdown::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 2.5rem;
+}
+.nav__item--cta {
+  margin-left: auto;
+}
+@media (min-width: 1200px) {
+  .nav__item--cta {
+    margin-left: 1.2rem;
+  }
+}
+@media (max-width: 743px) {
+  .nav__item--cta {
+    display: none;
+  }
+}
+.nav__link {
+  display: block;
+  padding: 1.2rem;
+  white-space: nowrap;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  color: #363940;
+}
+@media (hover: hover) and (pointer: fine) {
+  .nav__link:hover {
+    color: #387abc;
+  }
+}
+@media (min-width: 319px) {
+  .nav__link {
+    padding: 1.2rem 1.6rem;
+  }
+}
+@media (max-width: 1200px) {
+  .nav__link {
+    padding: 1.2rem 2.4rem;
+  }
+}
+.nav__link--dropdown {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  cursor: pointer;
+  gap: 0.6rem;
+}
+@media (max-width: 743px) {
+  .nav__link--dropdown {
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+}
+.nav__dropdown-icon {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 1rem;
+  height: 0.61rem;
+}
+@media (max-width: 743px) {
+  .nav__dropdown-icon {
+    width: 2rem;
+    height: 2rem;
+    padding: 0.6rem;
+    border-radius: 0.4rem;
+    background-color: #d7e5f3;
+  }
+}
+.nav__dropdown-icon svg {
+  width: 100%;
+  height: 100%;
+  -webkit-transition: -webkit-transform 0.2s ease-in-out;
+  transition: -webkit-transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
+  fill: #387abc;
+}
+.nav__sublist {
+  position: absolute;
+  top: calc(100% + 2.5rem);
+  left: 0;
+  visibility: hidden;
+  margin: 0;
+  padding: 1.2rem;
+  list-style: none;
+  -webkit-transition: opacity 0.2s ease-in-out, visibility 0s ease-in-out 0.2s, -webkit-transform 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out, visibility 0s ease-in-out 0.2s, -webkit-transform 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out, visibility 0s ease-in-out 0.2s;
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out, visibility 0s ease-in-out 0.2s, -webkit-transform 0.2s ease-in-out;
+  -webkit-transform: translateY(3.2rem);
+          transform: translateY(3.2rem);
+  pointer-events: none;
+  opacity: 0;
+  -webkit-box-shadow: 2px 4px 6px rgba(54, 57, 64, 0.1);
+          box-shadow: 2px 4px 6px rgba(54, 57, 64, 0.1);
+  background: #fdfeff;
+}
+@media (max-width: 743px) {
+  .nav__sublist {
+    -webkit-transition: opacity 0.3s ease-in-out, visibility 0s ease-in-out 0.3s, -webkit-transform 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out, visibility 0s ease-in-out 0.3s, -webkit-transform 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, visibility 0s ease-in-out 0.3s;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, visibility 0s ease-in-out 0.3s, -webkit-transform 0.3s ease-in-out;
+  }
+}
+.nav__sublink {
+  display: block;
+  padding: 1.2rem;
+  white-space: nowrap;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  color: #363940;
+}
+@media (min-width: 319px) {
+  .nav__sublink {
+    padding: 1.2rem 1.6rem;
+  }
+}
+@media (max-width: 1200px) {
+  .nav__sublink {
+    padding: 1.2rem 2.4rem;
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .nav__sublink:hover {
+    color: #387abc;
+  }
+}
+@media (max-width: 1200px) {
+  .nav__item--dropdown[aria-expanded=true] .nav__link--dropdown {
+    font-weight: 600;
+  }
+}
+.nav__item--dropdown[aria-expanded=true] .nav__sublist {
+  position: absolute;
+  visibility: visible;
+  -webkit-transition: opacity 0.2s ease-in-out, visibility 0s ease-in-out 0s, -webkit-transform 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out, visibility 0s ease-in-out 0s, -webkit-transform 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out, visibility 0s ease-in-out 0s;
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out, visibility 0s ease-in-out 0s, -webkit-transform 0.2s ease-in-out;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+  opacity: 1;
+}
+@media (max-width: 1200px) {
+  .nav__item--dropdown[aria-expanded=true] .nav__sublist {
+    position: relative;
+    width: 100%;
+    padding: 0 4.8rem 0 1.6rem;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    -webkit-transition: opacity 0.2s ease-in-out, visibility 0s ease-in-out 0s, -webkit-transform 0.2s ease-in-out;
+    transition: opacity 0.2s ease-in-out, visibility 0s ease-in-out 0s, -webkit-transform 0.2s ease-in-out;
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out, visibility 0s ease-in-out 0s;
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out, visibility 0s ease-in-out 0s, -webkit-transform 0.2s ease-in-out;
+  }
+}
+.nav__item--dropdown[aria-expanded=true] .nav__dropdown-icon svg {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+/* ========= 6. Strony (opcjonalnie) ========= */
+/* ========= 7. Motywy (na samym końcu, by mogły nadpisać) ========= *//*# sourceMappingURL=main.css.map */

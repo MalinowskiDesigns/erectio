@@ -169,7 +169,6 @@ export default defineConfig(({ mode }) => {
 			mkcert(),
 			FullReload(['src/templates/**/*', 'src/pages/**/*.json']),
 			createHtmlPlugin({ minify: true, pages, inject: { data: env } }),
-			
 
 			htmlMinifier({
 				minifierOptions: {
@@ -186,12 +185,10 @@ export default defineConfig(({ mode }) => {
 				filter: /\.html$/, // minifikuj tylko pliki .html
 			}),
 			createSvgIconsPlugin({
-				iconDirs: [
-					resolve(__dirname, 'src/assets/icons/solid'),
-					resolve(__dirname, 'src/assets/icons/outline'),
-				],
-				symbolId: 'i-[dir]-[name]',
-				inject: 'body-first', // wstrzykuj <symbol> na początku <body>
+				iconDirs: [resolve(__dirname, 'src/assets/icons')],
+				// zamiast 'i-[dir]-[name]' użyj po prostu:
+				symbolId: 'i-[name]',
+				inject: 'body-first',
 				svgoOptions: {
 					plugins: [{ name: 'removeAttrs', params: { attrs: 'fill' } }],
 				},

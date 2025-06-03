@@ -11,22 +11,6 @@
 	// =======================
 	//  STAN „OTWARTY” – :hover (desktop z kursorem)
 	// =======================
-	@media #{bp.$hover} {
-		&__item--dropdown:hover .nav__sublist {
-			visibility: visible; // natychmiast
-			transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out,
-				visibility 0s ease-in-out 0s;
-			transform: translateY(0);
-			pointer-events: auto;
-			opacity: 1;
-
-			.nav__dropdown-icon svg {
-				transform: rotate(
-					180deg
-				); // obróć o 180 stopni, aby strzałka pokazała się „do góry”
-			}
-		}
-	}
 
 	&__container {
 		display: flex;
@@ -141,10 +125,28 @@
 		&--dropdown {
 			position: relative;
 			@include bp.respond(tablet, max) {
-				display: inline-flex;
-				align-items: center;
+				display: flex;
+				align-items: flex-start;
+				flex-direction: column;
 				justify-content: space-between;
 				width: 100%;
+			}
+
+			@media #{bp.$hover} {
+				&:hover {
+					.nav__sublist {
+						visibility: visible; // natychmiast
+						transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out,
+							visibility 0s ease-in-out 0s;
+						transform: translateY(0);
+						pointer-events: auto;
+						opacity: 1;
+					}
+
+					.nav__dropdown-icon svg {
+						transform: rotate(180deg);
+					}
+				}
 			}
 
 			&::after {
@@ -185,16 +187,26 @@
 			}
 		}
 
-		@include bp.respond(tablet, max) {
+		@include bp.respond(mobile, min) {
 			padding: $gap-s $gap-m;
 		}
 
+		@include bp.respond(desktop, max) {
+			padding: $gap-s $gap-l;
+		}
+
 		&--dropdown {
-			display: block;
+			display: flex;
 			position: relative;
+			align-items: center;
+			justify-content: center;
 			width: 100%;
-			padding-right: 3.2rem; // miejsce na strzałkę
 			cursor: pointer;
+			gap: $gap-xs;
+
+			@include bp.respond(tablet, max) {
+				justify-content: space-between;
+			}
 		}
 	}
 
@@ -203,14 +215,22 @@
 		align-items: center;
 		flex-shrink: 0; // nie pozwól, żeby ikonę ścinali, jeśli parent ma display:flex
 		justify-content: center;
-		width: 1.2rem; // np. 1.2rem × 1.2rem — dopasuj do pliku SVG
-		height: 1.2rem;
+		width: 1rem; // np. 1.2rem × 1.2rem — dopasuj do pliku SVG
+		height: 0.61rem;
+
+		@include bp.respond(tablet, max) {
+			width: 2rem;
+			height: 2rem;
+			padding: $gap-xs;
+			border-radius: $radius-s;
+			background-color: $color-blue-100;
+		}
 
 		svg {
 			width: 100%;
 			height: 100%;
 			transition: transform 0.2s ease-in-out;
-			fill: $color-text;
+			fill: $color-primary;
 		}
 	}
 
@@ -225,19 +245,17 @@
 		margin: 0;
 		padding: $gap-s; // padding wewnątrz listy
 		list-style: none;
-
-		// Transition:
-		// - opacity i transform trwają 0.2s ease-in-out (zgodnie z wytycznymi)
-		// - visibility: hidden zmienia się dopiero po 0.2s (czyli po zakończeniu fade-out/slide-out)
 		transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out,
 			visibility 0s ease-in-out 0.2s;
 		transform: translateY(3.2rem);
 		pointer-events: none;
-
-		// Domyślnie ukrywamy:
 		opacity: 0;
 		box-shadow: 2px 4px 6px rgba($color-black, 0.1);
 		background: $color-bg;
+
+		@include bp.respond(desktop, min) {
+			left: -1.2rem;
+		}
 	}
 
 	&__sublink {
@@ -249,6 +267,14 @@
 		font-size: $fs-xxs;
 		color: $color-text;
 
+		@include bp.respond(mobile, min) {
+			padding: $gap-s $gap-m;
+		}
+
+		@include bp.respond(desktop, max) {
+			padding: $gap-s $gap-l;
+		}
+
 		@media #{bp.$hover} {
 			&:hover {
 				color: $color-primary;
@@ -259,16 +285,30 @@
 	// =======================
 	//  STAN „OTWARTY” – aria-expanded="true"
 	// =======================
-	&__item--dropdown[aria-expanded='true'] .nav__sublist {
-		// Przy wejściu (zarówno kliknięcie, jak i hover w JS):
-		visibility: visible; // natychmiast (delay 0s)
+	&__item--dropdown[aria-expanded='true'] {
+		.nav__link--dropdown {
+			@include bp.respond(desktop, max) {
+				font-weight: 600;
+			}
+		}
 
-		// Transition bez opóźnienia dla visibility:
-		transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out,
-			visibility 0s ease-in-out 0s;
-		transform: translateY(0);
-		pointer-events: auto;
-		opacity: 1;
+		.nav__sublist {
+			position: absolute;
+			visibility: visible;
+			transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out,
+				visibility 0s ease-in-out 0s;
+			transform: translateY(0);
+			opacity: 1;
+
+			@include bp.respond(desktop, max) {
+				position: relative;
+				width: 100%;
+				padding: 0 $gap-xxl 0 $gap-m;
+				transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out,
+					visibility 0s ease-in-out 0s;
+				box-shadow: none;
+			}
+		}
 
 		.nav__dropdown-icon svg {
 			transform: rotate(180deg);

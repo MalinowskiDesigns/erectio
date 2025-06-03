@@ -6,11 +6,11 @@
 
 /* 1. Centralna mapa przerwań  (mobile-first, w rem-ach) */
 $breakpoints: (
-	mobile: 31.9rem,
+	mobile: 319px,
 	// 319 px
-	tablet: 74.3rem,
+	tablet: 743px,
 	// 743 px
-	desktop: 120rem // 1200 px,,
+	desktop: 1200px // 1200 px,,,
 ) !default;
 
 /* 2. Syntactic sugar → funkcja bp() */
@@ -42,6 +42,6 @@ $breakpoints: (
 
 /* 4. Gotowe media-query stringi – wygodne, gdy potrzebujesz inline */
 $hover: '(hover: hover) and (pointer: fine)';
-$mobile: '(min-width: #{bp(mobile)}) and (max-width: #{bp(tablet) - 0.1rem})';
-$tablet: '(min-width: #{bp(tablet)}) and (max-width: #{bp(desktop) - 0.1rem})';
+$mobile: '(min-width: #{bp(mobile)}) and (max-width: #{bp(tablet) - 1px})';
+$tablet: '(min-width: #{bp(tablet)}) and (max-width: #{bp(desktop) - 1px})';
 $desktop: '(min-width: #{bp(desktop)})';
