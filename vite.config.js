@@ -64,8 +64,16 @@ const imageConvertPlugin = () => ({
 
 /* — konfiguracja — */
 export default defineConfig(({ mode }) => {
-	const env = loadEnv(mode, process.cwd(), 'VITE_');
-	const dirs = pageDirs();
+        const env = loadEnv(mode, process.cwd(), 'VITE_');
+        const dirs = pageDirs();
+        const disableCritical = process.env.DISABLE_CRITICAL === 'true';
+        const breakpoints = env.VITE_SITE_BREAKPOINTS
+                ? env.VITE_SITE_BREAKPOINTS.split(',').map((b) => parseInt(b, 10))
+                : [];
+        const criticalDimensions = breakpoints.map((width) => ({
+                width,
+                height: 1200,
+        }));
 	const pages = dirs.map((d) => {
 		const meta = JSON.parse(
 			fs.readFileSync(`src/pages/${d}/${d}.json`, 'utf-8')
@@ -276,13 +284,27 @@ export default defineConfig(({ mode }) => {
 				},
 			}),
 
-			legacy({
-				targets: ['defaults', 'not IE 11'],
-				modernPolyfills: false,
-				additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
-			}),
-			// PluginCritical można dodać z powrotem
-		],
+                        legacy({
+                                targets: ['defaults', 'not IE 11'],
+                                modernPolyfills: false,
+                                additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
+                        }),
+                        !disableCritical &&
+                                PluginCritical({
+                                        criticalUrl: env.VITE_SITE_URL,
+                                        criticalBase: resolve(__dirname, 'dist'),
+                                        criticalPages: dirs.map((d) => {
+                                                const slug = d === 'home' ? 'index' : d;
+                                                return {
+                                                        uri: slug === 'index' ? '' : `${slug}.html`,
+                                                        template: slug,
+                                                };
+                                        }),
+                                        criticalConfig: {
+                                                dimensions: criticalDimensions,
+                                        },
+                                }),
+                ],
 
 		build: {
 			rollupOptions: {
