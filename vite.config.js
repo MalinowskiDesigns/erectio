@@ -20,7 +20,6 @@ import mkcert from 'vite-plugin-mkcert';
 import Inspect from 'vite-plugin-inspect';
 import FullReload from 'vite-plugin-full-reload';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
-import { imagetools } from 'vite-imagetools';
 import fg from 'fast-glob';
 import sharp from 'sharp';
 
@@ -46,7 +45,7 @@ const makeInput = (dirs) =>
                 return acc;
         }, {});
 
-// Custom plugin to convert jpg and png images to avif and webp
+// Custom plugin to convert jpg and png images to webp
 const imageConvertPlugin = () => ({
         name: 'convert-images',
         apply: 'build',
@@ -60,9 +59,6 @@ const imageConvertPlugin = () => ({
                                 await sharp(file)
                                         .toFormat('webp')
                                         .toFile(`${base}.webp`);
-                                await sharp(file)
-                                        .toFormat('avif')
-                                        .toFile(`${base}.avif`);
                         })
                 );
         },
@@ -105,14 +101,6 @@ export default defineConfig(({ mode }) => {
                 plugins: [
                         imageConvertPlugin(),
                         Inspect(),
-                        imagetools({
-                                defaultDirectives: (url) => {
-                                        if (!url.searchParams.has('format') && /(png|jpe?g)$/.test(url.pathname)) {
-                                                return new URLSearchParams({ format: 'webp;avif' });
-                                        }
-                                        return new URLSearchParams();
-                                },
-                        }),
                         clean({ targets: ['./dist'] }),
 			FaviconsInject(
 				resolve(__dirname, 'public/logo.svg'),
