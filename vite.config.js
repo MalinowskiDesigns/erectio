@@ -21,6 +21,8 @@ import Inspect from 'vite-plugin-inspect';
 import FullReload from 'vite-plugin-full-reload';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import { imagetools } from 'vite-imagetools';
+import fg from 'fast-glob';
+import sharp from 'sharp';
 
 // import PluginCritical from 'rollup-plugin-critical';
 /* — helpery — */
@@ -38,11 +40,34 @@ const pageDirs = () =>
 		);
 
 const makeInput = (dirs) =>
-	dirs.reduce((acc, p) => {
-		const slug = p === 'home' ? 'index' : p;
-		acc[slug] = resolve(__dirname, `${slug}.html`);
-		return acc;
-	}, {});
+        dirs.reduce((acc, p) => {
+                const slug = p === 'home' ? 'index' : p;
+                acc[slug] = resolve(__dirname, `${slug}.html`);
+                return acc;
+        }, {});
+
+// Custom plugin to convert jpg and png images to avif and webp
+const imageConvertPlugin = () => ({
+        name: 'convert-images',
+        apply: 'build',
+        async buildStart() {
+                const files = await fg([
+                        'src/assets/images/**/*.{jpg,png}',
+                        'public/**/*.{jpg,png}',
+                ]);
+                await Promise.all(
+                        files.map(async (file) => {
+                                const base = file.replace(/\.(jpg|png)$/i, '');
+                                await sharp(file)
+                                        .toFormat('webp')
+                                        .toFile(`${base}.webp`);
+                                await sharp(file)
+                                        .toFormat('avif')
+                                        .toFile(`${base}.avif`);
+                        })
+                );
+        },
+});
 
 /* — konfiguracja — */
 export default defineConfig(({ mode }) => {
@@ -79,6 +104,7 @@ export default defineConfig(({ mode }) => {
 			},
 		},
                 plugins: [
+                        imageConvertPlugin(),
                         Inspect(),
                         imagetools({
                                 defaultDirectives: (url) => {
