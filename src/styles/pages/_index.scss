@@ -20,15 +20,12 @@
 		@include bp.respond(mobile) {
 			max-width: 100%;
 			gap: $gap-12;
+			flex-direction: column;
 		}
 
 		@include bp.respond(tablet) {
-			flex-direction: column;
 			justify-content: flex-start;
 			gap: $gap-32;
-		}
-		@include bp.respond(tablet, max) {
-			flex-direction: column;
 		}
 	}
 
@@ -49,7 +46,7 @@
 	}
 
 	&__image {
-		max-width: calc(6 / 12 * 100%);
+		max-width: calc(12 / 12 * 100%);
 		max-height: calc(100vh - 9.4rem);
 		object-fit: cover;
 		object-position: 40%;

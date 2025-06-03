@@ -39,29 +39,25 @@ const pageDirs = () =>
 		);
 
 const makeInput = (dirs) =>
-        dirs.reduce((acc, p) => {
-                const slug = p === 'home' ? 'index' : p;
-                acc[slug] = resolve(__dirname, `${slug}.html`);
-                return acc;
-        }, {});
+	dirs.reduce((acc, p) => {
+		const slug = p === 'home' ? 'index' : p;
+		acc[slug] = resolve(__dirname, `${slug}.html`);
+		return acc;
+	}, {});
 
 // Custom plugin to convert jpg and png images to webp
 const imageConvertPlugin = () => ({
-        name: 'convert-images',
-        apply: 'build',
-        async buildStart() {
-                const files = await fg([
-                        'src/assets/images/**/*.{jpg,png}',
-                ]);
-                await Promise.all(
-                        files.map(async (file) => {
-                                const base = file.replace(/\.(jpg|png)$/i, '');
-                                await sharp(file)
-                                        .toFormat('webp')
-                                        .toFile(`${base}.webp`);
-                        })
-                );
-        },
+	name: 'convert-images',
+	apply: 'build',
+	async buildStart() {
+		const files = await fg(['src/assets/images/**/*.{jpg,png}']);
+		await Promise.all(
+			files.map(async (file) => {
+				const base = file.replace(/\.(jpg|png)$/i, '');
+				await sharp(file).toFormat('webp').toFile(`${base}.webp`);
+			})
+		);
+	},
 });
 
 /* — konfiguracja — */
@@ -98,10 +94,10 @@ export default defineConfig(({ mode }) => {
 				'@img': resolve(__dirname, 'src/assets/images'),
 			},
 		},
-                plugins: [
-                        imageConvertPlugin(),
-                        Inspect(),
-                        clean({ targets: ['./dist'] }),
+		plugins: [
+			imageConvertPlugin(),
+			Inspect(),
+			clean({ targets: ['./dist'] }),
 			FaviconsInject(
 				resolve(__dirname, 'public/logo.svg'),
 				{
