@@ -36,13 +36,23 @@
 			</a>
 		</div>
 
-		<img
-			src="/src/assets/images/index-hero-man.jpg"
-			alt="Zamyślony mężczyzna siedzący na łóżku"
-			width="576"
-			height="975"
-			loading="lazy"
-			class="hero__image"
-		/>
-	</div>
+                <picture class="hero__image-wrapper">
+                        <source
+                                type="image/avif"
+                                srcset="/src/assets/images/index-hero-man.jpg?imagetools&w=576;768;1024&format=avif&as=srcset"
+                        />
+                        <source
+                                type="image/webp"
+                                srcset="/src/assets/images/index-hero-man.jpg?imagetools&w=576;768;1024&format=webp&as=srcset"
+                        />
+                        <img
+                                src="/src/assets/images/index-hero-man.jpg?imagetools&w=576"
+                                alt="Zamyślony mężczyzna siedzący na łóżku"
+                                width="576"
+                                height="975"
+                                loading="lazy"
+                                class="hero__image"
+                        />
+                </picture>
+        </div>
 </section>

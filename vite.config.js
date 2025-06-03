@@ -20,6 +20,7 @@ import mkcert from 'vite-plugin-mkcert';
 import Inspect from 'vite-plugin-inspect';
 import FullReload from 'vite-plugin-full-reload';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
+import { imagetools } from 'vite-imagetools';
 
 // import PluginCritical from 'rollup-plugin-critical';
 /* — helpery — */
@@ -78,8 +79,9 @@ export default defineConfig(({ mode }) => {
 			},
 		},
 		plugins: [
-			Inspect(),
-			clean({ targets: ['./dist'] }),
+                        Inspect(),
+                        imagetools(),
+                        clean({ targets: ['./dist'] }),
 			FaviconsInject(
 				resolve(__dirname, 'public/logo.svg'),
 				{
