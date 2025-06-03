@@ -45,7 +45,7 @@ const makeInput = (dirs) =>
 		return acc;
 	}, {});
 
-// Custom plugin to convert jpg and png images to webp
+// Custom plugin to convert jpg and png images to webp at 95% quality
 const imageConvertPlugin = () => ({
 	name: 'convert-images',
 	apply: 'build',
@@ -54,7 +54,9 @@ const imageConvertPlugin = () => ({
 		await Promise.all(
 			files.map(async (file) => {
 				const base = file.replace(/\.(jpg|png)$/i, '');
-				await sharp(file).toFormat('webp').toFile(`${base}.webp`);
+                                await sharp(file)
+                                        .toFormat('webp', { quality: 95 })
+                                        .toFile(`${base}.webp`);
 			})
 		);
 	},
