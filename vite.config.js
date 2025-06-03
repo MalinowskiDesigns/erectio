@@ -23,7 +23,7 @@ import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import fg from 'fast-glob';
 import sharp from 'sharp';
 
-// import PluginCritical from 'rollup-plugin-critical';
+import PluginCritical from 'rollup-plugin-critical';
 /* — helpery — */
 
 const __filename = fileURLToPath(import.meta.url);
@@ -55,7 +55,7 @@ const imageConvertPlugin = () => ({
 			files.map(async (file) => {
 				const base = file.replace(/\.(jpg|png)$/i, '');
                                 await sharp(file)
-                                        .toFormat('webp', { quality: 95 })
+                                        .toFormat('webp', { quality: 100 })
                                         .toFile(`${base}.webp`);
 			})
 		);
