@@ -18,10 +18,10 @@
 		display: flex;
 		align-items: center;
 		text-decoration: none;
-		gap: $gap-m;
+		gap: $gap-16;
 
 		@include bp.respond(mobile, max) {
-			gap: $gap-xs;
+			gap: $gap-06;
 		}
 
 		img {
@@ -104,7 +104,7 @@
 			align-items: flex-start;
 			flex-direction: column;
 			width: 100%;
-			padding: $gap-s 0;
+			padding: $gap-12 0;
 			transition: width 0.25s ease-in-out, transform 0.25s ease-in-out,
 				opacity 0.25s ease-in-out;
 			transform: translateY(3.2rem);
@@ -170,7 +170,7 @@
 			margin-left: auto;
 
 			@include bp.respond(desktop) {
-				margin-left: $gap-s;
+				margin-left: $gap-12;
 			}
 
 			@include bp.respond(desktop, max) {
@@ -181,7 +181,7 @@
 
 	&__link {
 		display: block;
-		padding: $gap-s;
+		padding: $gap-12;
 		white-space: nowrap;
 		text-decoration: none;
 		text-transform: uppercase;
@@ -194,12 +194,12 @@
 			}
 		}
 
-		@include bp.respond(mobile, min) {
-			padding: $gap-s $gap-m;
+		@include bp.respond(mobile) {
+			padding: $gap-12 $gap-16;
 		}
 
-		@include bp.respond(desktop, max) {
-			padding: $gap-s $gap-l;
+		@include bp.respond(tablet) {
+			padding: $gap-12 $gap-24;
 		}
 
 		&--dropdown {
@@ -209,7 +209,7 @@
 			justify-content: center;
 			width: 100%;
 			cursor: pointer;
-			gap: $gap-xs;
+			gap: $gap-06;
 
 			@include bp.respond(desktop, max) {
 				justify-content: space-between;
@@ -228,7 +228,7 @@
 		@include bp.respond(desktop, max) {
 			width: 2rem;
 			height: 2rem;
-			padding: $gap-xs;
+			padding: $gap-06;
 			border-radius: $radius-s;
 			background-color: $color-blue-100;
 		}
@@ -250,7 +250,7 @@
 		left: 0;
 		visibility: hidden;
 		margin: 0;
-		padding: $gap-s; // padding wewnątrz listy
+		padding: $gap-12; // padding wewnątrz listy
 		list-style: none;
 		transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out,
 			visibility 0s ease-in-out 0.2s;
@@ -271,19 +271,19 @@
 
 	&__sublink {
 		display: block;
-		padding: $gap-s;
+		padding: $gap-12;
 		white-space: nowrap;
 		text-decoration: none;
 		text-transform: uppercase;
 		font-size: $fs-xxs;
 		color: $color-text;
 
-		@include bp.respond(mobile, min) {
-			padding: $gap-s $gap-m;
+		@include bp.respond(mobile) {
+			padding: $gap-12 $gap-16;
 		}
 
-		@include bp.respond(desktop, max) {
-			padding: $gap-s $gap-l;
+		@include bp.respond(tablet) {
+			padding: $gap-12 $gap-24;
 		}
 
 		@media #{bp.$hover} {
@@ -311,7 +311,7 @@
 			@include bp.respond(desktop, max) {
 				position: relative;
 				width: 100%;
-				padding: 0 $gap-xxl 0 $gap-m;
+				padding: 0 $gap-48 0 $gap-16;
 				transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out,
 					visibility 0s ease-in-out 0s;
 				box-shadow: none;

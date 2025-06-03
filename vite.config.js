@@ -12,7 +12,6 @@ import eslint from 'vite-plugin-eslint';
 import checker from 'vite-plugin-checker';
 import htmlMinifier from 'vite-plugin-html-minifier';
 import webfontDownload from 'vite-plugin-webfont-dl';
-import viteImagemin from 'vite-plugin-imagemin';
 import clean from 'vite-plugin-clean';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import sitemap from 'vite-plugin-sitemap';
@@ -20,9 +19,7 @@ import legacy from '@vitejs/plugin-legacy';
 import mkcert from 'vite-plugin-mkcert';
 import Inspect from 'vite-plugin-inspect';
 import FullReload from 'vite-plugin-full-reload';
-import { imagetools } from 'vite-imagetools';
-import imageminAvif from 'imagemin-avif';
-import imageminWebp from 'imagemin-webp';
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
 // import PluginCritical from 'rollup-plugin-critical';
 /* — helpery — */
@@ -49,11 +46,7 @@ const makeInput = (dirs) =>
 /* — konfiguracja — */
 export default defineConfig(({ mode }) => {
 	const env = loadEnv(mode, process.cwd(), 'VITE_');
-	const rawBreakpoints = (env.VITE_SITE_BREAKPOINTS || '').replace(/['"]/g, '');
-	const brk = rawBreakpoints.split(',')[0] || '319';
 	const dirs = pageDirs();
-
-	/* lista stron dla vite-plugin-html */
 	const pages = dirs.map((d) => {
 		const meta = JSON.parse(
 			fs.readFileSync(`src/pages/${d}/${d}.json`, 'utf-8')
@@ -81,6 +74,7 @@ export default defineConfig(({ mode }) => {
 		resolve: {
 			alias: {
 				'@common': resolve(__dirname, 'src/js/common'),
+				'@img': resolve(__dirname, 'src/assets/images'),
 			},
 		},
 		plugins: [
@@ -93,56 +87,71 @@ export default defineConfig(({ mode }) => {
 				},
 				{ failGraciously: true }
 			),
+			webfontDownload([env.VITE_SITE_FONTS_URL], {
+				injectAsStyleTag: false, // wygeneruje <link rel="stylesheet">
+				async: true, // dodaje tag <link rel="preload" … as="style" onload="this.rel='stylesheet'">
+				minifyCss: true, // inline/external CSS przeleci przez clean-CSS
+				fontsSubfolder: 'fonts', // <-- nowa poprawna opcja od v3.10.x
+			}),
 
-			{
-				name: 'auto-jpg-png-to-avif',
-				enforce: 'post', // zostaje post (plugin po createHtmlPlugin)
-
-				/* ───────────── HTML ───────────── */
-				transformIndexHtml(html) {
-					const IMG_RE =
-						/(<img\b[^>]*?\s)(?<!\bsrcset=["'][^"']*)(src=["'])([^"']+\.(?:jpe?g|png))(?![^>]*\bsrcset)/gi;
-
-					return html.replace(
-						IMG_RE,
-						(_, pre, srcAttr, path) =>
-							// UWAGA: NIE dodajemy drugiego cudzysłowu!
-							`${pre}${srcAttr}${path}?width=${brk}&format=avif;webp&as=srcset`
-					);
+			ViteImageOptimizer({
+				test: /\.(jpe?g|png|gif|tiff|webp|svg|avif)$/i,
+				exclude: undefined,
+				include: undefined,
+				includePublic: false,
+				logStats: true,
+				ansiColors: true,
+				svg: {
+					multipass: true,
+					plugins: [
+						{
+							name: 'preset-default',
+							params: {
+								overrides: {
+									cleanupNumericValues: false,
+									removeViewBox: false, // https://github.com/svg/svgo/issues/1128
+								},
+								cleanupIDs: {
+									minify: false,
+									remove: false,
+								},
+								convertPathData: false,
+							},
+						},
+						'sortAttrs',
+						{
+							name: 'addAttributesToSVGElement',
+							params: {
+								attributes: [{ xmlns: 'http://www.w3.org/2000/svg' }],
+							},
+						},
+					],
+				},
+				png: {
+					quality: 100,
+				},
+				jpeg: {
+					quality: 100,
+				},
+				jpg: {
+					quality: 100,
+				},
+				tiff: {
+					quality: 100,
+				},
+				// gif does not support lossless compression
+				gif: {},
+				webp: {
+					lossless: true,
+				},
+				avif: {
+					lossless: true,
 				},
 
-				/* ───────────── CSS ───────────── */
-				transform(code, id) {
-					if (!/\.css$/i.test(id)) return;
+				cache: false,
+				cacheLocation: undefined,
+			}),
 
-					const CSS_RE =
-						/url\((['"]?)([^'")]+\.(?:jpe?g|png))\1\)(?!\s*format)/gi;
-
-					return code.replace(
-						CSS_RE,
-						(_, q, path) =>
-							// q zawiera otwierający i zamykający cudzysłów (lub pusty), więc
-							// wstawiamy query PRZED nim, nie po.
-							`url(${q}${path}?width=${brk}&format=avif;webp&as=srcset${q})`
-					);
-				},
-			},
-
-			webfontDownload(
-				[
-					// 1) możesz podać gotowy URL Google Fonts
-					env.VITE_SITE_FONTS_URL,
-
-					// 2) albo lokalny CSS z @font-face
-					// resolve(__dirname, 'src/styles/my-fonts.css')
-				],
-				{
-					injectAsStyleTag: false, // wygeneruje <link rel="stylesheet">
-					async: true, // dodaje tag <link rel="preload" … as="style" onload="this.rel='stylesheet'">
-					minifyCss: true, // inline/external CSS przeleci przez clean-CSS
-					fontsSubfolder: 'fonts', // <-- nowa poprawna opcja od v3.10.x
-				}
-			),
 			/* PWA */
 			// VitePWA({
 			// 	registerType: 'autoUpdate',
@@ -214,12 +223,11 @@ export default defineConfig(({ mode }) => {
 					minifyJS: true,
 					minifyURLs: true,
 				},
-				filter: /\.html$/, // minifikuj tylko pliki .html
+				filter: /\.html$/,
 			}),
 
 			createSvgIconsPlugin({
 				iconDirs: [resolve(__dirname, 'src/assets/icons')],
-				// zamiast 'i-[dir]-[name]' użyj po prostu:
 				symbolId: 'i-[name]',
 				inject: 'body-first',
 				svgoOptions: {
@@ -237,31 +245,6 @@ export default defineConfig(({ mode }) => {
 					dev: { logLevel: ['error', 'warning'] },
 				},
 			}),
-			/* ----------  IMAGES PIPELINE  ---------- */
-
-			/* 1) auto-doklej query do <img> i CSS url() */
-			/* ----------  IMAGES PIPELINE  ---------- */
-
-			/* 2) imagetools — tworzy warianty AVIF + srcset */
-			imagetools({
-				force: true,
-				defaultDirectives: new URLSearchParams({
-					format: 'avif;webp', // fallback webp
-					widths: env.VITE_SITE_BREAKPOINTS,
-					quality: '90',
-					as: 'srcset',
-					filename: '[name]-[width]-[hash][ext]',
-				}),
-			}),
-
-			/* 3) dodatkowa kompresja AVIF */
-			viteImagemin({
-				makeAvif: { plugins: { jpg: imageminAvif({ quality: 90 }) } },
-				makeWebp: { plugins: { jpg: imageminWebp({ quality: 90 }) } },
-				cache: true,
-			}),
-
-			/* ---------------------------------------- */
 
 			sitemap({
 				hostname: env.VITE_SITE_URL,
@@ -275,7 +258,7 @@ export default defineConfig(({ mode }) => {
 
 			legacy({
 				targets: ['defaults', 'not IE 11'],
-				modernPolyfills: false, // w Vite 5 domyślnie = false
+				modernPolyfills: false,
 				additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
 			}),
 			// PluginCritical można dodać z powrotem

@@ -18,13 +18,22 @@ h6 {
 	font-family: $font-heading;
 	font-weight: 600;
 	color: $color-text;
-	margin: 0 0 $gap-s 0;
+	margin: 0 0 $gap-12 0;
 }
 
 h1 {
 	/* płynna skala 360-1200 px → 3.6-4.4 rem */
-	font-size: clamp(3.6rem, 2.6rem + 2vw, $fs-h1);
-	line-height: $lh-l;
+	font-size: $fs-h1;
+	line-height: $lh-s;
+
+	@include bp.respond(mobile) {
+		font-size: 2.4rem;
+		line-height: $lh-m;
+	}
+	@include bp.respond(tablet) {
+		font-size: 2.8rem;
+		line-height: $lh-m;
+	}
 }
 
 h2 {
@@ -39,16 +48,6 @@ h3 {
 
 h4 {
 	font-size: $fs-h4;
-	line-height: $lh-m;
-}
-
-h5 {
-	font-size: $fs-xs;
-	line-height: $lh-m;
-}
-
-h6 {
-	font-size: $fs-xxs;
 	line-height: $lh-m;
 }
 
@@ -74,7 +73,7 @@ blockquote {
 	font-size: $fs-sm;
 	line-height: $lh-l;
 	color: $color-text;
-	margin: 0 0 $gap-s 0;
+	margin: 0 0 $gap-12 0;
 }
 
 /* Lead paragraph (większy tekst wstępny) */

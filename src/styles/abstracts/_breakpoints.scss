@@ -2,7 +2,8 @@
    Breakpoints helpers  |  abstracts/_breakpoints.scss
    ======================================= */
 
-@use 'sass:map';
+@use 'sass:map' as map;
+@use 'sass:list' as list;
 
 /* 1. Centralna mapa przerwań  (mobile-first, w rem-ach) */
 $breakpoints: (
@@ -10,7 +11,7 @@ $breakpoints: (
 	// 319 px
 	tablet: 743px,
 	// 743 px
-	desktop: 1200px // 1200 px,,,
+	desktop: 1200px // 1200 px,,,,,,,,,,,,
 ) !default;
 
 /* 2. Syntactic sugar → funkcja bp() */
@@ -24,24 +25,66 @@ $breakpoints: (
 /* 3. Mixin respond()
    @include respond(tablet) { … }  => min-width
    @include respond(mobile, max) { … } => max-width   */
-@mixin respond($point, $type: min) {
+@mixin respond($point, $type: range) {
+	// 1) Sprawdźmy, czy taki breakpoint istnieje
+	@if not map.has-key($breakpoints, $point) {
+		@error 'Nieznany breakpoint: `#{$point}`';
+	}
+
+	// 2) Pobierz listę kluczy i pozycję
+	$keys: map.keys($breakpoints); // (mobile, tablet, desktop)
+	$pos: list.index(
+		$keys,
+		$point
+	); // np. index((mobile, tablet, desktop), tablet) = 2
+
+	// 3) Wartość current breakpoint
 	$value: bp($point);
 
-	@if $type == max {
-		@media (max-width: #{$value}) {
-			@content;
-		}
-	} @else if $type == min {
+	// 4) Sprawdźmy, czy jest „następny” breakpoint
+	$next-key: null;
+	@if $pos and $pos < list.length($keys) {
+		$next-key: list.nth($keys, $pos + 1);
+	}
+
+	// 5) Generowanie media-query
+	@if $type == min {
+		// od $point w górę
 		@media (min-width: #{$value}) {
 			@content;
 		}
+	} @else if $type == max {
+		// od 0 do $point
+		@media (max-width: #{$value}) {
+			@content;
+		}
+	} @else if $type == range {
+		// jeśli to MOBILE — od 0 do (tablet - 1px)
+		@if $point == mobile {
+			$tablet-value: bp(tablet);
+			$max-value: $tablet-value - 1px;
+			@media (max-width: #{$max-value}) {
+				@content;
+			}
+		} @else if $next-key {
+			$next-value: bp($next-key);
+			$max-value: $next-value - 1px;
+			@media (min-width: #{$value}) and (max-width: #{$max-value}) {
+				@content;
+			}
+		} @else {
+			// jeśli $point to ostatni (desktop) — od desktop w górę
+			@media (min-width: #{$value}) {
+				@content;
+			}
+		}
 	} @else {
-		@error 'Drugi parametr musi być "min" lub "max"';
+		@error 'Drugi parametr mixina `respond` musi być "min", "max" lub "range"';
 	}
 }
 
 /* 4. Gotowe media-query stringi – wygodne, gdy potrzebujesz inline */
 $hover: '(hover: hover) and (pointer: fine)';
-$mobile: '(min-width: #{bp(mobile)}) and (max-width: #{bp(tablet) - 1px})';
+$mobile: '(max-width: #{bp(tablet) - 1px})';
 $tablet: '(min-width: #{bp(tablet)}) and (max-width: #{bp(desktop) - 1px})';
 $desktop: '(min-width: #{bp(desktop)})';

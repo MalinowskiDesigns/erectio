@@ -9,7 +9,7 @@
 %button-base {
 	font-size: $fs-xxs;
 	display: inline-block;
-	padding: $gap-s $gap-l;
+	padding: $gap-12 $gap-24;
 	cursor: pointer;
 	transition: background-color 0.2s ease-in-out;
 	text-align: center;
@@ -21,6 +21,16 @@
 	border-radius: $radius-s;
 	font-family: $font-main;
 	font-weight: 400;
+}
+
+%link-base {
+	padding: $gap-12 0;
+	white-space: nowrap;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-size: $fs-xxs;
+	color: $color-text;
+	letter-spacing: 0.2rem;
 }
 
 /* ----------------------------------------

@@ -1,42 +1,34 @@
 // src/styles/components/_buttons.scss
-
-@use '../abstracts/functions' as f;
 @use '../abstracts/variables' as *;
 @use '../abstracts/placeholders' as *;
-
-/* ==========================================================================
-   Button styles
-   ========================================================================== */
-
-/* 
-  Użycie w HTML:
-    <button class="btn btn--primary">POZNAJ PRZYCZYNY</button>
-    <button class="btn btn--outline">METODY LECZENIA</button>
-*/
+@use '../abstracts/breakpoints' as bp;
 
 .btn {
-	/* ---------- Filled primary ---------- */
 	&--primary {
-		@extend %button-base;
-		background-color: $color-primary;
-		color: $color-white;
 		border: none;
+		color: $color-white;
+		background-color: $color-primary;
+		@extend %button-base;
 
-		&:hover {
-			background-color: $color-primary-hover;
+		@media #{bp.$hover} {
+			&:hover {
+				background-color: $color-primary-hover;
+			}
 		}
 	}
 
-	/* ---------- Outline secondary ---------- */
 	&--outline {
-		@extend %button-base;
-		background-color: transparent;
-		color: $color-primary;
+		box-sizing: border-box;
 		border: 0.1rem solid $color-primary;
+		color: $color-primary;
+		background-color: transparent;
+		@extend %button-base;
 
-		&:hover {
-			background-color: $color-primary-hover;
-			color: $color-white;
+		@media #{bp.$hover} {
+			&:hover {
+				color: $color-white;
+				background-color: $color-primary-hover;
+			}
 		}
 	}
 }

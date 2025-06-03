@@ -2,8 +2,9 @@
 @use '../abstracts/functions' as f;
 
 .header {
-	padding: $gap-l 0;
-	background-color: $color-bg;
-	border-bottom: 1px solid $color-border;
+	position: relative;
 	z-index: 10;
+	padding: $gap-24 0;
+	border-bottom: 1px solid $color-border;
+	background-color: $color-bg;
 }

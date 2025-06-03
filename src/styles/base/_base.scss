@@ -13,6 +13,10 @@ html {
 	font-size: 62.5%;
 }
 
+body {
+	background-color: $color-bg;
+}
+
 h1,
 h2,
 h3,
@@ -34,6 +38,10 @@ ol {
 :focus-visible {
 	outline: 0.2rem solid $color-primary;
 	outline-offset: 0.2rem;
+}
+
+a {
+	font-family: $font-main;
 }
 
 button {

@@ -1,3 +1,16 @@
-.example {
-	font-size: 0;
+@use '../abstracts/mixins' as mixins;
+@use '../abstracts/variables' as *;
+@use '../abstracts/breakpoints' as bp;
+@use '../layout/wrapper' as *;
+
+.section {
+	padding: 10rem 0;
+
+	@include bp.respond(mobile) {
+		padding: 6rem 0;
+	}
+
+	@include bp.respond(tablet) {
+		padding: 8rem 0;
+	}
 }

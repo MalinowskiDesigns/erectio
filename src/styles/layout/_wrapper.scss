@@ -1,6 +1,6 @@
 // src/styles/layout/_wrapper.scss
 
-@use '../abstracts/variables' as *; // mamy $gap-s itp.
+@use '../abstracts/variables' as *; // mamy $gap-12 itp.
 @use '../abstracts/breakpoints' as bp; // do media queries
 @use '../abstracts/functions' as *;
 
@@ -10,16 +10,16 @@
 	width: 100%;
 	max-width: 1280px;
 	margin: 0 auto;
-	padding-right: $gap-m;
-	padding-left: $gap-m; // mobile: ~16px
+	padding-right: $gap-16;
+	padding-left: $gap-16; // mobile: ~16px
 
 	@include bp.respond(tablet) {
-		padding-right: $gap-l;
-		padding-left: $gap-l; // 24px → 2.4rem
+		padding-right: $gap-24;
+		padding-left: $gap-24; // 24px → 2.4rem
 	}
 
 	@include bp.respond(desktop) {
-		padding-right: $gap-xl;
-		padding-left: $gap-xl; // 32px → 3.2rem
+		padding-right: $gap-32;
+		padding-left: $gap-32; // 32px → 3.2rem
 	}
 }
