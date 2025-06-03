@@ -8,10 +8,6 @@
 .nav {
 	background-color: $color-bg;
 
-	// =======================
-	//  STAN „OTWARTY” – :hover (desktop z kursorem)
-	// =======================
-
 	&__container {
 		display: flex;
 		align-items: center;
@@ -69,7 +65,7 @@
 		background: $color-primary;
 		gap: 0.5rem;
 
-		@include bp.respond(tablet, max) {
+		@include bp.respond(desktop, max) {
 			display: flex;
 		}
 
@@ -91,30 +87,41 @@
 	}
 
 	&__list {
-		display: flex; // DOMYŚLNIE widoczne na desktopie
+		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		margin: 0;
 		padding: 0;
+		left: -1.2rem;
 
-		@include bp.respond(tablet, max) {
-			display: none;
+		@include bp.respond(desktop, max) {
+			display: flex;
+			position: absolute;
+			top: calc(100% + 2.5rem);
+			right: 0;
+			left: 0;
+			visibility: hidden;
+			align-items: flex-start;
+			flex-direction: column;
 			width: 100%;
 			padding: $gap-s 0;
-			box-shadow: 2px 4px 6px rgba($color-black, 0.1);
+			transition: width 0.25s ease-in-out, transform 0.25s ease-in-out,
+				opacity 0.25s ease-in-out;
+			transform: translateY(3.2rem);
+			pointer-events: none;
+			opacity: 0;
+			box-shadow: 0 0.6rem 1.2rem rgba($color-black, 0.08);
+			background: $color-bg;
 		}
 
 		&--open {
-			display: flex; // przy otwartym hamburgerze na mobilkach/tabletach
-			position: absolute;
-			top: calc(100% + 2.4rem);
-			left: 0.4rem;
-			align-items: flex-start;
-			flex-direction: column;
-			justify-content: flex-start;
-
-			@include bp.respond(tablet, max) {
-				left: 0;
+			@include bp.respond(desktop, max) {
+				visibility: visible;
+				transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out,
+					visibility 0s ease-in-out 0s;
+				transform: translateY(0);
+				pointer-events: auto;
+				opacity: 1;
 			}
 		}
 	}
@@ -124,7 +131,7 @@
 
 		&--dropdown {
 			position: relative;
-			@include bp.respond(tablet, max) {
+			@include bp.respond(desktop, max) {
 				display: flex;
 				align-items: flex-start;
 				flex-direction: column;
@@ -135,7 +142,7 @@
 			@media #{bp.$hover} {
 				&:hover {
 					.nav__sublist {
-						visibility: visible; // natychmiast
+						visibility: visible;
 						transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out,
 							visibility 0s ease-in-out 0s;
 						transform: translateY(0);
@@ -155,7 +162,7 @@
 				top: 100%;
 				left: 0;
 				width: 100%;
-				height: 2.5rem; // równoważne temu, o ile podnosimy sublistę
+				height: 2.5rem;
 			}
 		}
 
@@ -166,7 +173,7 @@
 				margin-left: $gap-s;
 			}
 
-			@include bp.respond(tablet, max) {
+			@include bp.respond(desktop, max) {
 				display: none;
 			}
 		}
@@ -204,7 +211,7 @@
 			cursor: pointer;
 			gap: $gap-xs;
 
-			@include bp.respond(tablet, max) {
+			@include bp.respond(desktop, max) {
 				justify-content: space-between;
 			}
 		}
@@ -218,7 +225,7 @@
 		width: 1rem; // np. 1.2rem × 1.2rem — dopasuj do pliku SVG
 		height: 0.61rem;
 
-		@include bp.respond(tablet, max) {
+		@include bp.respond(desktop, max) {
 			width: 2rem;
 			height: 2rem;
 			padding: $gap-xs;
@@ -256,6 +263,10 @@
 		@include bp.respond(desktop, min) {
 			left: -1.2rem;
 		}
+		@include bp.respond(desktop, max) {
+			transition: opacity 0s, transform 0s, visibility 0s ease-in-out 0.2s;
+			transform: translateY(0);
+		}
 	}
 
 	&__sublink {
@@ -282,9 +293,6 @@
 		}
 	}
 
-	// =======================
-	//  STAN „OTWARTY” – aria-expanded="true"
-	// =======================
 	&__item--dropdown[aria-expanded='true'] {
 		.nav__link--dropdown {
 			@include bp.respond(desktop, max) {

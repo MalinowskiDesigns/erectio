@@ -94,6 +94,40 @@ export default defineConfig(({ mode }) => {
 				{ failGraciously: true }
 			),
 
+			{
+				name: 'auto-jpg-png-to-avif',
+				enforce: 'post', // zostaje post (plugin po createHtmlPlugin)
+
+				/* ───────────── HTML ───────────── */
+				transformIndexHtml(html) {
+					const IMG_RE =
+						/(<img\b[^>]*?\s)(?<!\bsrcset=["'][^"']*)(src=["'])([^"']+\.(?:jpe?g|png))(?![^>]*\bsrcset)/gi;
+
+					return html.replace(
+						IMG_RE,
+						(_, pre, srcAttr, path) =>
+							// UWAGA: NIE dodajemy drugiego cudzysłowu!
+							`${pre}${srcAttr}${path}?width=${brk}&format=avif;webp&as=srcset`
+					);
+				},
+
+				/* ───────────── CSS ───────────── */
+				transform(code, id) {
+					if (!/\.css$/i.test(id)) return;
+
+					const CSS_RE =
+						/url\((['"]?)([^'")]+\.(?:jpe?g|png))\1\)(?!\s*format)/gi;
+
+					return code.replace(
+						CSS_RE,
+						(_, q, path) =>
+							// q zawiera otwierający i zamykający cudzysłów (lub pusty), więc
+							// wstawiamy query PRZED nim, nie po.
+							`url(${q}${path}?width=${brk}&format=avif;webp&as=srcset${q})`
+					);
+				},
+			},
+
 			webfontDownload(
 				[
 					// 1) możesz podać gotowy URL Google Fonts
@@ -109,7 +143,6 @@ export default defineConfig(({ mode }) => {
 					fontsSubfolder: 'fonts', // <-- nowa poprawna opcja od v3.10.x
 				}
 			),
-
 			/* PWA */
 			// VitePWA({
 			// 	registerType: 'autoUpdate',
@@ -169,7 +202,6 @@ export default defineConfig(({ mode }) => {
 			mkcert(),
 			FullReload(['src/templates/**/*', 'src/pages/**/*.json']),
 			createHtmlPlugin({ minify: true, pages, inject: { data: env } }),
-
 			htmlMinifier({
 				minifierOptions: {
 					collapseWhitespace: true,
@@ -184,6 +216,7 @@ export default defineConfig(({ mode }) => {
 				},
 				filter: /\.html$/, // minifikuj tylko pliki .html
 			}),
+
 			createSvgIconsPlugin({
 				iconDirs: [resolve(__dirname, 'src/assets/icons')],
 				// zamiast 'i-[dir]-[name]' użyj po prostu:
@@ -193,9 +226,7 @@ export default defineConfig(({ mode }) => {
 					plugins: [{ name: 'removeAttrs', params: { attrs: 'fill' } }],
 				},
 			}),
-
 			eslint({ include: ['src/**/*.js'], exclude: ['node_modules'] }),
-
 			checker({
 				enableBuild: false,
 				eslint: false,
@@ -206,44 +237,10 @@ export default defineConfig(({ mode }) => {
 					dev: { logLevel: ['error', 'warning'] },
 				},
 			}),
-
 			/* ----------  IMAGES PIPELINE  ---------- */
 
 			/* 1) auto-doklej query do <img> i CSS url() */
 			/* ----------  IMAGES PIPELINE  ---------- */
-			{
-				name: 'auto-jpg-png-to-avif',
-				enforce: 'pre',
-
-				/* 1) HTML ---------------------------------------------------------------- */
-				transformIndexHtml(html) {
-					// podmień TYLKO <img> bez srcset | data-src
-
-					const IMG_RE =
-						/(<img\b[^>]*?\s)(?<!\bsrcset=["'][^"']*)(src=["'])([^"']+\.(?:jpe?g|png))(?![^>]*\bsrcset)/gi;
-
-					return html.replace(
-						IMG_RE,
-						(_, pre, srcAttr, path) =>
-							`${pre}${srcAttr}${path}?w=${brk}&format=avif&as=srcset"`
-					);
-				},
-
-				/* 2) CSS ----------------------------------------------------------------- */
-				transform(code, id) {
-					if (!/\.css$/i.test(id)) return;
-
-					// pomijaj już zoptymalizowane url(... format(…))
-					const CSS_RE =
-						/url\((['"]?)([^'")]+?\.(?:jpe?g|png))\1\)(?!\s*format)/gi;
-
-					return code.replace(
-						CSS_RE,
-						(_, q, path) =>
-							`url(${q}${path}?w=${brk}&format=avif&as=srcset${q})`
-					);
-				},
-			},
 
 			/* 2) imagetools — tworzy warianty AVIF + srcset */
 			imagetools({
