@@ -12,7 +12,6 @@
     "test": "vitest"
   },
   "devDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "^4.41.1",
     "@vite-pwa/assets-generator": "^1.0.0",
     "@vitejs/plugin-legacy": "^6.1.1",
     "fast-glob": "^3.3.3",
