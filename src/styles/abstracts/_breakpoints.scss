@@ -1,20 +1,12 @@
-/* =======================================
-   Breakpoints helpers  |  abstracts/_breakpoints.scss
-   ======================================= */
-
 @use 'sass:map' as map;
 @use 'sass:list' as list;
 
-/* 1. Centralna mapa przerwań  (mobile-first, w rem-ach) */
 $breakpoints: (
 	mobile: 319px,
-	// 319 px
 	tablet: 743px,
-	// 743 px
-        desktop: 1200px // 1200 px,
+	desktop: 1200px,
 ) !default;
 
-/* 2. Syntactic sugar → funkcja bp() */
 @function bp($name) {
 	@if map.has-key($breakpoints, $name) {
 		@return map.get($breakpoints, $name);
@@ -22,27 +14,19 @@ $breakpoints: (
 	@error 'Nieznany breakpoint: `#{$name}`';
 }
 
-/* 3. Mixin respond()
-   @include respond(tablet) { … }  => min-width
-   @include respond(mobile, max) { … } => max-width   */
 @mixin respond($point, $type: range) {
-	// 1) Sprawdźmy, czy taki breakpoint istnieje
-	@if not map.has-key($breakpoints, $point) {
-		@error 'Nieznany breakpoint: `#{$point}`';
-	}
-
-	// 2) Pobierz listę kluczy i pozycję
-	$keys: map.keys($breakpoints); // (mobile, tablet, desktop)
+	$keys: map.keys($breakpoints);
 	$pos: list.index(
 		$keys,
 		$point
 	); // np. index((mobile, tablet, desktop), tablet) = 2
 
-	// 3) Wartość current breakpoint
 	$value: bp($point);
-
-	// 4) Sprawdźmy, czy jest „następny” breakpoint
 	$next-key: null;
+	// 1) Sprawdźmy, czy taki breakpoint istnieje
+	@if not map.has-key($breakpoints, $point) {
+		@error 'Nieznany breakpoint: `#{$point}`';
+	}
 	@if $pos and $pos < list.length($keys) {
 		$next-key: list.nth($keys, $pos + 1);
 	}
