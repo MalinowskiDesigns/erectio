@@ -53,7 +53,6 @@ const imageConvertPlugin = () => ({
         async buildStart() {
                 const files = await fg([
                         'src/assets/images/**/*.{jpg,png}',
-                        'public/**/*.{jpg,png}',
                 ]);
                 await Promise.all(
                         files.map(async (file) => {
