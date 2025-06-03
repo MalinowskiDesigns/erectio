@@ -78,9 +78,16 @@ export default defineConfig(({ mode }) => {
 				'@img': resolve(__dirname, 'src/assets/images'),
 			},
 		},
-		plugins: [
+                plugins: [
                         Inspect(),
-                        imagetools(),
+                        imagetools({
+                                defaultDirectives: (url) => {
+                                        if (!url.searchParams.has('format') && /(png|jpe?g)$/.test(url.pathname)) {
+                                                return new URLSearchParams({ format: 'webp;avif' });
+                                        }
+                                        return new URLSearchParams();
+                                },
+                        }),
                         clean({ targets: ['./dist'] }),
 			FaviconsInject(
 				resolve(__dirname, 'public/logo.svg'),
