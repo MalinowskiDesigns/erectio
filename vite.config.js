@@ -291,7 +291,7 @@ export default defineConfig(({ mode }) => {
                         }),
                         !disableCritical &&
                                 PluginCritical({
-                                        criticalUrl: env.VITE_SITE_URL,
+                                        criticalUrl: 'http://localhost:5173',
                                         criticalBase: resolve(__dirname, 'dist'),
                                         criticalPages: dirs.map((d) => {
                                                 const slug = d === 'home' ? 'index' : d;
