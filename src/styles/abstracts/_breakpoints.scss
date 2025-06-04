@@ -22,32 +22,20 @@ $breakpoints: (
 	@error 'Nieznany breakpoint: `#{$name}`';
 }
 
-/* 3. Mixin respond()
-   @include respond(tablet) { … }  => min-width
-   @include respond(mobile, max) { … } => max-width   */
 @mixin respond($point, $type: range) {
-	// 1) Sprawdźmy, czy taki breakpoint istnieje
 	@if not map.has-key($breakpoints, $point) {
 		@error 'Nieznany breakpoint: `#{$point}`';
 	}
-
-	// 2) Pobierz listę kluczy i pozycję
 	$keys: map.keys($breakpoints); // (mobile, tablet, desktop)
 	$pos: list.index(
 		$keys,
 		$point
 	); // np. index((mobile, tablet, desktop), tablet) = 2
-
-	// 3) Wartość current breakpoint
 	$value: bp($point);
-
-	// 4) Sprawdźmy, czy jest „następny” breakpoint
 	$next-key: null;
 	@if $pos and $pos < list.length($keys) {
 		$next-key: list.nth($keys, $pos + 1);
 	}
-
-	// 5) Generowanie media-query
 	@if $type == min {
 		// od $point w górę
 		@media (min-width: #{$value}) {

@@ -42,6 +42,7 @@ ol {
 
 a {
 	font-family: $font-main;
+	text-decoration: none;
 }
 
 button {
@@ -63,4 +64,8 @@ select {
 ::selection {
 	color: $color-white;
 	background: $color-primary;
+}
+
+svg {
+	fill: currentcolor;
 }

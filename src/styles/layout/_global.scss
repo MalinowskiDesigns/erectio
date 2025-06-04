@@ -1,0 +1,66 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/breakpoints' as bp;
+@use '../abstracts/mixins' as *;
+
+.ref {
+	font-weight: 800; // trochę grubszy (jak na makiecie)
+	font-size: 1.1rem; // mniejszy niż tekst podstawowy
+	color: $color-primary; // lub dowolny akcentowy kolor z palety
+}
+
+.bibliography {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	margin-top: $gap-64;
+	text-align: left;
+	font-style: italic;
+	font-size: $fs-xs;
+	gap: $gap-24;
+
+	@include bp.respond(desktop, max) {
+		margin-top: $gap-48;
+	}
+
+	&__title {
+		font-weight: 400;
+		font-size: $fs-sm;
+		color: $color-text-secondary;
+
+		@include bp.respond(mobile) {
+			font-size: $fs-sm;
+		}
+	}
+
+	&__list {
+		list-style: decimal outside;
+		color: $color-text-secondary;
+		padding-left: 1.7rem;
+		font-size: $fs-xs;
+		word-break: break-all;
+
+		li {
+			padding-left: $gap-12;
+
+			@include bp.respond(mobile) {
+				padding-left: $gap-06;
+			}
+
+			&:not(:last-child) {
+				margin-bottom: $gap-06;
+			}
+		}
+	}
+
+	&__link {
+		text-decoration: underline;
+		color: inherit;
+		transition: color 0.2s ease-in-out;
+
+		@media #{bp.$hover} {
+			&:hover {
+				color: $color-primary;
+			}
+		}
+	}
+}

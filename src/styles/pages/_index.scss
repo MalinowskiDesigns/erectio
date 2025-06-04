@@ -69,12 +69,6 @@
 		color: $color-gray-400;
 	}
 
-	&__actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: $gap-12;
-	}
-
 	&__more {
 		position: absolute;
 		bottom: $gap-24;

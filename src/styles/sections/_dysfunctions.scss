@@ -1,0 +1,80 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+@use '../abstracts/breakpoints' as bp;
+
+.dysfunctions {
+	background-color: $color-bg-secondary;
+	&__container {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+	}
+
+	&__grid {
+		display: grid;
+		justify-content: center;
+		margin-bottom: $gap-64;
+		gap: $gap-48 $gap-24;
+		grid-template-columns: repeat(4, 1fr);
+
+		@include bp.respond(mobile) {
+			margin-bottom: $gap-48;
+			grid-template-columns: repeat(1, 1fr);
+			gap: $gap-40;
+		}
+
+		@include bp.respond(tablet) {
+			margin-bottom: $gap-48;
+			grid-template-columns: repeat(2, 1fr);
+			gap: $gap-40 $gap-32;
+		}
+	}
+
+	&__item {
+		text-align: center;
+
+		@include bp.respond(desktop) {
+			display: flex;
+			text-align: left;
+			gap: $gap-24;
+			&:nth-last-child(2) {
+				grid-column: 2;
+			}
+
+			&:nth-last-child(1) {
+				grid-column: 3;
+			}
+		}
+	}
+	&__item-icon {
+		width: 3.2rem;
+		min-width: 3.2rem;
+		height: 3.2rem;
+		min-height: 3.2rem;
+		margin-bottom: 1rem;
+		color: $color-primary;
+
+		@include bp.respond(mobile) {
+			width: 3.6rem;
+			min-width: 3.6rem;
+			height: 3.6rem;
+			min-height: 3.6rem;
+		}
+
+		@include bp.respond(tablet) {
+			width: 4.2rem;
+			min-width: 4.2rem;
+			height: 4.2rem;
+			min-height: 4.2rem;
+		}
+	}
+	&__item-body {
+		display: flex;
+		flex-direction: column;
+		gap: $gap-12;
+	}
+
+	&__text {
+		color: $color-text-secondary;
+	}
+}

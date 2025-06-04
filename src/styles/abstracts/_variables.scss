@@ -12,13 +12,15 @@ $color-blue-100: color.adjust($color-blue-500, $lightness: 42%);
 $color-gray-100: #f6f7fa;
 $color-gray-200: #e1e5ee;
 $color-gray-300: #cad1e1;
-$color-gray-400: #95a1bb;
+$color-gray-400: #7b8aaa;
 
 /* ---------- Kolory semantyczne ---------- */
 $color-primary: $color-blue-500;
 $color-primary-hover: $color-blue-600;
 $color-bg: $color-white;
+$color-bg-secondary: $color-gray-100;
 $color-text: $color-black;
+$color-text-secondary: $color-gray-400;
 $color-border: rgba($color-black, 0.1);
 
 /* ---------- Typografia ---------- */
@@ -49,4 +51,4 @@ $gap-64: 6.4rem;
 
 $radius-s: 0.4rem;
 $radius-m: 0.8rem;
-$radius-l: 1.2rem;
+$radius-l: 2rem;

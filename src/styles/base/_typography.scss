@@ -18,11 +18,9 @@ h6 {
 	font-family: $font-heading;
 	font-weight: 600;
 	color: $color-text;
-	margin: 0 0 $gap-12 0;
 }
 
 h1 {
-	/* płynna skala 360-1200 px → 3.6-4.4 rem */
 	font-size: $fs-h1;
 	line-height: $lh-s;
 
@@ -37,8 +35,12 @@ h1 {
 }
 
 h2 {
-	font-size: clamp(2.2rem, 1.7rem + 1vw, $fs-h2);
+	font-size: $fs-h2;
 	line-height: $lh-l;
+
+	@include bp.respond(desktop, max) {
+		font-size: 2rem;
+	}
 }
 
 h3 {
@@ -47,18 +49,9 @@ h3 {
 }
 
 h4 {
-	font-size: $fs-h4;
+	font-size: $fs-sm;
 	line-height: $lh-m;
-}
-
-/* -- mobile tweaks ------------------------------------------------------ */
-@include bp.respond(mobile, max) {
-	h3 {
-		font-size: 2rem;
-	}
-	h4 {
-		font-size: 1.6rem;
-	}
+	font-family: $font-main;
 }
 
 /* -------------------------------------------------
@@ -73,7 +66,10 @@ blockquote {
 	font-size: $fs-sm;
 	line-height: $lh-l;
 	color: $color-text;
-	margin: 0 0 $gap-12 0;
+}
+
+span {
+	font-family: $font-main;
 }
 
 /* Lead paragraph (większy tekst wstępny) */

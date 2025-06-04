@@ -19,4 +19,54 @@
 		align-items: center;
 		justify-content: center;
 	}
+
+	&__header {
+		display: flex;
+		flex-direction: column;
+		max-width: calc(6 / 12 * 100%);
+		margin-bottom: $gap-64;
+
+		@include bp.respond(mobile) {
+			max-width: calc(12 / 12 * 100%);
+			margin-bottom: $gap-48;
+		}
+
+		@include bp.respond(tablet) {
+			max-width: calc(8 / 10 * 100%);
+			margin-bottom: $gap-48;
+		}
+
+		&--centered {
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+		}
+	}
+
+	&__subtitle {
+		padding: 0.4rem $gap-12;
+		letter-spacing: 0.2rem;
+		text-transform: uppercase;
+		border-radius: $radius-l;
+		font-size: $fs-xxs;
+		background-color: $color-gray-200;
+	}
+
+	&__title {
+		margin: $gap-12 0 $gap-24 0;
+	}
+
+	&__caption {
+		color: $color-text-secondary;
+	}
+
+	&__buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: $gap-12;
+
+		&--centered {
+			justify-content: center;
+		}
+	}
 }
