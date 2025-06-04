@@ -19,7 +19,7 @@ import legacy from '@vitejs/plugin-legacy';
 import mkcert from 'vite-plugin-mkcert';
 import Inspect from 'vite-plugin-inspect';
 import FullReload from 'vite-plugin-full-reload';
-import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
+// import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import fg from 'fast-glob';
 import sharp from 'sharp';
 
@@ -123,63 +123,63 @@ export default defineConfig(({ mode }) => {
 				fontsSubfolder: 'fonts', // <-- nowa poprawna opcja od v3.10.x
 			}),
 
-			ViteImageOptimizer({
-				test: /\.(jpe?g|png|gif|tiff|webp|svg|avif)$/i,
-				exclude: undefined,
-				include: undefined,
-				includePublic: false,
-				logStats: true,
-				ansiColors: true,
-				svg: {
-					multipass: true,
-					plugins: [
-						{
-							name: 'preset-default',
-							params: {
-								overrides: {
-									cleanupNumericValues: false,
-									removeViewBox: false, // https://github.com/svg/svgo/issues/1128
-								},
-								cleanupIDs: {
-									minify: false,
-									remove: false,
-								},
-								convertPathData: false,
-							},
-						},
-						'sortAttrs',
-						{
-							name: 'addAttributesToSVGElement',
-							params: {
-								attributes: [{ xmlns: 'http://www.w3.org/2000/svg' }],
-							},
-						},
-					],
-				},
-				png: {
-					quality: 100,
-				},
-				jpeg: {
-					quality: 100,
-				},
-				jpg: {
-					quality: 100,
-				},
-				tiff: {
-					quality: 100,
-				},
-				// gif does not support lossless compression
-				gif: {},
-				webp: {
-					lossless: true,
-				},
-				avif: {
-					lossless: true,
-				},
+			// ViteImageOptimizer({
+			// 	test: /\.(jpe?g|png|gif|tiff|webp|svg|avif)$/i,
+			// 	exclude: undefined,
+			// 	include: undefined,
+			// 	includePublic: false,
+			// 	logStats: true,
+			// 	ansiColors: true,
+			// 	svg: {
+			// 		multipass: true,
+			// 		plugins: [
+			// 			{
+			// 				name: 'preset-default',
+			// 				params: {
+			// 					overrides: {
+			// 						cleanupNumericValues: false,
+			// 						removeViewBox: false, // https://github.com/svg/svgo/issues/1128
+			// 					},
+			// 					cleanupIDs: {
+			// 						minify: false,
+			// 						remove: false,
+			// 					},
+			// 					convertPathData: false,
+			// 				},
+			// 			},
+			// 			'sortAttrs',
+			// 			{
+			// 				name: 'addAttributesToSVGElement',
+			// 				params: {
+			// 					attributes: [{ xmlns: 'http://www.w3.org/2000/svg' }],
+			// 				},
+			// 			},
+			// 		],
+			// 	},
+			// 	png: {
+			// 		quality: 100,
+			// 	},
+			// 	jpeg: {
+			// 		quality: 100,
+			// 	},
+			// 	jpg: {
+			// 		quality: 100,
+			// 	},
+			// 	tiff: {
+			// 		quality: 100,
+			// 	},
+			// 	// gif does not support lossless compression
+			// 	gif: {},
+			// 	webp: {
+			// 		lossless: true,
+			// 	},
+			// 	avif: {
+			// 		lossless: true,
+			// 	},
 
-				cache: false,
-				cacheLocation: undefined,
-			}),
+			// 	cache: false,
+			// 	cacheLocation: undefined,
+			// }),
 
 			/* PWA */
 			// VitePWA({

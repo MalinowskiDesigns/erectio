@@ -5,13 +5,15 @@
 
 .btn {
 	&--primary {
-		border: none;
+		box-sizing: border-box;
+		border: 0.1rem solid $color-primary;
 		color: $color-white;
 		background-color: $color-primary;
 		@extend %button-base;
 
 		@media #{bp.$hover} {
 			&:hover {
+				border-color: $color-primary-hover;
 				background-color: $color-primary-hover;
 			}
 		}

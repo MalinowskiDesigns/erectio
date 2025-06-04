@@ -1,0 +1,69 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+@use '../abstracts/breakpoints' as bp;
+
+.treatments {
+	background-color: $color-bg;
+
+	&__container {
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__buttons {
+		margin-top: $gap-40;
+	}
+
+	&__image {
+		object-fit: cover;
+		margin-top: $gap-64;
+		max-height: 50rem;
+		object-position: center;
+
+		@include bp.respond(mobile) {
+			min-height: 24rem;
+			max-height: 24rem;
+		}
+
+		@include bp.respond(tablet) {
+			min-height: 34rem;
+			max-height: 34rem;
+		}
+
+		@include bp.respond(desktop, max) {
+			margin-top: $gap-48;
+		}
+	}
+
+	&__methods {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: $gap-24;
+		margin: $gap-64 0 $gap-80 0;
+
+		@include bp.respond(mobile) {
+			grid-template-columns: repeat(1, 1fr);
+			gap: $gap-32;
+		}
+
+		@include bp.respond(tablet) {
+			grid-template-columns: repeat(2, 1fr);
+			gap: $gap-40 $gap-32;
+		}
+
+		@include bp.respond(desktop, max) {
+			margin-top: $gap-48 $gap-64;
+		}
+	}
+
+	&__method {
+		&-description {
+			color: $color-text-secondary;
+			margin: $gap-12 0 $gap-32 0;
+
+			@include bp.respond(desktop, max) {
+				margin: $gap-12 0 $gap-24 0;
+			}
+		}
+	}
+}

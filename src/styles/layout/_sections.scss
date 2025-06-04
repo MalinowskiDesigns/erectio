@@ -13,17 +13,16 @@
 	@include bp.respond(tablet) {
 		padding: 8rem 0;
 	}
-
-	&--centenered {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	&__header {
+	&__container {
 		display: flex;
 		flex-direction: column;
-		max-width: calc(6 / 12 * 100%);
+		align-items: flex-start;
+	}
+	&__header {
+		display: flex;
+		align-items: flex-start;
+		flex-direction: column;
+		max-width: calc(6 / 12 * 100% - $gap-12);
 		margin-bottom: $gap-64;
 
 		@include bp.respond(mobile) {
@@ -32,7 +31,7 @@
 		}
 
 		@include bp.respond(tablet) {
-			max-width: calc(8 / 10 * 100%);
+			max-width: calc(4 / 8 * 100% - $gap-16);
 			margin-bottom: $gap-48;
 		}
 
@@ -40,6 +39,10 @@
 			align-items: center;
 			justify-content: center;
 			text-align: center;
+		}
+
+		&--no-margin {
+			margin-bottom: 0;
 		}
 	}
 
@@ -65,7 +68,92 @@
 		flex-wrap: wrap;
 		gap: $gap-12;
 
+		@include bp.respond(tablet) {
+			width: calc(4 / 8 * 100% - $gap-16);
+		}
+
 		&--centered {
+			justify-content: center;
+		}
+	}
+
+	&--centered {
+		.section__container {
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			justify-content: center;
+			text-align: center;
+		}
+		.section__header {
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			justify-content: center;
+			text-align: center;
+		}
+	}
+}
+
+.subsection {
+	&__captions {
+		margin: $gap-24 0 $gap-40 0;
+		color: $color-text-secondary;
+
+		@include bp.respond(desktop, max) {
+			display: flex;
+			flex-direction: column;
+			gap: $gap-12;
+		}
+	}
+
+	&__buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: $gap-12;
+
+		@include bp.respond(tablet) {
+			width: calc(4 / 8 * 100% - $gap-16);
+		}
+	}
+
+	&__container {
+		width: calc(6 / 12 * 100% - $gap-12);
+		@include bp.respond(mobile) {
+			width: 100%;
+		}
+
+		@include bp.respond(tablet) {
+			width: calc(4 / 8 * 100% - $gap-16);
+		}
+	}
+
+	&--margin-top {
+		margin-top: $gap-80;
+
+		@include bp.respond(desktop, max) {
+			margin-top: $gap-64;
+		}
+	}
+
+	&--centered {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+		align-self: center;
+
+		.subsection__container {
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			justify-content: center;
+			align-self: center;
+			text-align: center;
+		}
+
+		.subsection__buttons {
+			align-items: center;
 			justify-content: center;
 		}
 	}
