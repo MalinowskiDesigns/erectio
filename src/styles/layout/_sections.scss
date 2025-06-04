@@ -13,4 +13,10 @@
 	@include bp.respond(tablet) {
 		padding: 8rem 0;
 	}
+
+	&--centenered {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 }

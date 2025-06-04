@@ -23,7 +23,7 @@ import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import fg from 'fast-glob';
 import sharp from 'sharp';
 
-import PluginCritical from 'rollup-plugin-critical';
+// import PluginCritical from 'rollup-plugin-critical';
 /* — helpery — */
 
 const __filename = fileURLToPath(import.meta.url);
@@ -54,9 +54,9 @@ const imageConvertPlugin = () => ({
 		await Promise.all(
 			files.map(async (file) => {
 				const base = file.replace(/\.(jpg|png)$/i, '');
-                                await sharp(file)
-                                        .toFormat('webp', { quality: 100 })
-                                        .toFile(`${base}.webp`);
+				await sharp(file)
+					.toFormat('webp', { quality: 100 })
+					.toFile(`${base}.webp`);
 			})
 		);
 	},
@@ -64,16 +64,16 @@ const imageConvertPlugin = () => ({
 
 /* — konfiguracja — */
 export default defineConfig(({ mode }) => {
-        const env = loadEnv(mode, process.cwd(), 'VITE_');
-        const dirs = pageDirs();
-        const disableCritical = process.env.DISABLE_CRITICAL === 'true';
-        const breakpoints = env.VITE_SITE_BREAKPOINTS
-                ? env.VITE_SITE_BREAKPOINTS.split(',').map((b) => parseInt(b, 10))
-                : [];
-        const criticalDimensions = breakpoints.map((width) => ({
-                width,
-                height: 1200,
-        }));
+	const env = loadEnv(mode, process.cwd(), 'VITE_');
+	const dirs = pageDirs();
+	// const disableCritical = process.env.DISABLE_CRITICAL === 'true';
+	// const breakpoints = env.VITE_SITE_BREAKPOINTS
+	// 	? env.VITE_SITE_BREAKPOINTS.split(',').map((b) => parseInt(b, 10))
+	// 	: [];
+	// const criticalDimensions = breakpoints.map((width) => ({
+	// 	width,
+	// 	height: 1200,
+	// }));
 	const pages = dirs.map((d) => {
 		const meta = JSON.parse(
 			fs.readFileSync(`src/pages/${d}/${d}.json`, 'utf-8')
@@ -284,27 +284,27 @@ export default defineConfig(({ mode }) => {
 				},
 			}),
 
-                        legacy({
-                                targets: ['defaults', 'not IE 11'],
-                                modernPolyfills: false,
-                                additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
-                        }),
-                        !disableCritical &&
-                                PluginCritical({
-                                        criticalUrl: env.VITE_SITE_URL,
-                                        criticalBase: resolve(__dirname, 'dist'),
-                                        criticalPages: dirs.map((d) => {
-                                                const slug = d === 'home' ? 'index' : d;
-                                                return {
-                                                        uri: slug === 'index' ? '' : `${slug}.html`,
-                                                        template: slug,
-                                                };
-                                        }),
-                                        criticalConfig: {
-                                                dimensions: criticalDimensions,
-                                        },
-                                }),
-                ],
+			legacy({
+				targets: ['defaults', 'not IE 11'],
+				modernPolyfills: false,
+				additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
+			}),
+			// !disableCritical &&
+			//         PluginCritical({
+			//                 criticalUrl: 'https://localhost:5173/',
+			//                 criticalBase: resolve(__dirname, 'dist'),
+			//                 criticalPages: dirs.map((d) => {
+			//                         const slug = d === 'home' ? 'index' : d;
+			//                         return {
+			//                                 uri: slug === 'index' ? '' : `${slug}.html`,
+			//                                 template: slug,
+			//                         };
+			//                 }),
+			//                 criticalConfig: {
+			//                         dimensions: criticalDimensions,
+			//                 },
+			//         }),
+		],
 
 		build: {
 			rollupOptions: {
