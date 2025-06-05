@@ -4,12 +4,12 @@
 @use '../abstracts/breakpoints' as bp;
 
 .btn {
+	@extend %button-base;
 	&--primary {
 		box-sizing: border-box;
 		border: 0.1rem solid $color-primary;
 		color: $color-white;
 		background-color: $color-primary;
-		@extend %button-base;
 
 		@media #{bp.$hover} {
 			&:hover {
@@ -24,12 +24,25 @@
 		border: 0.1rem solid $color-primary;
 		color: $color-primary;
 		background-color: transparent;
-		@extend %button-base;
 
 		@media #{bp.$hover} {
 			&:hover {
 				color: $color-white;
 				background-color: $color-primary-hover;
+			}
+		}
+	}
+
+	&--white {
+		box-sizing: border-box;
+		border: 1px solod transparent;
+		color: $color-primary;
+		background-color: $color-white;
+
+		@media #{bp.$hover} {
+			&:hover {
+				color: $color-white;
+				background-color: $color-blue-700;
 			}
 		}
 	}

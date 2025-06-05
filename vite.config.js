@@ -102,6 +102,7 @@ export default defineConfig(({ mode }) => {
 		resolve: {
 			alias: {
 				'@common': resolve(__dirname, 'src/js/common'),
+				'@js': resolve(__dirname, 'src/js'),
 				'@img': resolve(__dirname, 'src/assets/images'),
 			},
 		},

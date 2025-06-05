@@ -1,0 +1,90 @@
+{
+	"dolnośląskie": {
+		"label": "Woj. Dolnośląskie",
+		"specialists": [
+			{
+				"name": "Dr hab. Tomasz Kowalski",
+				"specialization": "Urolog / Androlog",
+				"address": "ul. Zielona 12, Wrocław",
+				"tel": "+48 123 456 789",
+				"avatar": "/src/assets/images/avatar-small.webp"
+			},
+			{
+				"name": "Dr Anna Nowak",
+				"specialization": "Ginekolog",
+				"address": "ul. Mostowa 4, Legnica",
+				"tel": "+48 987 654 321",
+				"avatar": "/src/assets/images/avatar-small.webp"
+			},
+			{
+				"name": "Lek. Paweł Wójcik",
+				"specialization": "Ortopeda",
+				"address": "ul. Słoneczna 7, Wałbrzych",
+				"tel": "+48 222 333 444",
+				"avatar": "/src/assets/images/avatar-small.webp"
+			}
+		]
+	},
+
+	"kujawskopomorskie": {
+		"label": "Woj. Kujawsko-Pomorskie",
+		"specialists": []
+	},
+
+	"lubelskie": {
+		"label": "Woj. Lubelskie",
+		"specialists": [
+			{
+				"name": "Dr Ewa Kowalczyk",
+				"specialization": "Ginekolog",
+				"address": "ul. Lipowa 5, Lublin",
+				"tel": "+48 555 666 777",
+				"avatar": "/src/assets/images/avatar-small.webp"
+			},
+			{
+				"name": "Dr Janusz Nowicki",
+				"specialization": "Kardiolog",
+				"address": "ul. Krótka 3, Chełm",
+				"tel": "+48 444 555 666",
+				"avatar": "/src/assets/images/avatar-small.webp"
+			}
+		]
+	},
+	"lubuskie": {
+		"label": "Woj. Lubuskie",
+		"specialists": [
+			{
+				"name": "Dr Marta Zielińska",
+				"specialization": "Dermatolog",
+				"address": "ul. Kwiatowa 8, Zielona Góra",
+				"tel": "+48 333 444 555",
+				"avatar": "/src/assets/images/avatar-small.webp"
+			},
+			{
+				"name": "Dr Piotr Nowakowski",
+				"specialization": "Okulista",
+				"address": "ul. Słowiańska 10, Gorzów Wielkopolski",
+				"tel": "+48 222 111 333",
+				"avatar": "/src/assets/images/avatar-small.webp"
+			}
+		]
+	},
+	"łódzkie": { "label": "Woj. Łódzkie", "specialists": [] },
+	"małopolskie": { "label": "Woj. Małopolskie", "specialists": [] },
+	"mazowieckie": { "label": "Woj. Mazowieckie", "specialists": [] },
+	"opolskie": { "label": "Woj. Opolskie", "specialists": [] },
+	"podkarpackie": { "label": "Woj. Podkarpackie", "specialists": [] },
+	"podlaskie": { "label": "Woj. Podlaskie", "specialists": [] },
+	"pomorskie": { "label": "Woj. Pomorskie", "specialists": [] },
+	"śląskie": { "label": "Woj. Śląskie", "specialists": [] },
+	"świętokrzyskie": { "label": "Woj. Świętokrzyskie", "specialists": [] },
+	"warmińskomazurskie": {
+		"label": "Woj. Warmińsko-Mazurskie",
+		"specialists": []
+	},
+	"wielkopolskie": { "label": "Woj. Wielkopolskie", "specialists": [] },
+	"zachodniopomorskie": {
+		"label": "Woj. Zachodniopomorskie",
+		"specialists": []
+	}
+}

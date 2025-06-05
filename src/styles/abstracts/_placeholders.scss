@@ -11,13 +11,13 @@
 	display: inline-block;
 	padding: $gap-12 $gap-24;
 	cursor: pointer;
-	transition: background-color 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
 	text-align: center;
 	white-space: nowrap;
 	text-decoration: none;
 	letter-spacing: 0.2rem;
 	text-transform: uppercase;
-	border: none;
+	border: 1px solid transparent;
 	border-radius: $radius-s;
 	font-family: $font-main;
 	font-weight: 400;
@@ -31,6 +31,7 @@
 	font-size: $fs-xxs;
 	color: $color-text;
 	letter-spacing: 0.2rem;
+	transition: color 0.2s ease-in-out;
 }
 
 /* ----------------------------------------

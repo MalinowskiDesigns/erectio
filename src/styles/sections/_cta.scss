@@ -1,0 +1,41 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+@use '../abstracts/breakpoints' as bp;
+
+.cta {
+	padding: $gap-64 0;
+	background-color: $color-primary;
+
+	&__body {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		@include bp.respond(mobile) {
+			flex-direction: column;
+			justify-content: center;
+			gap: $gap-24;
+		}
+	}
+
+	&__buttons {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: calc(6 / 12 * 100% - $gap-12);
+
+		@include bp.respond(mobile) {
+			width: 100%;
+		}
+	}
+
+	&__title {
+		width: calc(6 / 12 * 100% - $gap-12);
+		color: $color-white;
+
+		@include bp.respond(mobile) {
+			width: 100%;
+			text-align: center;
+		}
+	}
+}
