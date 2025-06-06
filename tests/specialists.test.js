@@ -30,8 +30,10 @@ beforeEach(() => {
     <div class="map__poland">
       <svg id="poland-map">
         <path id="dolnośląskie"></path>
-        <path id="kujawsko-pomorskie"></path>
+        <path id="kujawskopomorskie"></path>
         <path id="łódzkie"></path>
+        <path id="warmińskomazurskie"></path>
+        <path id="invalid-region"></path>
       </svg>
     </div>
     <select id="specialist-select">
@@ -39,6 +41,7 @@ beforeEach(() => {
       <option value="dolnośląskie">Dolnośląskie</option>
       <option value="kujawskopomorskie">Kujawsko-Pomorskie</option>
       <option value="łódzkie">Łódzkie</option>
+	  <option value="warmińskomazurskie">Warmińsko-Mazurskie</option>
     </select>
     <ul class="map__specialists-items"></ul>
   `;
@@ -67,7 +70,7 @@ describe('specialists.js integration', () => {
 		document.dispatchEvent(new Event('DOMContentLoaded'));
 		await new Promise((r) => setTimeout(r, 0));
 
-		const pathEl = document.querySelector('#kujawsko-pomorskie');
+		const pathEl = document.querySelector('#kujawskopomorskie');
 		pathEl.dispatchEvent(new Event('click'));
 		await new Promise((r) => setTimeout(r, 0));
 
@@ -120,5 +123,86 @@ describe('specialists.js integration', () => {
 		expect(dol.getAttribute('fill')).toBe('#e1e5ee');
 		expect(lod.getAttribute('fill')).toBe('#387ABC');
 		expect(document.getElementById('specialist-select').value).toBe('łódzkie');
+	});
+
+	it('handles diacritics mismatch when selecting from dropdown', async () => {
+		await import('../src/js/specialists.js');
+		document.dispatchEvent(new Event('DOMContentLoaded'));
+		await new Promise((r) => setTimeout(r, 0));
+
+		const dropdown = document.getElementById('specialist-select');
+		dropdown.value = 'warmińskomazurskie';
+		dropdown.dispatchEvent(new Event('change'));
+		await new Promise((r) => setTimeout(r, 0));
+
+		const pathEl = document.querySelector('#warmińskomazurskie');
+		const caption = document.querySelector('.map__specialists-caption');
+		expect(pathEl.getAttribute('fill')).toBe('#387ABC');
+		expect(caption.textContent).toMatch(/Brak specjalistów/);
+		expect(dropdown.value).toBe('warmińskomazurskie');
+	});
+
+	it('updates dropdown when clicking region with hyphenated id', async () => {
+		await import('../src/js/specialists.js');
+		document.dispatchEvent(new Event('DOMContentLoaded'));
+		await new Promise((r) => setTimeout(r, 0));
+
+		const pathEl = document.querySelector('#warmińskomazurskie');
+		pathEl.dispatchEvent(new Event('click'));
+		await new Promise((r) => setTimeout(r, 0));
+
+		expect(pathEl.getAttribute('fill')).toBe('#387ABC');
+		expect(document.getElementById('specialist-select').value).toBe(
+			'warmińskomazurskie'
+		);
+	});
+
+	it('ignores clicks for regions missing in JSON', async () => {
+		await import('../src/js/specialists.js');
+		document.dispatchEvent(new Event('DOMContentLoaded'));
+		await new Promise((r) => setTimeout(r, 0));
+
+		const valid = document.querySelector('#dolnośląskie');
+		valid.dispatchEvent(new Event('click'));
+		await new Promise((r) => setTimeout(r, 0));
+		const itemsBefore = document.querySelectorAll(
+			'.map__specialists-item'
+		).length;
+
+		const invalid = document.querySelector('#invalid-region');
+		invalid.dispatchEvent(new Event('click'));
+		await new Promise((r) => setTimeout(r, 0));
+
+		const itemsAfter = document.querySelectorAll(
+			'.map__specialists-item'
+		).length;
+		expect(document.getElementById('specialist-select').value).toBe(
+			'dolnośląskie'
+		);
+		expect(valid.getAttribute('fill')).toBe('#387ABC');
+		expect(itemsAfter).toBe(itemsBefore);
+	});
+
+	it('keeps highlight when clicking the same region again', async () => {
+		await import('../src/js/specialists.js');
+		document.dispatchEvent(new Event('DOMContentLoaded'));
+		await new Promise((r) => setTimeout(r, 0));
+
+		const pathEl = document.querySelector('#dolnośląskie');
+		pathEl.dispatchEvent(new Event('click'));
+		await new Promise((r) => setTimeout(r, 0));
+		const htmlBefore = document.querySelector(
+			'.map__specialists-items'
+		).innerHTML;
+
+		pathEl.dispatchEvent(new Event('click'));
+		await new Promise((r) => setTimeout(r, 0));
+
+		const htmlAfter = document.querySelector(
+			'.map__specialists-items'
+		).innerHTML;
+		expect(pathEl.getAttribute('fill')).toBe('#387ABC');
+		expect(htmlAfter).toBe(htmlBefore);
+		expect(global.fetch).toHaveBeenCalledTimes(1);
 	});
 });
