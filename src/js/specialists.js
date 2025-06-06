@@ -125,15 +125,37 @@
 	const selectRegion = (id) => {
 		const key = findKey(id);
 		if (!key) return;
+
+		// ---- reset poprzedniego regionu ----
 		if (resetTooltipTimeout) clearTimeout(resetTooltipTimeout);
 		if (currentRegion && currentRegion !== key) {
-			const prevPath = SVG_MAP.querySelector(`#${CSS.escape(currentRegion)}`);
-			if (prevPath)
+			// fallback dla CSS.escape
+			let prevSelector;
+			if (typeof CSS !== 'undefined' && typeof CSS.escape === 'function') {
+				prevSelector = `#${CSS.escape(currentRegion)}`;
+			} else {
+				const escapedPrev = String(currentRegion).replace(/"/g, '\\"');
+				prevSelector = `[id="${escapedPrev}"]`;
+			}
+			const prevPath = SVG_MAP.querySelector(prevSelector);
+			if (prevPath) {
 				prevPath.setAttribute('fill', defaultFill.get(currentRegion));
+			}
 		}
+
 		currentRegion = key;
-		const newPath = SVG_MAP.querySelector(`#${CSS.escape(key)}`);
+
+		// ---- ustawienie nowego koloru na wybranym regionie ----
+		let selector;
+		if (typeof CSS !== 'undefined' && typeof CSS.escape === 'function') {
+			selector = `#${CSS.escape(key)}`;
+		} else {
+			const escapedForAttr = String(key).replace(/"/g, '\\"');
+			selector = `[id="${escapedForAttr}"]`;
+		}
+		const newPath = SVG_MAP.querySelector(selector);
 		if (newPath) newPath.setAttribute('fill', ACTIVE_COLOR);
+
 		syncDropdown(key);
 		renderList(key);
 		showTooltip(key);
@@ -198,6 +220,7 @@
 	const showTooltip = (id) => {
 		const key = findKey(id);
 		if (!key) return;
+
 		const count = db[key].specialists.length;
 		const dotClass =
 			count > 0
@@ -205,15 +228,34 @@
 				: 'map__tooltip--dot map__tooltip--dot--empty';
 
 		tooltip.innerHTML = `
-      <span class="map__tooltip--title">${db[key].label}</span>
-      <p class="map__tooltip--counter">
-        <span class="map__tooltip--counter-label">Dostępni specjaliści:</span>
-        <span class="map__tooltip--count">${count}</span>
-        <span class="${dotClass}"></span>
-      </p>`;
+    <span class="map__tooltip--title">${db[key].label}</span>
+    <p class="map__tooltip--counter">
+      <span class="map__tooltip--counter-label">Dostępni specjaliści:</span>
+      <span class="map__tooltip--count">${count}</span>
+      <span class="${dotClass}"></span>
+    </p>`;
 
-		const pathEl = SVG_MAP.querySelector(`#${CSS.escape(id)}`);
+		// wybieramy ścieżkę ➝ fallback dla CSS.escape jak poprzednio
+		let selector;
+		if (typeof CSS !== 'undefined' && typeof CSS.escape === 'function') {
+			selector = `#${CSS.escape(id)}`;
+		} else {
+			const escapedForAttr = String(id).replace(/"/g, '\\"');
+			selector = `[id="${escapedForAttr}"]`;
+		}
+		const pathEl = SVG_MAP.querySelector(selector);
 		if (!pathEl) return;
+
+		// jeśli getBBox nie istnieje (np. w JSDOM/Vitest), przerywamy
+		if (
+			typeof pathEl.getBBox !== 'function' ||
+			typeof SVG_MAP.createSVGPoint !== 'function'
+		) {
+			// W testach nie obliczamy pozycji, bo metoda getBBox() nie jest zaimplementowana.
+			// Po prostu nie pokazujemy tooltipa ani nie próbujemy ustawiać stylów.
+			return;
+		}
+
 		const bbox = pathEl.getBBox();
 		const pt = SVG_MAP.createSVGPoint();
 		const { x: xFactor = 0.5, y: yFactor = 0.2 } = regionFactors[key] || {};
