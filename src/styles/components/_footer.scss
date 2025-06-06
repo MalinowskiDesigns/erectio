@@ -5,12 +5,11 @@
 @use '../layout/wrapper' as *;
 
 .footer {
-	padding-bottom: $gap-64;
+	display: flex;
+	flex-direction: column;
+	padding-bottom: $gap-24;
 	background-color: $color-blue-700;
-
-	@include bp.respond(mobile) {
-		padding-bottom: $gap-48;
-	}
+	gap: $gap-64;
 
 	&__content {
 		display: flex;
@@ -20,8 +19,8 @@
 
 		@include bp.respond(desktop, max) {
 			flex-direction: column;
-			gap: $gap-48;
 			justify-content: flex-start;
+			gap: $gap-48;
 		}
 	}
 
@@ -42,6 +41,7 @@
 
 	&__links {
 		display: flex;
+		justify-content: space-between;
 		width: calc(6 / 12 * 100% - $gap-12);
 		gap: $gap-24;
 
@@ -57,14 +57,46 @@
 		}
 	}
 
+	&__column {
+		display: flex;
+		flex-direction: column;
+		width: calc(3 / 6 * 100% - $gap-12);
+		gap: $gap-24;
+
+		@include bp.respond(tablet) {
+			width: calc(3 / 6 * 100% - $gap-16);
+			gap: $gap-32;
+		}
+
+		@include bp.respond(mobile) {
+			width: 100%;
+			gap: $gap-48;
+		}
+	}
+
+	&__link-item {
+		&:not(:last-child) {
+			margin-bottom: $gap-12;
+		}
+	}
+
+	&__heading {
+		font-family: $font-heading;
+		color: $color-white;
+	}
+
 	&__link {
-		color: $color-blue-100;
+		color: $color-blue-200;
 
 		@media #{bp.$hover} {
 			&:hover {
 				color: $color-white;
 			}
 		}
+	}
+
+	&__info {
+		color: $color-blue-200;
 	}
 
 	&__logo {
@@ -91,5 +123,24 @@
 
 	&__text {
 		color: $color-white;
+	}
+
+	&__copyright {
+		padding-top: $gap-24;
+		border-top: 1px solid $color-blue-600;
+
+		&-container {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: $gap-24;
+			@include bp.respond(mobile) {
+				flex-direction: column;
+			}
+
+			@include bp.respond(tablet) {
+				gap: $gap-32;
+			}
+		}
 	}
 }

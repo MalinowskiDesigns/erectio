@@ -77,4 +77,48 @@ describe('specialists.js integration', () => {
 			'kujawskopomorskie'
 		);
 	});
+
+	it('fetches data on module load', async () => {
+		await import('../src/js/specialists.js');
+		document.dispatchEvent(new Event('DOMContentLoaded'));
+		await new Promise((r) => setTimeout(r, 0));
+
+		expect(global.fetch).toHaveBeenCalledTimes(1);
+		expect(global.fetch).toHaveBeenCalledWith('./data/specialists.json');
+	});
+
+	it('updates specialists and map on dropdown change', async () => {
+		await import('../src/js/specialists.js');
+		document.dispatchEvent(new Event('DOMContentLoaded'));
+		await new Promise((r) => setTimeout(r, 0));
+
+		const dropdown = document.getElementById('specialist-select');
+		dropdown.value = 'dolnośląskie';
+		dropdown.dispatchEvent(new Event('change'));
+		await new Promise((r) => setTimeout(r, 0));
+
+		const pathEl = document.querySelector('#dolnośląskie');
+		const items = document.querySelectorAll('.map__specialists-item');
+		expect(pathEl.getAttribute('fill')).toBe('#387ABC');
+		expect(items.length).toBeGreaterThan(0);
+	});
+
+	it('resets previous region highlight when selecting a new one', async () => {
+		await import('../src/js/specialists.js');
+		document.dispatchEvent(new Event('DOMContentLoaded'));
+		await new Promise((r) => setTimeout(r, 0));
+
+		const dol = document.querySelector('#dolnośląskie');
+		const lod = document.querySelector('#łódzkie');
+
+		dol.dispatchEvent(new Event('click'));
+		await new Promise((r) => setTimeout(r, 0));
+
+		lod.dispatchEvent(new Event('click'));
+		await new Promise((r) => setTimeout(r, 0));
+
+		expect(dol.getAttribute('fill')).toBe('#e1e5ee');
+		expect(lod.getAttribute('fill')).toBe('#387ABC');
+		expect(document.getElementById('specialist-select').value).toBe('łódzkie');
+	});
 });
