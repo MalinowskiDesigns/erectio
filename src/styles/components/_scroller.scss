@@ -1,0 +1,42 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/breakpoints' as bp;
+@use '../abstracts/mixins' as mixins;
+@use '../abstracts/functions' as f;
+
+.scroller {
+	display: flex;
+	position: fixed;
+	z-index: 11;
+	right: $gap-24;
+	bottom: $gap-24;
+	align-items: center;
+	justify-content: center;
+	padding: $gap-12;
+	border-radius: $radius-s;
+	color: $color-white;
+	background-color: $color-primary;
+	transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+	transform: translateY(calc(100% + #{$gap-24}));
+	cursor: pointer;
+
+	&--active {
+		transform: translateY(0);
+	}
+
+	@media #{bp.$hover} {
+		&:hover {
+			background-color: $color-primary-hover;
+		}
+	}
+
+	@include bp.respond(mobile) {
+		right: $gap-16;
+		bottom: $gap-16;
+	}
+
+	&-icon {
+		max-width: 18.82px;
+		height: 2rem;
+		fill: currentcolor;
+	}
+}
