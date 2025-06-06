@@ -1,5 +1,5 @@
 /*  ============================================================================ 
-   INTERAKTYWNA MAPA WOJEWÓDZTW – ES6, arrow-functions only 
+   INTERAKTYWNA MAPA WOJEWÓDZTW – ES6, arrow‐functions only 
    KISS • DRY • YAGNI • SoC • TDA 
 ============================================================================ */
 
@@ -31,7 +31,6 @@
 
 	/* ---------- Konfiguracja ---------- */
 
-	// Kolory (możesz też pobierać z CSS variables, jak w poniższym przykładzie)
 	const ACTIVE_COLOR = '#387ABC';
 	const HOVER_COLOR = '#84BDF5'; // jasny odcień na hover
 	const COLOR_DEFAULT = '#e1e5ee';
@@ -49,6 +48,33 @@
 	let db = {}; // zawartość specialists.json
 	let currentRegion = null; // klucz aktualnego województwa w db
 	const defaultFill = new Map(); // oryginalne kolory każdego <path>
+
+	/* ================= MAPA FAKTORÓW DLA TOOLTIP ================= */
+
+	// Tutaj można wstawić własne wartości xFactor i yFactor dla każdego województwa.
+	// xFactor = ułamek szerokości bounding boxu (<path>), od 0.0 (lewa krawędź) do 1.0 (prawa krawędź).
+	// yFactor = ułamek wysokości bounding boxu, od 0.0 (góra) do 1.0 (dół).
+	//
+	// Jeśli dla danego klucza nie ma wpisu w tej mapie, używane będą wartości domyślne: x=0.5, y=0.2
+	// (tj. środek szerokości, 20% od górnej krawędzi).
+	const regionFactors = {
+		dolnośląskie: { x: 0.5, y: 0.1 },
+		'kujawsko-pomorskie': { x: 0.5, y: 0.2 },
+		lubelskie: { x: 0.5, y: 0.2 },
+		lubuskie: { x: 0.25, y: 0.2 }, // przykład: 30% od lewej, 20% od góry
+		łódzkie: { x: 0.5, y: 0.2 },
+		małopolskie: { x: 0.4, y: 0.25 },
+		mazowieckie: { x: 0.4, y: 0.15 },
+		opolskie: { x: 0.6, y: 0.1 },
+		podkarpackie: { x: 0.5, y: 0.2 },
+		podlaskie: { x: 0.7, y: 0.35 }, // przykład: 70% od lewej, 20% od góry
+		pomorskie: { x: 0.4, y: 0.2 },
+		śląskie: { x: 0.55, y: 0.1 },
+		świętokrzyskie: { x: 0.5, y: 0.2 },
+		'warmińsko-mazurskie': { x: 0.5, y: 0.1 },
+		wielkopolskie: { x: 0.3, y: 0.2 },
+		zachodniopomorskie: { x: 0.4, y: 0.3 },
+	};
 
 	/* ================= INIT ================= */
 
@@ -84,8 +110,8 @@
 			const onMouseLeave = () => {
 				if (id !== currentRegion) {
 					path.setAttribute('fill', defaultFill.get(id));
+					hideTooltip();
 				}
-				hideTooltip();
 			};
 
 			const onClick = () => selectRegion(id);
@@ -126,7 +152,9 @@
 
 		syncDropdown(key);
 		renderList(key);
-		hideTooltip();
+		// Po kliknięciu – pokazujemy tooltip (nie ukrywamy),
+		// aby nadal się wyświetlał nad aktywnym regionem.
+		showTooltip(key);
 	};
 
 	// Synchronizuje dropdown z zaznaczonym na mapie
@@ -191,7 +219,7 @@
 		return el;
 	})();
 
-	// Pokazuje tooltip na geometrycznym środku danego województwa
+	// Pokazuje tooltip w odpowiedniej, zmodyfikowanej pozycji
 	const showTooltip = (id) => {
 		const key = findKey(id);
 		if (!key) return;
@@ -211,42 +239,66 @@
         <span class="${dotClass}"></span>
       </p>`;
 
-		// Pobieramy geometryczne środki ścieżki <path>
 		const pathEl = SVG_MAP.querySelector(`#${CSS.escape(id)}`);
 		if (!pathEl) return;
 
-		// 1) Pobieramy bounding box w układzie SVG
+		// 1) Pobieramy bounding box ścieżki <path>
 		const bbox = pathEl.getBBox();
-
-		// 2) Tworzymy punkt w połowie szerokości i wysokości boxa
 		const pt = SVG_MAP.createSVGPoint();
-		pt.x = bbox.x + bbox.width / 2;
-		pt.y = bbox.y + bbox.height / 2;
 
-		// 3) Rzutujemy go na współrzędne ekranowe
+		// 2) Pobieramy czynniki x i y dla danego regionu lub domyślne 0.5, 0.2
+		const { x: xFactor = 0.5, y: yFactor = 0.2 } = regionFactors[key] || {};
+
+		// 3) Ustawiamy punkt w obszarze SVG
+		pt.x = bbox.x + bbox.width * xFactor;
+		pt.y = bbox.y + bbox.height * yFactor;
+
+		// 4) Rzutujemy go na współrzędne ekranowe
 		const matrix = pathEl.getScreenCTM();
 		const screenPt = pt.matrixTransform(matrix);
 
-		// 4) Pobieramy prostokąt wrappera (współrzędne względem viewportu)
+		// 5) Obliczamy współrzędne względem wrappera
 		const wrapperRect = POLAND_WRAPPER.getBoundingClientRect();
-
-		// 5) Obliczamy pozycję lewego-górnego rogu tooltipa względem wrappera
 		const leftPos = screenPt.x - wrapperRect.left;
 		const topPosSVG = screenPt.y - wrapperRect.top;
 
-		// 6) Konfigurujemy finalną pozycję tooltipa.
-		//    CSS `transform: translate(-50%, -100%)` sprawi, że dolna krawędź tooltipa
-		//    znajdzie się dokładnie w punkcie (leftPos, topPosSVG).
+		// *** Usuńmy wcześniej nadane klasy przesunięcia
+		tooltip.classList.remove(
+			'map__tooltip--translated-right',
+			'map__tooltip--translated-left'
+		);
+
+		// 6) Wstępne wyświetlenie, żeby mieć wymiary tooltipa
 		Object.assign(tooltip.style, {
 			left: `${leftPos}px`,
 			top: `${topPosSVG}px`,
 			transform: 'translate(-50%, -100%)',
 			display: 'block',
 		});
+
+		// 7) Sprawdźmy, czy tooltip wychodzi poza lewą lub prawą krawędź
+		const tooltipWidth = tooltip.offsetWidth;
+		const projectedLeftEdge = leftPos - tooltipWidth / 2;
+		const projectedRightEdge = leftPos + tooltipWidth / 2;
+		const wrapperWidth = wrapperRect.width;
+
+		if (projectedLeftEdge < 0) {
+			// wychodzi poza lewo → przesuwamy w prawo
+			tooltip.classList.add('map__tooltip--translated-right');
+			tooltip.style.transform = 'translate(0%, -100%)';
+		} else if (projectedRightEdge > wrapperWidth) {
+			// wychodzi poza prawo → przesuwamy w lewo
+			tooltip.classList.add('map__tooltip--translated-left');
+			tooltip.style.transform = 'translate(-100%, -100%)';
+		}
 	};
 
-	// Ukrywa tooltip
+	// Ukrywa tooltip i usuwa klasy przesunięcia
 	const hideTooltip = () => {
 		tooltip.style.display = 'none';
+		tooltip.classList.remove(
+			'map__tooltip--translated-right',
+			'map__tooltip--translated-left'
+		);
 	};
 })();

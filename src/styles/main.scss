@@ -15,7 +15,6 @@
 /* ========= 4. Layout ========= */
 @use 'layout/container';
 @use 'layout/header';
-@use 'layout/footer';
 @use 'layout/sections';
 @use 'layout/global';
 
@@ -23,6 +22,7 @@
 @use 'components/buttons';
 @use 'components/links';
 @use 'components/nav';
+@use 'components/footer';
 
 /* ========= 6. Strony (opcjonalnie) ========= */
 // @use 'pages/index';

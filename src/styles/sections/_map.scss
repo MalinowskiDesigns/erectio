@@ -98,6 +98,35 @@
 			border-right: 8px solid transparent;
 			border-left: 8px solid transparent;
 		}
+
+		&--translated-right {
+			// nadpisanie transformacji: zamiast "translate(-50%, -100%)"
+			// ustawiamy "translate(0%, -100%)", żeby lewy brzeg tooltipa
+			// znajdował się dokładnie w leftPos
+			transform: translate(0%, -100%);
+
+			// Przesuń strzałkę w lewo (np. 10px od krawędzi)
+			&::after {
+				left: 10px; // możesz dostosować wartość w px lub rem
+				transform: none; // aby strzałka rysowała się od samej krawędzi
+				border-top: 8px solid $color-gray-500;
+				border-right: 8px solid transparent;
+				border-left: 8px solid transparent;
+			}
+		}
+
+		&--translated-left {
+			transform: translate(-100%, -100%);
+
+			&::after {
+				left: auto; // usuwamy domyślne left:50%
+				right: 10px; // umieszczamy strzałkę przy prawej krawędzi
+				transform: none;
+				border-top: 8px solid $color-gray-500;
+				border-right: 8px solid transparent;
+				border-left: 8px solid transparent;
+			}
+		}
 	}
 
 	&__cta {

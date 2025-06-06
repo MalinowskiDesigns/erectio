@@ -20,7 +20,7 @@
 		text-decoration: none;
 		gap: $gap-16;
 
-		@include bp.respond(mobile, max) {
+		@include bp.respond(mobile) {
 			gap: $gap-06;
 		}
 

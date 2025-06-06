@@ -1,0 +1,36 @@
+@use '../abstracts/mixins' as mixins;
+@use '../abstracts/placeholders' as ph;
+@use '../abstracts/variables' as *;
+@use '../abstracts/breakpoints' as bp;
+@use '../layout/wrapper' as *;
+
+.footer {
+	padding-bottom: $gap-64;
+	background-color: $color-blue-700;
+
+	@include bp.respond(mobile) {
+		padding-bottom: $gap-48;
+	}
+
+	&__logo {
+		display: flex;
+		align-items: center;
+		text-decoration: none;
+		gap: $gap-16;
+
+		@include bp.respond(mobile) {
+			gap: $gap-06;
+		}
+
+		img {
+			width: 3.6rem;
+			height: 3.6rem;
+		}
+	}
+
+	&__brand {
+		font-family: $font-main;
+		font-size: $fs-h3;
+		color: $color-gray-200;
+	}
+}
