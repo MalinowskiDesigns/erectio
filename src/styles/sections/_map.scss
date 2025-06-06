@@ -18,6 +18,7 @@
 
 	&__poland {
 		display: flex;
+		position: relative;
 		align-items: center;
 		flex-direction: column;
 		justify-content: center;
@@ -35,6 +36,7 @@
 
 	&__tooltip {
 		display: flex;
+		position: absolute;
 		z-index: 10;
 		flex-direction: column;
 		padding: $gap-24;
@@ -44,6 +46,7 @@
 		color: $color-white;
 		background-color: $color-gray-500;
 		gap: $gap-12;
+		width: max-content;
 
 		@include bp.respond(mobile) {
 			padding: $gap-16;
@@ -63,9 +66,9 @@
 		}
 
 		&--count {
+			margin-left: $gap-06;
 			font-weight: 700;
 			color: $color-white;
-			margin-left: $gap-06;
 		}
 
 		&--dot {
@@ -81,6 +84,19 @@
 		}
 		&--dot--empty {
 			background-color: $color-danger;
+		}
+
+		&::after {
+			content: '';
+			position: absolute;
+			top: 100%;
+			left: 50%;
+			width: 0;
+			height: 0;
+			transform: translateX(-50%);
+			border-top: 8px solid $color-gray-500;
+			border-right: 8px solid transparent;
+			border-left: 8px solid transparent;
 		}
 	}
 

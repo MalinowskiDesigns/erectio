@@ -14,12 +14,7 @@
 				: document.addEventListener('DOMContentLoaded', res)
 		);
 
-	// Pobiera wartość zmiennej CSS lub zwraca wartość domyślną
-	const getCSS = (varName, fallback = '') =>
-		getComputedStyle(document.documentElement).getPropertyValue(varName) ||
-		fallback;
-
-	// Usuwa diakrytyki (np. ą -> a, ń -> n) i myślniki, wszystko lowercase
+	// Usuwa diakrytyki (np. ą → a, ń → n) i myślniki, wszystko w lowercase
 	const stripDiacritics = (s) =>
 		s
 			.normalize('NFD')
@@ -36,12 +31,12 @@
 
 	/* ---------- Konfiguracja ---------- */
 
-	// Kolory
-	const ACTIVE_COLOR = getCSS('--color-primary', '#387abc');
-	const HOVER_COLOR = '#d7e5f3'; // odpowiednik color.adjust($color-blue-500, $lightness: 42%)
+	// Kolory (możesz też pobierać z CSS variables, jak w poniższym przykładzie)
+	const ACTIVE_COLOR = '#387ABC';
+	const HOVER_COLOR = '#84BDF5'; // jasny odcień na hover
 	const COLOR_DEFAULT = '#e1e5ee';
 
-	// Źródło danych i elementy DOM
+	// Elementy DOM
 	const JSON_URL = './data/specialists.json';
 	const SVG_MAP = document.getElementById('poland-map');
 	const DROPDOWN = document.getElementById('specialist-select');
@@ -100,7 +95,7 @@
 				path.addEventListener('mouseleave', onMouseLeave);
 			} else {
 				path.addEventListener('touchstart', onMouseEnter, { passive: true });
-				// na urządzeniach dotykowych nie ma mouseleave; tooltip znika po tapnięciu gdzie indziej
+				// na urządzeniach dotykowych tooltip będzie znikał po dotknięciu gdzie indziej
 			}
 			path.addEventListener('click', onClick);
 		});
@@ -117,7 +112,7 @@
 		const key = findKey(id);
 		if (!key) return;
 
-		// Jeśli było wcześniej aktywne województwo inne niż obecne, przywracamy jego domyślny fill
+		// Przywróć poprzedni fill, jeśli było inne zaznaczone
 		if (currentRegion && currentRegion !== key) {
 			const prevPath = SVG_MAP.querySelector(`#${CSS.escape(currentRegion)}`);
 			if (prevPath)
@@ -154,27 +149,35 @@
 
 	// Szablon pojedynczego <li> w liście specjalistów
 	const liTemplate = (s) => `
-<li class="map__specialists-item">
-  <img class="map__specialist-img" src="${s.avatar}" alt="${
-		s.name
-	}" width="48" height="48">
-  <div class="map__specialist-container">
-    <h4 class="map__specialists-title">${s.name}</h4>
-    <p class="map__specialist-specialization">${s.specialization}</p>
-    <p class="map__specialist-address">${s.address}</p>
-    <a class="map__specialist-tel link link--primary" href="tel:${s.tel.replace(
-			/\s+/g,
-			''
-		)}" target="_blank">${s.tel}</a>
-  </div>
-  <a class="map__specialist-cta btn btn--primary" href="tel:${s.tel.replace(
-		/\s+/g,
-		''
-	)}" target="_blank">
-    <span>Zadzwoń</span>
-    <svg class="map__specialist-icon" aria-hidden="true"><use href="#i-telephone"></use></svg>
-  </a>
-</li>`;
+    <li class="map__specialists-item">
+      <img
+        class="map__specialist-img"
+        src="${s.avatar}"
+        alt="${s.name}"
+        width="48"
+        height="48"
+      >
+      <div class="map__specialist-container">
+        <h4 class="map__specialists-title">${s.name}</h4>
+        <p class="map__specialist-specialization">${s.specialization}</p>
+        <p class="map__specialist-address">${s.address}</p>
+        <a
+          class="map__specialist-tel link link--primary"
+          href="tel:${s.tel.replace(/\s+/g, '')}"
+          target="_blank"
+        >${s.tel}</a>
+      </div>
+      <a
+        class="map__specialist-cta btn btn--primary"
+        href="tel:${s.tel.replace(/\s+/g, '')}"
+        target="_blank"
+      >
+        <span>Zadzwoń</span>
+        <svg class="map__specialist-icon" aria-hidden="true">
+          <use href="#i-telephone"></use>
+        </svg>
+      </a>
+    </li>`;
 
 	/* ================= TOOLTIP ================= */
 
@@ -188,7 +191,7 @@
 		return el;
 	})();
 
-	// Pokazuje tooltip na środku danego województwa
+	// Pokazuje tooltip na geometrycznym środku danego województwa
 	const showTooltip = (id) => {
 		const key = findKey(id);
 		if (!key) return;
@@ -199,6 +202,7 @@
 				? 'map__tooltip--dot map__tooltip--dot--filled'
 				: 'map__tooltip--dot map__tooltip--dot--empty';
 
+		// Budujemy zawartość HTML tooltipa
 		tooltip.innerHTML = `
       <span class="map__tooltip--title">${db[key].label}</span>
       <p class="map__tooltip--counter">
@@ -207,23 +211,38 @@
         <span class="${dotClass}"></span>
       </p>`;
 
-		// Obliczamy środek obiektu <path> (współrzędne w lokalnym układzie SVG)
+		// Pobieramy geometryczne środki ścieżki <path>
 		const pathEl = SVG_MAP.querySelector(`#${CSS.escape(id)}`);
-		if (pathEl) {
-			const bbox = pathEl.getBBox();
-			const pt = SVG_MAP.createSVGPoint();
-			pt.x = bbox.x + bbox.width / 2;
-			pt.y = bbox.y + bbox.height / 2;
-			const screenPt = pt.matrixTransform(pathEl.getScreenCTM());
+		if (!pathEl) return;
 
-			const wrapperRect = POLAND_WRAPPER.getBoundingClientRect();
-			Object.assign(tooltip.style, {
-				left: `${screenPt.x - wrapperRect.left}px`,
-				top: `${screenPt.y - wrapperRect.top}px`,
-				display: 'block',
-				transform: 'translate(-50%, -100%)',
-			});
-		}
+		// 1) Pobieramy bounding box w układzie SVG
+		const bbox = pathEl.getBBox();
+
+		// 2) Tworzymy punkt w połowie szerokości i wysokości boxa
+		const pt = SVG_MAP.createSVGPoint();
+		pt.x = bbox.x + bbox.width / 2;
+		pt.y = bbox.y + bbox.height / 2;
+
+		// 3) Rzutujemy go na współrzędne ekranowe
+		const matrix = pathEl.getScreenCTM();
+		const screenPt = pt.matrixTransform(matrix);
+
+		// 4) Pobieramy prostokąt wrappera (współrzędne względem viewportu)
+		const wrapperRect = POLAND_WRAPPER.getBoundingClientRect();
+
+		// 5) Obliczamy pozycję lewego-górnego rogu tooltipa względem wrappera
+		const leftPos = screenPt.x - wrapperRect.left;
+		const topPosSVG = screenPt.y - wrapperRect.top;
+
+		// 6) Konfigurujemy finalną pozycję tooltipa.
+		//    CSS `transform: translate(-50%, -100%)` sprawi, że dolna krawędź tooltipa
+		//    znajdzie się dokładnie w punkcie (leftPos, topPosSVG).
+		Object.assign(tooltip.style, {
+			left: `${leftPos}px`,
+			top: `${topPosSVG}px`,
+			transform: 'translate(-50%, -100%)',
+			display: 'block',
+		});
 	};
 
 	// Ukrywa tooltip
