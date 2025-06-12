@@ -38,8 +38,12 @@ h2 {
 	font-size: $fs-h2;
 	line-height: $lh-l;
 
-	@include bp.respond(desktop, max) {
+	@include bp.respond(mobile) {
 		font-size: 2rem;
+	}
+
+	@include bp.respond(tablet) {
+		font-size: 2.4rem;
 	}
 }
 

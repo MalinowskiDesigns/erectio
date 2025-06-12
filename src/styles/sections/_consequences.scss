@@ -1,0 +1,131 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+@use '../abstracts/breakpoints' as bp;
+
+/* ─────────────────────────────────────────────── */
+
+.consequences {
+	background-color: $color-bg-secondary;
+
+	&__container {
+		display: flex;
+
+		flex-direction: row;
+		gap: $gap-48;
+
+		@include bp.respond(mobile) {
+			flex-direction: column;
+			gap: $gap-32;
+		}
+
+		@include bp.respond(tablet) {
+			flex-direction: column;
+		}
+	}
+
+	&__body {
+		flex-grow: 1;
+		font-size: 0;
+
+		@include bp.respond(desktop, max) {
+			order: 2;
+			width: 100%;
+		}
+	}
+
+	&__thumbnail {
+		display: flex;
+		position: absolute;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: opacity 0.3s ease-in-out;
+		inset: 0;
+
+		@media #{bp.$hover} {
+			&:hover {
+				opacity: 0.9;
+			}
+		}
+
+		&-image {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
+	&__play-button {
+		position: absolute;
+		z-index: 10;
+		top: 50%;
+		left: 50%;
+		width: 9.2rem;
+		height: 9.2rem;
+		cursor: pointer;
+		transform: translate(-50%, -50%);
+		border-radius: 50%;
+
+		@include bp.respond(mobile) {
+			width: 5.6rem;
+			height: 5.6rem;
+		}
+		@include bp.respond(tablet) {
+			width: 8rem;
+			height: 8rem;
+		}
+
+		&::after {
+			content: '';
+			display: block;
+			position: absolute;
+			z-index: -1;
+			top: 50%;
+			left: 50%;
+			width: calc(100% - 2px);
+			height: calc(100% - 2px);
+			transition: background-color 0.3s;
+			transform: translate(-50%, -50%);
+			opacity: 0.8;
+			border-radius: 50%;
+			background-color: $color-white;
+		}
+	}
+
+	&__play-icon {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		transition: fill 0.3s;
+		fill: $color-primary;
+
+		@media #{bp.$hover} {
+			&:hover {
+				fill: $color-primary-hover;
+			}
+		}
+	}
+
+	&__iframe {
+		display: none;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		border: 0;
+		inset: 0;
+	}
+
+	&__video {
+		position: relative;
+		width: 100%;
+		aspect-ratio: 16 / 9;
+
+		&.is-playing {
+			.consequences__thumbnail {
+				display: none;
+			}
+			.consequences__iframe {
+				display: block;
+			}
+		}
+	}
+}

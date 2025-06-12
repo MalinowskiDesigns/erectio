@@ -1,0 +1,68 @@
+@use '../abstracts/mixins' as mixins;
+@use '../abstracts/variables' as *;
+@use '../abstracts/breakpoints' as bp;
+@use '../layout/wrapper' as *;
+
+.hero {
+	display: flex;
+
+	&__container {
+		display: flex;
+		align-items: center;
+		flex-direction: row;
+		justify-content: space-between;
+		gap: $gap-24;
+
+		@include bp.respond(mobile) {
+			max-width: 100%;
+			gap: $gap-32;
+			flex-direction: column;
+		}
+
+		@include bp.respond(tablet) {
+			justify-content: flex-start;
+			gap: $gap-32;
+		}
+	}
+
+	&__body {
+		max-width: calc(5 / 12 * 100%);
+
+		@include bp.respond(mobile) {
+			max-width: 100%;
+		}
+		@include bp.respond(tablet) {
+			max-width: calc(5 / 10 * 100%);
+		}
+
+		@include bp.respond(desktop, max) {
+			display: flex;
+			flex-direction: column;
+		}
+	}
+
+	&__image {
+		max-width: calc(12 / 12 * 100%);
+		max-height: calc(100vh - 9.4rem);
+		object-fit: cover;
+		object-position: 40%;
+
+		@include bp.respond(mobile) {
+			max-width: 100%;
+			max-height: 100%;
+			height: auto;
+			aspect-ratio: 4 / 3;
+		}
+
+		@include bp.respond(tablet) {
+			max-width: calc(4 / 8 * 100%);
+			max-height: calc(100%);
+			min-height: 100%;
+		}
+	}
+
+	&__text {
+		margin: $gap-24 0 $gap-40 0;
+		color: $color-gray-400;
+	}
+}
