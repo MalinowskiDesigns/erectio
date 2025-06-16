@@ -1,0 +1,48 @@
+@use '../abstracts/mixins' as mixins;
+@use '../abstracts/variables' as *;
+@use '../abstracts/breakpoints' as bp;
+@use '../layout/wrapper' as *;
+
+.hero {
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 0;
+
+	&__container {
+		display: flex;
+		align-items: center;
+		flex-direction: row;
+		justify-content: space-between;
+		gap: $gap-24;
+
+		@include bp.respond(mobile) {
+			max-width: 100%;
+			gap: $gap-32;
+			flex-direction: column;
+		}
+
+		@include bp.respond(tablet) {
+			justify-content: flex-start;
+			gap: $gap-32;
+		}
+	}
+
+	&__image {
+		object-fit: cover;
+
+		@include bp.respond(mobile) {
+			min-height: 24rem;
+			max-height: 24rem;
+		}
+
+		@include bp.respond(tablet) {
+			min-height: 34rem;
+			max-height: 34rem;
+		}
+	}
+
+	&__text {
+		margin: $gap-24 0 $gap-40 0;
+		color: $color-gray-400;
+	}
+}

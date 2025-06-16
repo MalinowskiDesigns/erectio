@@ -9,6 +9,7 @@ $color-blue-600: color.adjust($color-blue-500, $lightness: -8%);
 $color-blue-700: color.adjust($color-blue-500, $lightness: -16%);
 $color-blue-100: color.adjust($color-blue-500, $lightness: 42%);
 $color-blue-200: color.adjust($color-blue-500, $lightness: 32%);
+$color-blur-hover: #84bdf5;
 
 $color-gray-100: #f6f7fa;
 $color-gray-200: #e1e5ee;
