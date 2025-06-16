@@ -2,6 +2,7 @@
 @use 'abstracts/functions';
 @use 'abstracts/variables' as *; // gwiazdka eksportuje zmienne wprost
 @use 'abstracts/mixins';
+@use 'abstracts/animations';
 
 /* ========= 2. Vendor (jeśli używasz) ========= */
 @use 'vendors/reset';

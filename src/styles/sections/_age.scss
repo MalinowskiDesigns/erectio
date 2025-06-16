@@ -1,0 +1,108 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+@use '../abstracts/breakpoints' as bp;
+
+.age {
+	background-color: $color-bg-secondary;
+	&__container {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+	}
+
+	&__body {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+		max-width: calc(10 / 12 * 100% - $gap-48);
+		gap: $gap-32;
+
+		@include bp.respond(mobile) {
+			width: 100%;
+			max-width: 100%;
+			gap: 0;
+		}
+
+		@include bp.respond(tablet) {
+			width: 100%;
+			max-width: 100%;
+		}
+	}
+
+	&__swipe {
+		display: none;
+		color: $color-primary;
+
+		@include bp.respond(mobile) {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 0.8rem;
+
+			&-icon {
+				animation: swipe-move 1.5s infinite ease-in-out;
+			}
+
+			p {
+				text-transform: uppercase;
+				font-size: $fs-xs;
+				color: $color-primary;
+			}
+		}
+	}
+
+	&__chart {
+		width: auto;
+		height: auto;
+		font-size: 0;
+
+		@include bp.respond(mobile) {
+			overflow-x: auto;
+			width: 100%;
+			max-width: 100%;
+			margin-top: $gap-06;
+			margin-bottom: $gap-24;
+			padding-bottom: $gap-06;
+
+			svg {
+				max-width: 200%;
+			}
+
+			&::-webkit-scrollbar {
+				height: 4px;
+			}
+
+			&::-webkit-scrollbar-track {
+				background: $color-gray-300;
+			}
+			&::-webkit-scrollbar-thumb {
+				background-color: $color-primary;
+			}
+		}
+
+		@include bp.respond(tablet) {
+			width: 100%;
+			max-width: 100%;
+			svg {
+				max-width: 100%;
+			}
+		}
+	}
+
+	&__bibliography {
+		max-width: calc(6 / 8 * 100% - $gap-48);
+		text-align: center;
+		font-style: italic;
+		font-size: $fs-xs;
+		color: $color-text-secondary;
+
+		@include bp.respond(tablet) {
+			max-width: calc(6 / 8 * 100% - $gap-32);
+		}
+
+		@include bp.respond(mobile) {
+			max-width: calc(100%);
+		}
+	}
+}

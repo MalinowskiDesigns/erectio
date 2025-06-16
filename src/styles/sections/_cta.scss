@@ -6,6 +6,10 @@
 	padding: $gap-64 0;
 	background-color: $color-primary;
 
+	&--secondary {
+		background-color: $color-bg-secondary;
+	}
+
 	&__body {
 		display: flex;
 		align-items: center;
@@ -32,6 +36,10 @@
 	&__title {
 		width: calc(6 / 12 * 100% - $gap-12);
 		color: $color-white;
+
+		&--secondary {
+			color: $color-black;
+		}
 
 		@include bp.respond(mobile) {
 			width: 100%;

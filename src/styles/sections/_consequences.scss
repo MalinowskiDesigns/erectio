@@ -5,7 +5,7 @@
 /* ─────────────────────────────────────────────── */
 
 .consequences {
-	background-color: $color-bg-secondary;
+	background-color: $color-white;
 
 	&__container {
 		display: flex;
@@ -20,6 +20,10 @@
 
 		@include bp.respond(tablet) {
 			flex-direction: column;
+		}
+
+		@include bp.respond(desktop) {
+			align-items: center;
 		}
 	}
 

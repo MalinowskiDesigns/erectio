@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44.827" height="12.827" viewBox="0 0 44.827 12.827">
+  <g id="swipe-btn" transform="translate(-23.587 -5012.587)">
+    <path id="left" d="M7909-6668.586l6.413-6.413,1.414,1.413-4,4h8.586v2h-8.586l4,4-1.414,1.414Z" transform="translate(-7885.414 11687.586)" fill="#387abc"/>
+    <path id="circle" d="M4,0A4,4,0,1,1,0,4,4,4,0,0,1,4,0Z" transform="translate(42 5015)" fill="#387abc"/>
+    <path id="right" d="M7913.585-6663.586l4-4H7909v-2h8.585l-4-4L7915-6675l6.414,6.413-6.414,6.414Z" transform="translate(-7853 11687.586)" fill="#387abc"/>
+  </g>
+</svg>

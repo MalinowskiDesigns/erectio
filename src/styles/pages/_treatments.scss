@@ -3,8 +3,9 @@
 @use '../abstracts/breakpoints' as bp;
 @use '../layout/wrapper' as *;
 
-.hero {
+.treatments {
 	display: flex;
+	background-color: $color-bg-secondary;
 
 	&__container {
 		display: flex;
@@ -41,7 +42,7 @@
 		}
 	}
 
-	&__chart {
+	&__image {
 		max-width: calc(12 / 12 * 100%);
 		max-height: calc(100vh - 9.4rem);
 		object-fit: cover;
@@ -61,7 +62,7 @@
 		}
 	}
 
-	&__bibliography {
+	&__text {
 		margin: $gap-24 0 $gap-40 0;
 		color: $color-gray-400;
 	}
