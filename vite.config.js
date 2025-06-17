@@ -80,7 +80,9 @@ export default defineConfig(({ mode }) => {
 		);
 		const slug = d === 'home' ? 'index' : d;
                 return {
+
                         entry: `src/pages/${d}/${d}.js`,
+
                         filename: `${slug}.html`,
                         template: `src/pages/${d}/index.html`,
                         injectOptions: {
