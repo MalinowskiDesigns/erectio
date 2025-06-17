@@ -29,21 +29,21 @@ import sharp from 'sharp';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const pageDirs = () =>
-	fs
-		.readdirSync('./src/pages')
-		.filter(
-			(d) =>
-				fs.existsSync(`src/pages/${d}/${d}.json`) &&
-				fs.existsSync(`src/pages/${d}/${d}.js`) &&
-				fs.existsSync(`${d === 'home' ? 'index' : d}.html`)
-		);
+        fs
+                .readdirSync('./src/pages')
+                .filter(
+                        (d) =>
+                                fs.existsSync(`src/pages/${d}/${d}.json`) &&
+                                fs.existsSync(`src/pages/${d}/${d}.js`) &&
+                                fs.existsSync(`src/pages/${d}/index.html`)
+                );
 
 const makeInput = (dirs) =>
-	dirs.reduce((acc, p) => {
-		const slug = p === 'home' ? 'index' : p;
-		acc[slug] = resolve(__dirname, `${slug}.html`);
-		return acc;
-	}, {});
+        dirs.reduce((acc, p) => {
+                const slug = p === 'home' ? 'index' : p;
+                acc[slug] = resolve(__dirname, `src/pages/${p}/index.html`);
+                return acc;
+        }, {});
 
 // Custom plugin to convert jpg and png images to webp at 95% quality
 const imageConvertPlugin = () => ({
@@ -79,14 +79,14 @@ export default defineConfig(({ mode }) => {
 			fs.readFileSync(`src/pages/${d}/${d}.json`, 'utf-8')
 		);
 		const slug = d === 'home' ? 'index' : d;
-		return {
-			entry: `src/pages/${d}/${d}.js`,
-			filename: `${slug}.html`,
-			template: `${slug}.html`,
-			injectOptions: {
-				data: { ...meta, ...env },
-				ejsOptions: {
-					filename: resolve(__dirname, `${slug}.html`),
+                return {
+                        entry: `src/pages/${d}/${d}.js`,
+                        filename: `${slug}.html`,
+                        template: `src/pages/${d}/index.html`,
+                        injectOptions: {
+                                data: { ...meta, ...env },
+                                ejsOptions: {
+                                        filename: resolve(__dirname, `src/pages/${d}/index.html`),
 					localsName: 'meta',
 					views: [
 						resolve(__dirname, 'src/templates'),
@@ -239,7 +239,7 @@ export default defineConfig(({ mode }) => {
 			// 	],
 			// }),
 			mkcert(),
-			FullReload(['src/templates/**/*', 'src/pages/**/*.json']),
+                        FullReload(['src/templates/**/*', 'src/pages/**/*.json', 'src/pages/**/*.html']),
 			createHtmlPlugin({ minify: true, pages, inject: { data: env } }),
 			htmlMinifier({
 				minifierOptions: {
