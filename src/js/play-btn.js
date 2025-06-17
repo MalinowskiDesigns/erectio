@@ -1,20 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
-	document.querySelectorAll('.consequences__iframe').forEach((iframe) => {
-		iframe.dataset.src = iframe.getAttribute('src');
-		iframe.removeAttribute('src');
-	});
+	// Pobierz wszystkie iframe i ustaw ich dane-src
+	document
+		.querySelectorAll('.consequences__iframe, .hero__iframe')
+		.forEach((iframe) => {
+			iframe.dataset.src = iframe.getAttribute('src');
+			iframe.removeAttribute('src');
+		});
 });
 
 document.addEventListener('click', (e) => {
-	const thumb = e.target.closest('.consequences__thumbnail');
+	// Obsługa kliknięcia w miniaturkę wideo
+	const thumb = e.target.closest('.consequences__thumbnail, .hero__thumbnail');
 	if (!thumb) return;
 
-	const wrapper = thumb.closest('.consequences__video');
+	// Znajdź wrapper wideo
+	const wrapper = thumb.closest('.consequences__video, .hero__video');
 	if (!wrapper || wrapper.classList.contains('is-playing')) return;
 
-	const iframe = wrapper.querySelector('.consequences__iframe');
+	// Pobierz iframe wideo
+	const iframe = wrapper.querySelector('.consequences__iframe, .hero__iframe');
 	if (!iframe) return;
 
+	// Ustaw src iframe i aktywuj odtwarzanie
 	const realSrc = iframe.dataset.src;
 	if (realSrc) iframe.src = realSrc;
 
