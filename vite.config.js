@@ -29,19 +29,27 @@ import sharp from 'sharp';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const pageDirs = () =>
-        fs
-                .readdirSync('./src/pages')
-                .filter(
-                        (d) =>
-                                fs.existsSync(`src/pages/${d}/${d}.json`) &&
-                                fs.existsSync(`src/pages/${d}/${d}.js`) &&
-                                fs.existsSync(`src/pages/${d}/index.html`)
-                );
+        fg
+                .sync('src/pages/**/index.html')
+                .map((file) => {
+                        const dir = dirname(file);
+                        const slug = dir.replace(/^src\/pages\//, '');
+                        const name = slug.split('/').pop();
+                        if (
+                                fs.existsSync(`${dir}/${name}.json`) &&
+                                fs.existsSync(`${dir}/${name}.js`)
+                        ) {
+                                return slug;
+                        }
+                        return null;
+                })
+                .filter(Boolean);
 
 const makeInput = (dirs) =>
         dirs.reduce((acc, p) => {
                 const slug = p === 'home' ? 'index' : p;
-                acc[slug] = resolve(__dirname, `src/pages/${p}/index.html`);
+                const name = slug.replace(/\//g, '-');
+                acc[name] = resolve(__dirname, `src/pages/${p}/index.html`);
                 return acc;
         }, {});
 
@@ -74,11 +82,11 @@ export default defineConfig(({ mode }) => {
 	// 	width,
 	// 	height: 1200,
 	// }));
-	const pages = dirs.map((d) => {
-		const meta = JSON.parse(
-			fs.readFileSync(`src/pages/${d}/${d}.json`, 'utf-8')
-		);
-		const slug = d === 'home' ? 'index' : d;
+        const pages = dirs.map((d) => {
+                const meta = JSON.parse(
+                        fs.readFileSync(`src/pages/${d}/${d}.json`, 'utf-8')
+                );
+                const slug = d === 'home' ? 'index' : d;
                 return {
 
                         entry: `src/pages/${d}/${d}.js`,
