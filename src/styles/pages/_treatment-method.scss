@@ -237,6 +237,28 @@
 		}
 	}
 
+	&__two-images {
+		display: flex;
+		gap: $gap-24;
+
+		@include bp.respond(mobile) {
+			gap: $gap-16;
+		}
+
+		&-item {
+			max-height: 24rem;
+			object-fit: cover;
+
+			@include bp.respond(mobile) {
+				max-height: 12rem;
+			}
+
+			@include bp.respond(tablet) {
+				max-height: 18rem;
+			}
+		}
+	}
+
 	&__quote {
 		display: flex;
 		padding: 0.8rem 0 0.8rem $gap-16;
