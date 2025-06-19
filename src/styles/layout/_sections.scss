@@ -61,6 +61,10 @@
 
 	&__caption {
 		color: $color-text-secondary;
+
+		&--mtop {
+			margin-top: $gap-24;
+		}
 	}
 
 	&__buttons {

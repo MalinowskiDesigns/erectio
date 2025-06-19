@@ -35,6 +35,10 @@
 		}
 	}
 
+	&__text {
+		color: $color-black;
+	}
+
 	&__section {
 		margin: $gap-64 0;
 
@@ -58,6 +62,10 @@
 
 	&__header {
 		align-self: center;
+
+		@include bp.respond(desktop) {
+			max-width: calc(10 / 12 * 100% - $gap-24);
+		}
 	}
 
 	&__img {
@@ -233,6 +241,34 @@
 			font-weight: 500;
 			font-size: $fs-h4;
 			color: $color-gray-500;
+		}
+	}
+
+	&__qna {
+		display: flex;
+		flex-direction: column;
+		gap: $gap-12;
+
+		&-item {
+			display: flex;
+			flex-direction: column;
+			gap: $gap-06;
+		}
+		&-question {
+			font-weight: bold;
+			display: flex;
+			gap: $gap-06;
+			color: $color-primary-hover;
+		}
+
+		&-answer {
+			display: flex;
+			gap: $gap-06;
+			color: $color-primary-hover;
+
+			span:first-of-type {
+				font-weight: bold;
+			}
 		}
 	}
 

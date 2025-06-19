@@ -4,7 +4,32 @@
 	id="treatment-lifestyle-change"
 >
 	<div class="treatment__container wrapper">
-		<%- include("article-header.ejs") %>
+		<div class="treatment__header section__header">
+			<span class="section__subtitle">Metoda leczenia</span>
+			<h1 class="treatment__title section__title">Zmiana stylu życia</h1>
+
+			<p class="treatment__text section__caption" id="treatment-desc">
+				Zmiana stylu życia to pierwszy krok do odzyskania pełni zdrowia
+				intymnego. Współczesne podejście opiera się na holistycznej strategii,
+				która łączy zbilansowaną dietę, regularną aktywność fizyczną oraz
+				dbałość o zdrowie psychiczne.
+			</p>
+
+			<div
+				class="section__buttons section__buttons--mtop section__buttons--centered"
+				aria-label="Główne wezwania do działania"
+			>
+				<a
+					href="#od-czego-zaczac-zmiane-stylu-zycia"
+					class="btn btn--primary"
+					title="Czytaj dalej"
+					>Czytaj dalej</a
+				>
+				<a href="#map" class="btn btn--outline" title="Znajdź specjalistę"
+					>Znajdź specjalistę</a
+				>
+			</div>
+		</div>
 	</div>
 
 	<%- include("article-image.ejs") %>
@@ -13,7 +38,7 @@
 <section
 	class="treatment treatment--no-padding"
 	aria-label="Metoda leczenia – Zmiana stylu życia"
-	id="<%= meta.article_first_ID %>"
+	id="#od-czego-zaczac-zmiane-stylu-zycia"
 >
 	<div
 		class="treatment__container treatment__section treatment__section--first wrapper"

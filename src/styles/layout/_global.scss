@@ -64,3 +64,20 @@
 		}
 	}
 }
+
+.mobile-off {
+	@include bp.respond(mobile) {
+		display: none;
+	}
+}
+
+.tablet-off {
+	@include bp.respond(tablet) {
+		display: none;
+	}
+}
+.desktop-off {
+	@include bp.respond(desktop) {
+		display: none;
+	}
+}
