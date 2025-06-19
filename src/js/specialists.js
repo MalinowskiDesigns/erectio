@@ -23,7 +23,7 @@
 	const HOVER_COLOR = '#84BDF5';
 	const COLOR_DEFAULT = '#e1e5ee';
 
-	const JSON_URL = './data/specialists.json';
+	const JSON_URL = '/data/specialists.json';
 	const SVG_MAP = document.getElementById('poland-map');
 	const DROPDOWN = document.getElementById('specialist-select');
 	const LIST_CONTAINER = document.querySelector('.map__specialists-items');
@@ -54,7 +54,21 @@
 		zachodniopomorskie: { x: 0.4, y: 0.3 },
 	};
 
-	Promise.all([fetch(JSON_URL).then((r) => r.json()), domReady()])
+	/* ▼ 1. NOWA FUNKCJA DO LEPSZEGO ŁADOWANIA JSON-A ▼ */
+	const loadJson = async (url) => {
+		const res = await fetch(url);
+		// status != 2xx albo serwer oddał HTML zamiast JSON:
+		if (!res.ok || res.headers.get('content-type')?.includes('html')) {
+			const fallback = await res.text();
+			throw new Error(
+				`Nieprawidłowa odpowiedź (${res.status}).\n` +
+					`Pierwsze 100 znaków:\n${fallback.slice(0, 100)}…`
+			);
+		}
+		return res.json();
+	};
+
+	Promise.all([loadJson(JSON_URL), domReady()])
 		.then(([json]) => {
 			db = json;
 			cacheDefaultFills();
@@ -70,7 +84,7 @@
 				}
 			});
 		})
-		.catch(console.error);
+		.catch((err) => console.error('Błąd ładowania specialists.json:', err));
 
 	const cacheDefaultFills = () =>
 		SVG_MAP.querySelectorAll('path[id]').forEach((p) =>
