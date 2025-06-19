@@ -1,0 +1,15 @@
+{
+	"title": "Vite Template | Strona „O nas”",
+	"description": "Poznaj Vite Template – szablon multipage, który ułatwia tworzenie statycznych witryn.",
+	"keywords": "vite template, o nas, multipage, szablon",
+	"robots": "index, follow",
+	"url": "https://twojadomena.pl/about.html",
+	"cssUrl": "/src/styles/about.css",
+	"og_image": "https://twojadomena.pl/dist/img/og_image_about_vitetemplate.webp",
+	"article_title": "Zmiana stylu życia",
+	"article_description": "Zmiana stylu życia to pierwszy krok do odzyskania pełni zdrowia intymnego. Współczesne podejście opiera się na holistycznej strategii, która łączy zbilansowaną dietę, regularną aktywność fizyczną oraz dbałość o zdrowie psychiczne.",
+	"article_first_ID": "#od-czego-zaczac-zmiane-stylu-zycia",
+	"article_image_src": "/src/assets/images/man-doing-outdoor-sports.webp",
+	"article_image_alt": "Mężczyzna uprawiający sport na świeżym powietrzu",
+	"article_date": "16.02.2025"
+}

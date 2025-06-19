@@ -36,8 +36,13 @@
 		}
 
 		@include bp.respond(tablet) {
-			min-height: 34rem;
-			max-height: 34rem;
+			min-height: 36rem;
+			max-height: 36rem;
+		}
+
+		@include bp.respond(desktop) {
+			min-height: 48rem;
+			max-height: 48rem;
 		}
 	}
 
