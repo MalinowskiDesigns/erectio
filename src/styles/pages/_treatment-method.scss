@@ -245,6 +245,7 @@
 	}
 
 	&__qna {
+		padding-left: $gap-12;
 		display: flex;
 		flex-direction: column;
 		gap: $gap-12;
@@ -268,6 +269,108 @@
 
 			span:first-of-type {
 				font-weight: bold;
+			}
+		}
+	}
+
+	&__curiosity {
+		padding: $gap-48;
+		background-color: #cde5fb;
+		border-radius: $radius-s;
+
+		&-title {
+			font-style: italic;
+			margin-bottom: $gap-12;
+		}
+		&-text {
+			font-style: italic;
+		}
+
+		@include bp.respond(mobile) {
+			padding: $gap-32 $gap-24;
+		}
+	}
+
+	&__table {
+		width: 100%;
+		max-width: 100%;
+		min-width: 100%;
+		border-radius: $radius-s;
+		border: 1px solid $color-gray-300;
+
+		&-wrapper {
+			overflow-x: auto;
+			font-size: 0;
+
+			&::-webkit-scrollbar {
+				height: 4px;
+			}
+
+			&::-webkit-scrollbar-track {
+				background: $color-gray-300;
+			}
+			&::-webkit-scrollbar-thumb {
+				background-color: $color-primary;
+			}
+		}
+
+		@include bp.respond(mobile) {
+			min-width: 200%;
+			max-width: none;
+			width: auto;
+		}
+		&-cell {
+			display: flex;
+			align-items: center;
+			padding: $gap-24;
+			width: 25%;
+			&:not(:last-child) {
+				border-right: 1px solid $color-gray-300;
+			}
+
+			@include bp.respond(mobile) {
+				width: auto;
+				min-width: 25%;
+				max-width: 25%;
+			}
+		}
+
+		&-row {
+			display: flex;
+			width: 100%;
+
+			&:not(:last-child) {
+				border-bottom: 1px solid $color-gray-300;
+			}
+
+			&:first-of-type {
+				background-color: $color-gray-200;
+			}
+
+			@include bp.respond(mobile) {
+				width: auto;
+				overflow: visible;
+				align-items: stretch;
+			}
+		}
+	}
+
+	&__swipe {
+		display: none;
+
+		@include bp.respond(mobile) {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 0.8rem;
+			color: $color-primary;
+
+			&-icon {
+				animation: swipe-move 1.5s infinite ease-in-out;
+			}
+			p {
+				color: $color-primary;
+				text-transform: uppercase;
 			}
 		}
 	}
