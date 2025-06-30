@@ -42,7 +42,7 @@ RewriteCond %{THE_REQUEST} //
 RewriteRule ^(.*)$ https://digidraft.pl/$1 [R=301,L]
 
 # 7. Strona błędu 404
-ErrorDocument 404 /404
+ErrorDocument 404 /404.html
 
 <IfModule mod_headers.c>
   Header set Strict-Transport-Security "max-age=16070400; includeSubDomains"
