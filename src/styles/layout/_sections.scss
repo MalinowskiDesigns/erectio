@@ -44,6 +44,10 @@
 		&--no-margin {
 			margin-bottom: 0;
 		}
+
+		&--full-width {
+			max-width: 100%;
+		}
 	}
 
 	&__subtitle {

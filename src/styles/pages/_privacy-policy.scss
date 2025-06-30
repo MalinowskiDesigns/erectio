@@ -1,0 +1,81 @@
+@use '../abstracts/mixins' as mixins;
+@use '../abstracts/variables' as *;
+@use '../abstracts/breakpoints' as bp;
+@use '../layout/wrapper' as *;
+
+.privacy-policy {
+	display: flex;
+	background-color: $color-bg-secondary;
+
+	&__container {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+		padding: 9.6rem;
+		border-radius: $radius-m;
+		background-color: $color-bg;
+
+		@include bp.respond(mobile) {
+			max-width: 100%;
+			padding: $gap-64 $gap-16;
+			border-radius: 0;
+		}
+
+		@include bp.respond(tablet) {
+			max-width: calc(8 / 12 * 100%);
+			max-width: 100%;
+			padding: $gap-64 $gap-24;
+			border-radius: 0;
+		}
+	}
+
+	&__header {
+		gap: $gap-24;
+
+		@include bp.respond(mobile) {
+			gap: $gap-12;
+		}
+	}
+
+	&__caption {
+		color: $color-gray-400;
+	}
+
+	&__body {
+		display: flex;
+		flex-direction: column;
+		gap: $gap-40;
+	}
+
+	&__section {
+		display: flex;
+		flex-direction: column;
+		gap: $gap-24;
+
+		&-title {
+			text-align: center;
+			text-transform: uppercase;
+		}
+
+		&-content {
+			display: flex;
+			flex-direction: column;
+			gap: $gap-12;
+		}
+
+		&-list {
+			display: flex;
+			flex-direction: column;
+			gap: $gap-06;
+		}
+		&-item {
+			list-style: decimal;
+			list-style-position: inside;
+			font-size: inherit;
+			&::marker {
+				font-weight: 700;
+			}
+		}
+	}
+}
