@@ -1,0 +1,63 @@
+<div class="advice__footer">
+	<p class="advice__footer-date">
+		<span>Napisano dnia:</span><span><%= meta.article_date %></span>
+	</p>
+
+	<div class="advice__footer-share">
+		<span>Udostępnij artykuł:</span>
+		<div class="advice__footer-buttons">
+			<a
+				href="https://twitter.com/intent/tweet?url=<%= meta.url %>&text=<%= meta.title %>"
+				title="Udostępnij artykuł na X"
+				class="advice__footer-btn advice__footer-btn--x"
+				rel="noopener noreferrer"
+				target="_blank"
+				aria-label="Udostępnij artykuł na X"
+				><svg class="advice__footer-share-icon">
+					<use href="#i-x-logo"></use>
+				</svg>
+			</a>
+			<a
+				href="https://www.facebook.com/sharer/sharer.php?u=<%= meta.url %>"
+				title="Udostępnij artykuł na Facebooku"
+				class="advice__footer-btn advice__footer-btn--fb"
+				rel="noopener noreferrer"
+				target="_blank"
+				aria-label="Udostępnij artykuł na Facebooku"
+				><svg class="advice__footer-share-icon">
+					<use href="#i-fb-logo"></use>
+				</svg>
+			</a>
+			<a
+				href="https://www.linkedin.com/sharing/share-offsite/?url=<%= meta.url %>"
+				title="Udostępnij artykuł na LinkedIn"
+				class="advice__footer-btn advice__footer-btn--linkedin"
+				rel="noopener noreferrer"
+				target="_blank"
+				aria-label="Udostępnij artykuł na LinkedIn"
+				><svg class="advice__footer-share-icon">
+					<use href="#i-linkedin-logo"></use>
+				</svg>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="advice__footer-author">
+	<img
+		src="/src/assets/images/avatar-big.webp"
+		class="advice__author-img"
+		alt="Dr hab. Tomasz Kowalski"
+		height="140"
+		width="140"
+	/>
+	<div class="advice__footer-details">
+		<h3 class="advice__author-title">Dr hab. Tomasz Kowalski</h3>
+		<span class="advice__author-specialization advice__footer-specialization"
+			>Urolog, Androlog</span
+		>
+		<p class="advice__footer-description">
+			Od lat wspieram mężczyzn w walce z problemami intymnymi. Moim celem jest
+			niesienie pomocy w odzyskaniu pewności siebie i satysfakcji z życia.
+		</p>
+	</div>
+</div>

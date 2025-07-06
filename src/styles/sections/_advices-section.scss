@@ -71,6 +71,18 @@
 		}
 	}
 
+	&__title-link {
+		color: inherit;
+		font-family: $font-heading;
+		transition: color 0.2s ease-in-out;
+
+		@media #{bp.$hover} {
+			&:hover {
+				color: $color-primary-hover;
+			}
+		}
+	}
+
 	&__captions {
 		margin-top: $gap-24;
 

@@ -94,6 +94,7 @@ export default defineConfig(({ mode }) => {
 					views: [
 						resolve(__dirname, 'src/templates'),
 						resolve(__dirname, 'src/treatment-methods'),
+						resolve(__dirname, 'src/expert-advices'),
 						resolve(__dirname, 'src/components'),
 						resolve(__dirname, 'src/sections'),
 					],
