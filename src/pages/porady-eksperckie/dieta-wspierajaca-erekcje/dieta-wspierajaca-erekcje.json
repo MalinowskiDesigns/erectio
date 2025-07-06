@@ -1,0 +1,14 @@
+{
+	"title": "Vite Template | Strona „O nas”",
+	"description": "Poznaj Vite Template – szablon multipage, który ułatwia tworzenie statycznych witryn.",
+	"keywords": "vite template, o nas, multipage, szablon",
+	"robots": "index, follow",
+	"url": "https://twojadomena.pl/about.html",
+	"cssUrl": "/src/styles/about.css",
+	"og_image": "https://twojadomena.pl/dist/img/og_image_about_vitetemplate.webp",
+
+	"article_image_class": "advice__img",
+	"article_image_src": "/src/assets/images/man-holding-head.webp",
+	"article_image_alt": "Mężczyzna trzymający się za głowę",
+	"article_date": "10.05.2025"
+}
