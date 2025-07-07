@@ -95,6 +95,17 @@
 				margin: $gap-48 0 $gap-64 0;
 			}
 		}
+
+		&--last {
+			margin-bottom: 10rem;
+			@include bp.respond(mobile) {
+				margin-bottom: 6rem;
+			}
+
+			@include bp.respond(tablet) {
+				margin-bottom: $gap-64;
+			}
+		}
 	}
 
 	&__header {
@@ -285,6 +296,22 @@
 			@include bp.respond(tablet) {
 				max-height: 18rem;
 			}
+		}
+	}
+
+	&__four-images {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: $gap-24;
+
+		@include bp.respond(mobile) {
+			grid-template-columns: repeat(2, 1fr);
+			gap: $gap-16;
+		}
+
+		&-item {
+			max-height: 26rem;
+			object-fit: cover;
 		}
 	}
 
