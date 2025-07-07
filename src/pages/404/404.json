@@ -1,7 +1,7 @@
 {
-	"title": "Vite Template | Strona główna",
-	"description": "Vite Template – lekki i szybki szablon multipage oparty na Vite, JavaScript, SCSS i EJS.",
-	"keywords": "vite template, multipage, vanilla js, scss, vite",
+	"title": "Błąd 404 | Erectio",
+	"description": "Erectio – lekki i szybki szablon multipage oparty na Vite, JavaScript, SCSS i EJS.",
+	"keywords": "Erectio, multipage, vanilla js, scss, vite",
 	"robots": "index, follow",
 	"url": "https://twojadomena.pl/",
 	"cssUrl": "/src/styles/index.css",
