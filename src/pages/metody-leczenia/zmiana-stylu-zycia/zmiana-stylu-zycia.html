@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="pl">
-	<%- include("head.ejs") %>
+	<%- include("/src/templates/head.ejs") %>
 	<body>
-		<header class="header" id="header"><%- include("nav.ejs") %></header>
+		<header class="header" id="header">
+			<%- include("/src/components/nav.ejs") %>
+		</header>
 		<main>
-			<%- include("scroller.kit") %> <%- include("lifestyle-change.ejs") %> <%-
-			include("cta.kit") %> <%- include("map.kit") %>
+			<%- include("/src/components/scroller.kit") %> <%-
+			include("/src/treatment-methods/lifestyle-change.ejs") %> <%-
+			include("/src/sections/cta.kit") %> <%- include("/src/sections/map.kit")
+			%>
 		</main>
-		<%- include("footer.kit") %>
+		<%- include("/src/components/footer.kit") %>
 	</body>
 </html>

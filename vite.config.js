@@ -1,59 +1,66 @@
+/* vite.config.js */
 import { defineConfig, loadEnv } from 'vite';
-import { resolve } from 'node:path';
-import fs from 'fs';
-import { dirname } from 'node:path';
+import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import fs from 'fs';
 
-/* — pluginy — */
+import { createMpaPlugin } from 'vite-plugin-virtual-mpa';
+
+/* — reszta pluginów (bez zmian) — */
 import FaviconsInject from 'vite-plugin-favicons-inject';
-import { VitePWA } from 'vite-plugin-pwa';
-import { createHtmlPlugin } from 'vite-plugin-html';
 import eslint from 'vite-plugin-eslint';
 import checker from 'vite-plugin-checker';
-import htmlMinifier from 'vite-plugin-html-minifier';
 import webfontDownload from 'vite-plugin-webfont-dl';
 import clean from 'vite-plugin-clean';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import sitemap from 'vite-plugin-sitemap';
+import htmlMinifier from 'vite-plugin-html-minifier';
 import legacy from '@vitejs/plugin-legacy';
 import mkcert from 'vite-plugin-mkcert';
 import Inspect from 'vite-plugin-inspect';
 import FullReload from 'vite-plugin-full-reload';
-// import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import fg from 'fast-glob';
 import sharp from 'sharp';
-
-// import PluginCritical from 'rollup-plugin-critical';
-/* — helpery — */
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-/** 1️⃣  Rekurencyjne wyszukiwanie katalogów–stron */
-const pageDirs = () =>
-	fg
-		.sync('src/pages/**', { onlyDirectories: true })
-		.filter((dir) => {
-			const slug = dir.replace(/^src\/pages\//, '');
-			const leaf = slug.split('/').pop();
-			const htmlSlug = slug === 'home' ? 'index' : slug;
-			return (
-				fs.existsSync(`${dir}/${leaf}.json`) &&
-				fs.existsSync(`${dir}/${leaf}.js`) &&
-				fs.existsSync(`${htmlSlug}.html`)
-			);
-		})
-		.map((dir) => dir.replace(/^src\/pages\//, ''));
+/* ---- wyszukiwanie stron ---- */
+const pageSlugs = fg
+	.sync('src/pages/**', { onlyDirectories: true })
+	.filter((dir) => {
+		const slug = dir.replace(/^src\/pages\//, '');
+		const leaf = slug.split('/').pop();
+		return (
+			fs.existsSync(`${dir}/${leaf}.html`) &&
+			fs.existsSync(`${dir}/${leaf}.js`) &&
+			fs.existsSync(`${dir}/${leaf}.json`)
+		);
+	})
+	.map((dir) => dir.replace(/^src\/pages\//, ''));
 
-/** 2️⃣  Mapa wejść dla Rollupa (absolutne ścieżki) */
-const makeInput = (slugs) =>
-	slugs.reduce((acc, slug) => {
-		const outSlug = slug === 'home' ? 'index' : slug;
-		acc[outSlug] = resolve(__dirname, `${outSlug}.html`);
-		return acc;
-	}, {});
+function buildPages(env) {
+	return pageSlugs.map((slug) => {
+		const leaf = slug.split('/').pop();
+		const html = `src/pages/${slug}/${leaf}.html`;
+		const js = `/src/pages/${slug}/${leaf}.js`;
+		const meta = JSON.parse(
+			fs.readFileSync(`src/pages/${slug}/${leaf}.json`, 'utf-8')
+		);
 
-/** 3️⃣  Konwersja JPG/PNG -> WebP przy buildzie */
+		return {
+			name: slug.replace(/\//g, '__'),
+			filename: slug === 'index' ? 'index.html' : `${slug}.html`,
+			template: html,
+			entry: js,
+
+			/* <-- najważniejsze: meta w osobnym polu  */
+			data: { meta, env },
+		};
+	});
+}
+
+/* ---- plugin WebP ---- */
 const imageConvertPlugin = () => ({
 	name: 'convert-images',
 	apply: 'build',
@@ -70,38 +77,9 @@ const imageConvertPlugin = () => ({
 	},
 });
 
-/* — konfiguracja — */
 export default defineConfig(({ mode }) => {
 	const env = loadEnv(mode, process.cwd(), 'VITE_');
-	const dirs = pageDirs();
-
-	/** 4️⃣  Dane dla vite-plugin-html (z wiodącym „/” w entry) */
-	const pages = dirs.map((slug) => {
-		const leaf = slug.split('/').pop();
-		const meta = JSON.parse(
-			fs.readFileSync(`src/pages/${slug}/${leaf}.json`, 'utf-8')
-		);
-		const outSlug = slug === 'home' ? 'index' : slug;
-		return {
-			entry: `/src/pages/${slug}/${leaf}.js`, //  <-- kluczowa zmiana
-			filename: `${outSlug}.html`,
-			template: `${outSlug}.html`,
-			injectOptions: {
-				data: { ...meta, ...env },
-				ejsOptions: {
-					filename: resolve(__dirname, `${outSlug}.html`),
-					localsName: 'meta',
-					views: [
-						resolve(__dirname, 'src/templates'),
-						resolve(__dirname, 'src/treatment-methods'),
-						resolve(__dirname, 'src/expert-advices'),
-						resolve(__dirname, 'src/components'),
-						resolve(__dirname, 'src/sections'),
-					],
-				},
-			},
-		};
-	});
+	const pages = buildPages(env);
 
 	return {
 		resolve: {
@@ -111,7 +89,25 @@ export default defineConfig(({ mode }) => {
 				'@img': resolve(__dirname, 'src/assets/images'),
 			},
 		},
+
 		plugins: [
+			/* === GŁÓWNY PLUGIN MPA === */
+			createMpaPlugin({
+				pages,
+				htmlMinify: false,
+				ejsOptions: {
+					/* 1️⃣  pozwala używać  "/src/templates/…" */
+					root: resolve(__dirname),
+
+					/* 2️⃣  pozwala używać krótkich include’ów  */
+					views: [
+						resolve(__dirname, 'src/templates'),
+						resolve(__dirname, 'src/components'),
+						resolve(__dirname, 'src/sections'),
+					],
+				},
+			}),
+
 			imageConvertPlugin(),
 			Inspect(),
 			clean({ targets: ['./dist'] }),
@@ -126,13 +122,8 @@ export default defineConfig(({ mode }) => {
 				minifyCss: true,
 				fontsSubfolder: 'fonts',
 			}),
-
-			/* PWA (opcjonalnie) */
-			// VitePWA({ … }),
-
 			mkcert(),
-			FullReload(['src/templates/**/*', 'src/pages/**/*.json']),
-			createHtmlPlugin({ minify: true, pages, inject: { data: env } }),
+			FullReload(['src/templates/**/*', 'src/pages/**/*.{json,html}']),
 			htmlMinifier({
 				minifierOptions: {
 					collapseWhitespace: true,
@@ -147,7 +138,6 @@ export default defineConfig(({ mode }) => {
 				},
 				filter: /\.html$/,
 			}),
-
 			createSvgIconsPlugin({
 				iconDirs: [resolve(__dirname, 'src/assets/icons')],
 				symbolId: 'i-[name]',
@@ -167,7 +157,6 @@ export default defineConfig(({ mode }) => {
 					dev: { logLevel: ['error', 'warning'] },
 				},
 			}),
-
 			sitemap({
 				hostname: env.VITE_SITE_URL,
 				readable: true,
@@ -177,24 +166,11 @@ export default defineConfig(({ mode }) => {
 					strategy: 'prefix',
 				},
 			}),
-
 			legacy({
 				targets: ['defaults', 'not IE 11'],
 				modernPolyfills: false,
 				additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
 			}),
-			// !disableCritical && PluginCritical({ … }),
 		],
-
-		build: {
-			rollupOptions: {
-				input: makeInput(dirs),
-				output: {
-					manualChunks(id) {
-						if (id.includes('node_modules')) return 'vendor';
-					},
-				},
-			},
-		},
 	};
 });

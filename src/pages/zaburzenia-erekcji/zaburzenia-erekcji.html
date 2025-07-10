@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="pl">
-	<%- include("head.ejs") %>
+	<%- include("/src/templates/head.ejs") %>
 	<body>
-		<header class="header" id="header"><%- include("nav.ejs") %></header>
+		<header class="header" id="header">
+			<%- include("/src/components/nav.ejs") %>
+		</header>
 		<main>
-			<%- include("scroller.kit") %> <%- include("dysfunctions-hero.kit") %> <%-
-			include("dysfunctions.kit") %> <%- include("cta.kit") %> <%-
-			include("consequences.kit") %> <%- include("age.kit") %> <%-
-			include("treatments.kit") %> <%- include("cta-secondary.kit") %> <%-
-			include("map.kit") %>
+			<%- include("/src/components/scroller.kit") %> <%-
+			include("/src/components/dysfunctions-hero.kit") %> <%-
+			include("/src/sections/dysfunctions.kit") %> <%-
+			include("/src/sections/cta.kit") %> <%-
+			include("/src/sections/consequences.kit") %> <%-
+			include("/src/sections/age.kit") %> <%-
+			include("/src/sections/treatments.kit") %> <%-
+			include("/src/sections/cta-secondary.kit") %> <%-
+			include("/src/sections/map.kit") %>
 		</main>
-		<%- include("footer.kit") %>
+		<%- include("/src/components/footer.kit") %>
 	</body>
 </html>
