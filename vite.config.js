@@ -162,7 +162,7 @@ export default defineConfig(({ mode }) => {
 				readable: true,
 				i18n: {
 					defaultLanguage: 'pl',
-					languages: ['pl', 'en'],
+					languages: ['pl'],
 					strategy: 'prefix',
 				},
 			}),
