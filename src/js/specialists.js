@@ -19,7 +19,7 @@
 		return Object.keys(db).find((k) => stripDiacritics(k) === cleanId);
 	};
 
-	const ACTIVE_COLOR = '#387ABC';
+	const ACTIVE_COLOR = '#387AAC';
 	const HOVER_COLOR = '#84BDF5';
 	const COLOR_DEFAULT = '#e1e5ee';
 

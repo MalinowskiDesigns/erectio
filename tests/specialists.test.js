@@ -59,7 +59,7 @@ describe('specialists.js integration', () => {
 
 		const items = document.querySelectorAll('.map__specialists-item');
 		expect(items.length).toBeGreaterThan(0);
-		expect(pathEl.getAttribute('fill')).toBe('#387ABC');
+		expect(pathEl.getAttribute('fill')).toBe('#387AAC');
 		expect(document.getElementById('specialist-select').value).toBe(
 			'dolnośląskie'
 		);
@@ -102,7 +102,7 @@ describe('specialists.js integration', () => {
 
 		const pathEl = document.querySelector('#dolnośląskie');
 		const items = document.querySelectorAll('.map__specialists-item');
-		expect(pathEl.getAttribute('fill')).toBe('#387ABC');
+		expect(pathEl.getAttribute('fill')).toBe('#387AAC');
 		expect(items.length).toBeGreaterThan(0);
 	});
 
@@ -121,7 +121,7 @@ describe('specialists.js integration', () => {
 		await new Promise((r) => setTimeout(r, 0));
 
 		expect(dol.getAttribute('fill')).toBe('#e1e5ee');
-		expect(lod.getAttribute('fill')).toBe('#387ABC');
+		expect(lod.getAttribute('fill')).toBe('#387AAC');
 		expect(document.getElementById('specialist-select').value).toBe('łódzkie');
 	});
 
@@ -137,7 +137,7 @@ describe('specialists.js integration', () => {
 
 		const pathEl = document.querySelector('#warmińskomazurskie');
 		const caption = document.querySelector('.map__specialists-caption');
-		expect(pathEl.getAttribute('fill')).toBe('#387ABC');
+		expect(pathEl.getAttribute('fill')).toBe('#387AAC');
 		expect(caption.textContent).toMatch(/Brak specjalistów/);
 		expect(dropdown.value).toBe('warmińskomazurskie');
 	});
@@ -151,7 +151,7 @@ describe('specialists.js integration', () => {
 		pathEl.dispatchEvent(new Event('click'));
 		await new Promise((r) => setTimeout(r, 0));
 
-		expect(pathEl.getAttribute('fill')).toBe('#387ABC');
+		expect(pathEl.getAttribute('fill')).toBe('#387AAC');
 		expect(document.getElementById('specialist-select').value).toBe(
 			'warmińskomazurskie'
 		);
@@ -179,7 +179,7 @@ describe('specialists.js integration', () => {
 		expect(document.getElementById('specialist-select').value).toBe(
 			'dolnośląskie'
 		);
-		expect(valid.getAttribute('fill')).toBe('#387ABC');
+		expect(valid.getAttribute('fill')).toBe('#387AAC');
 		expect(itemsAfter).toBe(itemsBefore);
 	});
 
@@ -201,7 +201,7 @@ describe('specialists.js integration', () => {
 		const htmlAfter = document.querySelector(
 			'.map__specialists-items'
 		).innerHTML;
-		expect(pathEl.getAttribute('fill')).toBe('#387ABC');
+		expect(pathEl.getAttribute('fill')).toBe('#387AAC');
 		expect(htmlAfter).toBe(htmlBefore);
 		expect(global.fetch).toHaveBeenCalledTimes(1);
 	});
