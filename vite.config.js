@@ -70,7 +70,7 @@ const imageConvertPlugin = () => ({
 			files.map(async (file) => {
 				const base = file.replace(/\.(jpg|png)$/i, '');
 				await sharp(file)
-					.toFormat('webp', { quality: 100 })
+					.toFormat('webp', { quality: 95 })
 					.toFile(`${base}.webp`);
 			})
 		);
