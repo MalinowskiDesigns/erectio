@@ -187,6 +187,7 @@
 		text-transform: uppercase;
 		font-size: $fs-xxs;
 		color: $color-text;
+		font-weight: 500;
 
 		@media #{bp.$hover} {
 			&:hover {
@@ -277,6 +278,7 @@
 		text-transform: uppercase;
 		font-size: $fs-xxs;
 		color: $color-text;
+		font-weight: 500;
 
 		@include bp.respond(mobile) {
 			padding: $gap-12 $gap-16;

@@ -20,7 +20,7 @@
 	border: 1px solid transparent;
 	border-radius: $radius-s;
 	font-family: $font-main;
-	font-weight: 400;
+	font-weight: 500;
 }
 
 %link-base {
@@ -32,6 +32,7 @@
 	color: $color-text;
 	letter-spacing: 0.2rem;
 	transition: color 0.2s ease-in-out;
+	font-weight: 500;
 }
 
 /* ----------------------------------------
