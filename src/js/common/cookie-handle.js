@@ -65,7 +65,6 @@ class UIManager {
 				consentManager.setConsent('accepted', 180);
 				this.hideCookieNotice();
 				this.toggleConsentTargets(true);
-				// tu możesz odpalić analitykę dopiero PO zgodzie
 			});
 		}
 		if (this.denyBtn) {
