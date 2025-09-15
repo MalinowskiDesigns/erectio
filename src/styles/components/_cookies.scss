@@ -1,0 +1,108 @@
+// src/styles/components/_cookie-notice.scss
+@use '../abstracts/variables' as *;
+@use '../abstracts/placeholders' as *;
+@use '../abstracts/breakpoints' as bp;
+@use '../abstracts/animations' as *;
+
+.cookie-notice {
+	display: none;
+	position: fixed;
+	isolation: isolate;
+	z-index: 2400;
+	right: 2.4rem;
+	bottom: 2.4rem;
+	max-width: 50rem;
+	opacity: 0;
+	box-shadow: 4px 4px 12px 0 rgba($color-blue-700, 0.3);
+	background-color: $color-blue-500;
+	color: $color-white;
+	border-radius: 4px;
+	will-change: opacity, transform;
+	transform: translateY(8px);
+
+	@include bp.respond(mobile) {
+		right: 0;
+		bottom: 0;
+		left: 0;
+		border-radius: 8px 8px 0 0;
+		padding-bottom: env(safe-area-inset-bottom, 0);
+		max-width: 100%;
+	}
+
+	@include bp.respond(tablet) {
+		right: $gap-24;
+		bottom: $gap-24;
+		left: $gap-24;
+		max-width: max-content;
+	}
+
+	// Wejście/wyjście
+	&.cookie-fade-in {
+		display: flex;
+		animation: cookie-fade-in 0.5s ease-out forwards;
+	}
+	&.cookie-fade-out {
+		animation: cookie-fade-out 0.3s ease-in forwards;
+		pointer-events: none;
+	}
+
+	&__content {
+		display: flex; // rodzic staje się flexem
+		flex-direction: column;
+		padding: $gap-40 $gap-32;
+
+		@include bp.respond(mobile) {
+			padding: $gap-32 $gap-16;
+		}
+		@include bp.respond(tablet) {
+			padding: $gap-40 $gap-32;
+		}
+	}
+
+	&__title {
+		color: $color-white; // jawne, ale spójne z root
+	}
+
+	&__info {
+		margin: $gap-16 0 $gap-32 0;
+		text-align: justify;
+		font-size: $fs-sm;
+		color: $color-gray-100; // lekko zgaszone, nadal dostępne
+		overflow-wrap: anywhere; // długie linki się zawiną
+
+		@include bp.respond(mobile) {
+			font-size: $fs-xs;
+		}
+	}
+
+	&__link {
+		color: $color-white;
+		text-decoration: underline;
+
+		@media #{bp.$hover} {
+			&:hover {
+				text-decoration: none;
+			}
+		}
+	}
+
+	&__buttons {
+		display: flex;
+		gap: $gap-12;
+		flex-wrap: wrap;
+	}
+}
+
+// Preferencje użytkownika – ogranicz ruch
+@media (prefers-reduced-motion: reduce) {
+	.cookie-notice {
+		animation: none !important;
+		transition: none !important;
+		transform: none !important;
+
+		&.cookie-fade-in,
+		&.cookie-fade-out {
+			animation: none !important;
+		}
+	}
+}

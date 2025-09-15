@@ -21,7 +21,7 @@
 
 	&--outline {
 		box-sizing: border-box;
-		border: 0.1rem solid $color-primary;
+		border: 1px solid $color-primary;
 		color: $color-primary;
 		background-color: transparent;
 
@@ -29,6 +29,21 @@
 			&:hover {
 				color: $color-white;
 				background-color: $color-primary-hover;
+			}
+		}
+	}
+
+	&--outline-white {
+		box-sizing: border-box;
+		border: 1px solid $color-white;
+		color: $color-white;
+		background-color: transparent;
+
+		@media #{bp.$hover} {
+			&:hover {
+				color: $color-white;
+				background-color: $color-primary-hover;
+				border: 1px solid $color-primary;
 			}
 		}
 	}
