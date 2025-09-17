@@ -1,9 +1,7 @@
 {
 	"title": "Metody leczenia | Erectio",
-	"description": "Skontaktuj się z twórcami Erectio – wsparcie i dokumentacja.",
-	"keywords": "Erectio, kontakt, wsparcie, dokumentacja",
+	"description": "Poznaj metody leczenia zaburzeń erekcji: farmakoterapia, terapia psychologiczna, zmiany stylu życia i diagnostyka. Sprawdź skuteczność i bezpieczeństwo.",
+	"keywords": "leczenie zaburzeń erekcji, metody leczenia erekcji, farmakoterapia erekcji, leki na erekcję, sildenafil tadalafil, terapia psychologiczna zaburzeń erekcji, terapia par zaburzenia erekcji, zmiana stylu życia erekcja, diagnostyka zaburzeń erekcji, jak leczyć zaburzenia erekcji",
 	"robots": "index, follow",
-	"url": "https://twojadomena.pl/contact.html",
-	"cssUrl": "/src/styles/contact.css",
-	"og_image": "https://twojadomena.pl/dist/img/og_image_contact_vitetemplate.webp"
+	"url": "https://twojadomena.pl/metody-leczenia"
 }

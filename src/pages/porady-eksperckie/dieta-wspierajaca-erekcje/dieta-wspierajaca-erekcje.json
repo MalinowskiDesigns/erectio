@@ -1,11 +1,9 @@
 {
 	"title": "Dieta wspierająca erekcję | Erectio",
-	"description": "Poznaj Erectio – szablon multipage, który ułatwia tworzenie statycznych witryn.",
-	"keywords": "Erectio, o nas, multipage, szablon",
+	"description": "Poznaj zasady diety wspierającej erekcję: produkty poprawiające krążenie, hormony i energię, przykładowy jadłospis oraz czego unikać dla lepszego libido.",
+	"keywords": "dieta na erekcję, dieta wspierająca erekcję, co jeść na erekcję, produkty na potencję, zdrowie intymne mężczyzn, poprawa krążenia dieta, testosteron dieta, afrodyzjaki naturalne, jadłospis na potencję, styl życia a erekcja",
 	"robots": "index, follow",
-	"url": "https://twojadomena.pl/about.html",
-	"cssUrl": "/src/styles/about.css",
-	"og_image": "https://twojadomena.pl/dist/img/og_image_about_vitetemplate.webp",
+	"url": "https://twojadomena.pl/porady-eksperckie/dieta-wspierajaca-erekcje",
 
 	"article_image_class": "advice__img",
 	"article_image_src": "/src/assets/images/happy-man-preparing-a-healthy-food-big.webp",

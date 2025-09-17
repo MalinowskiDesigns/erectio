@@ -1,9 +1,7 @@
 {
-	"title": "Błąd 404 | Erectio",
-	"description": "Erectio – lekki i szybki szablon multipage oparty na Vite, JavaScript, SCSS i EJS.",
-	"keywords": "Erectio, multipage, vanilla js, scss, vite",
-	"robots": "index, follow",
-	"url": "https://twojadomena.pl/",
-	"cssUrl": "/src/styles/index.css",
-	"og_image": "https://twojadomena.pl/dist/img/og_image_vitetemplate.webp"
+	"title": "404 – Strona nie została znaleziona | Erectio",
+	"description": "Strona, której szukasz, nie istnieje lub została przeniesiona. Wróć na stronę główną Erectio lub wyszukaj treści o przyczynach i leczeniu zaburzeń erekcji.",
+	"keywords": "404, błąd 404, strona nie znaleziona, Erectio, zaburzenia erekcji, leczenie zaburzeń erekcji, problemy z erekcją, terapia psychologiczna, dieta na erekcję, mapa specjalistów",
+	"robots": "noindex, nofollow",
+	"url": "https://twojadomena.pl/404"
 }

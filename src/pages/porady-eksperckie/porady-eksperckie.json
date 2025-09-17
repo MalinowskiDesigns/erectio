@@ -1,9 +1,7 @@
 {
 	"title": "Porady eksperckie | Erectio",
-	"description": "Poznaj Erectio – szablon multipage, który ułatwia tworzenie statycznych witryn.",
-	"keywords": "Erectio, o nas, multipage, szablon",
+	"description": "Eksperckie artykuły o zaburzeniach erekcji: przyczyny, psychologia, dieta, diagnostyka i leczenie. Czytaj rzetelne porady specjalistów i pomocne wskazówki.",
+	"keywords": "porady eksperckie, zaburzenia erekcji, leczenie zaburzeń erekcji, psychologia a erekcja, dieta na erekcję, problemy z erekcją, impotencja, jak poprawić erekcję, wsparcie seksualne mężczyzn, zdrowie intymne mężczyzn",
 	"robots": "index, follow",
-	"url": "https://twojadomena.pl/about.html",
-	"cssUrl": "/src/styles/about.css",
-	"og_image": "https://twojadomena.pl/dist/img/og_image_about_vitetemplate.webp"
+	"url": "https://twojadomena.pl/porady-eksperckie"
 }

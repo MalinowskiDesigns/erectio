@@ -1,14 +1,12 @@
 {
-	"title": "Leczenie farmakologiczne | Erectio",
-	"description": "Poznaj Erectio – szablon multipage, który ułatwia tworzenie statycznych witryn.",
-	"keywords": "Erectio, o nas, multipage, szablon",
+	"title": "Leczenie farmakologiczne zaburzeń erekcji | Erectio",
+	"description": "Poznaj leczenie farmakologiczne zaburzeń erekcji: inhibitory PDE5, zasady stosowania, przeciwwskazania i działania niepożądane. Skonsultuj się z lekarzem.",
+	"keywords": "leczenie farmakologiczne zaburzeń erekcji, leki na erekcję, inhibitory PDE5, sildenafil, tadalafil, dawkowanie leków na erekcję, przeciwwskazania leki na erekcję, działania niepożądane leki na erekcję, skuteczność leków na erekcję, bezpieczeństwo leczenia erekcji",
 	"robots": "index, follow",
-	"url": "https://twojadomena.pl/about.html",
-	"cssUrl": "/src/styles/about.css",
-	"og_image": "https://twojadomena.pl/dist/img/og_image_about_vitetemplate.webp",
+	"url": "https://twojadomena.pl/metody-leczenia/leczenie-farmakologiczne",
 
 	"article_image_class": "treatment__img",
 	"article_image_src": "/src/assets/images/the-doctors-hand-in-which-there-are-medicines.webp",
-	"article_image_alt": "Ręka lekarza z lekami",
+	"article_image_alt": "Ręka lekarza z lekami na zaburzenia erekcji",
 	"article_date": "21.05.2025"
 }

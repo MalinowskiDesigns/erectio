@@ -1,9 +1,7 @@
 {
 	"title": "Polityka prywatności | Erectio",
-	"description": "Erectio – lekki i szybki szablon multipage oparty na Vite, JavaScript, SCSS i EJS.",
-	"keywords": "Erectio, multipage, vanilla js, scss, vite",
+	"description": "Polityka prywatności Erectio: jak przetwarzamy dane osobowe, wykorzystujemy cookies, jakie masz prawa oraz jak skontaktować się z administratorem danych.",
+	"keywords": "polityka prywatności, RODO, cookies, pliki cookie, dane osobowe, administrator danych, przetwarzanie danych, zgody marketingowe, bezpieczeństwo danych, prawa użytkownika",
 	"robots": "index, follow",
-	"url": "https://twojadomena.pl/",
-	"cssUrl": "/src/styles/index.css",
-	"og_image": "https://twojadomena.pl/dist/img/og_image_vitetemplate.webp"
+	"url": "https://twojadomena.pl/polityka-prywatnosci"
 }

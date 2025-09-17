@@ -1,11 +1,10 @@
 {
-	"title": "Zmiana stylu życia | Erectio",
-	"description": "Poznaj Erectio – szablon multipage, który ułatwia tworzenie statycznych witryn.",
-	"keywords": "Erectio, o nas, multipage, szablon",
+	"title": "Zmiana stylu życia a erekcja | Erectio",
+	"description": "Poznaj jak modyfikacje stylu życia wspierają erekcję: dieta poprawiająca krążenie, regularny ruch, sen i ograniczenie używek. Praktyczne wskazówki na start.",
+	"keywords": "zmiana stylu życia erekcja, dieta na erekcję, aktywność fizyczna erekcja, sen a erekcja, stres a erekcja, rzucenie palenia erekcja, alkohol a erekcja, odchudzanie a erekcja, zdrowe nawyki seksualne, jak poprawić erekcję naturalnie",
 	"robots": "index, follow",
-	"url": "https://twojadomena.pl/about.html",
-	"cssUrl": "/src/styles/about.css",
-	"og_image": "https://twojadomena.pl/dist/img/og_image_about_vitetemplate.webp",
+	"url": "https://twojadomena.pl/metody-leczenia/zmiana-stylu-zycia",
+
 	"article_image_class": "treatment__img",
 	"article_image_src": "/src/assets/images/man-doing-outdoor-sports.webp",
 	"article_image_alt": "Mężczyzna uprawiający sport na świeżym powietrzu",

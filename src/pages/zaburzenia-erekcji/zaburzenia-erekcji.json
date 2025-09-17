@@ -1,9 +1,8 @@
 {
 	"title": "Zaburzenia erekcji | Erectio",
-	"description": "Poznaj Erectio – szablon multipage, który ułatwia tworzenie statycznych witryn.",
-	"keywords": "Erectio, o nas, multipage, szablon",
+	"description": "Poznaj przyczyny i objawy zaburzeń erekcji. Sprawdź, kiedy zgłosić się do specjalisty oraz skuteczne kierunki leczenia, diagnostyki i profilaktyki dziś.",
+	"keywords": "zaburzenia erekcji, problemy z erekcją, przyczyny zaburzeń erekcji, objawy zaburzeń erekcji, brak erekcji, słaba erekcja, jak poprawić erekcję, leczenie zaburzeń erekcji, stres a erekcja, niski testosteron erekcja",
 	"robots": "index, follow",
-	"url": "https://twojadomena.pl/about.html",
-	"cssUrl": "/src/styles/about.css",
-	"og_image": "https://twojadomena.pl/dist/img/og_image_about_vitetemplate.webp"
+	"url": "https://twojadomena.pl/zaburzenia-erekcji",
+	"og_image": "https://twojadomena.pl/dist/og_image.webp"
 }

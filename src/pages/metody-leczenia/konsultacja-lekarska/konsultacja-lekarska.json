@@ -1,11 +1,9 @@
 {
-	"title": "Konsultacja lekarska | Erectio",
-	"description": "Poznaj Erectio – szablon multipage, który ułatwia tworzenie statycznych witryn.",
-	"keywords": "Erectio, o nas, multipage, szablon",
+	"title": "Konsultacja lekarska dot. zaburzeń erekcji | Erectio",
+	"description": "Dowiedz się, jak wygląda konsultacja u lekarza w przypadku zaburzeń erekcji: wywiad, badania, diagnostyka różnicowa i plan leczenia dopasowany do Ciebie.",
+	"keywords": "konsultacja lekarska erekcja, diagnostyka zaburzeń erekcji, badania na zaburzenia erekcji, wywiad lekarski erekcja, leczenie zaburzeń erekcji, urolog zaburzenia erekcji, androlog konsultacja, kiedy do lekarza erekcja, plan leczenia erekcja, testosteron badania erekcja",
 	"robots": "index, follow",
-	"url": "https://twojadomena.pl/about.html",
-	"cssUrl": "/src/styles/about.css",
-	"og_image": "https://twojadomena.pl/dist/img/og_image_about_vitetemplate.webp",
+	"url": "https://twojadomena.pl/metody-leczenia/konsultacja-lekarska",
 
 	"article_image_class": "treatment__img",
 	"article_image_src": "/src/assets/images/doctor-talking-to-a-patient.webp",

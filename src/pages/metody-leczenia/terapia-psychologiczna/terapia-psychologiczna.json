@@ -1,11 +1,9 @@
 {
-	"title": "Terapia psychologiczna | Erectio",
-	"description": "Poznaj Erectio – szablon multipage, który ułatwia tworzenie statycznych witryn.",
-	"keywords": "Erectio, o nas, multipage, szablon",
+	"title": "Terapia psychologiczna zaburzeń erekcji | Erectio",
+	"description": "Dowiedz się, jak terapia psychologiczna wspiera leczenie zaburzeń erekcji: praca z lękiem, budowanie pewności siebie, terapia par i techniki na co dzień.",
+	"keywords": "terapia psychologiczna zaburzeń erekcji, psychoterapia erekcja, lęk a erekcja, stres a erekcja, terapia par zaburzenia erekcji, pewność siebie a seks, techniki redukcji stresu, psychogenne zaburzenia erekcji, seksuolog terapia, jak pokonać lęk przed współżyciem",
 	"robots": "index, follow",
-	"url": "https://twojadomena.pl/about.html",
-	"cssUrl": "/src/styles/about.css",
-	"og_image": "https://twojadomena.pl/dist/img/og_image_about_vitetemplate.webp",
+	"url": "https://twojadomena.pl/metody-leczenia/terapia-psychologiczna",
 
 	"article_image_class": "treatment__img",
 	"article_image_src": "/src/assets/images/man-during-psychological-therapy-session.webp",

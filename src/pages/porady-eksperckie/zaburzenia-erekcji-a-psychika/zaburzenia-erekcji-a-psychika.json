@@ -1,11 +1,9 @@
 {
 	"title": "Zaburzenia erekcji a psychika | Erectio",
-	"description": "Poznaj Erectio – szablon multipage, który ułatwia tworzenie statycznych witryn.",
-	"keywords": "Erectio, o nas, multipage, szablon",
+	"description": "Jak stres, lęk i niska samoocena wpływają na erekcję? Poznaj psychologiczne przyczyny zaburzeń, skuteczne terapie oraz techniki redukcji napięcia. Sprawdź.",
+	"keywords": "zaburzenia erekcji a psychika, stres a erekcja, lęk a erekcja, psychogenne zaburzenia erekcji, problemy z erekcją psychologia, terapia psychologiczna zaburzeń erekcji, depresja a zaburzenia erekcji, jak radzić sobie z lękiem przed współżyciem, techniki redukcji stresu erekcja, pewność siebie a sprawność seksualna",
 	"robots": "index, follow",
-	"url": "https://twojadomena.pl/about.html",
-	"cssUrl": "/src/styles/about.css",
-	"og_image": "https://twojadomena.pl/dist/img/og_image_about_vitetemplate.webp",
+	"url": "https://twojadomena.pl/porady-eksperckie/zaburzenia-erekcji-a-psychika",
 
 	"article_image_class": "advice__img",
 	"article_image_src": "/src/assets/images/man-holding-head.webp",

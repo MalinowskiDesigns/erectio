@@ -1,9 +1,7 @@
 {
-	"title": "Strona główna | Erectio",
-	"description": "Erectio – lekki i szybki szablon multipage oparty na Vite, JavaScript, SCSS i EJS.",
-	"keywords": "Erectio, multipage, vanilla js, scss, vite",
+	"title": "Zaburzenia erekcji – przyczyny, leczenie i wsparcie | Erectio",
+	"description": "Erectio – rzetelne informacje o zaburzeniach erekcji: przyczyny, objawy, metody leczenia oraz mapa specjalistów. Sprawdź, jak odzyskać satysfakcję z intymności.",
+	"keywords": "zaburzenia erekcji, problemy z erekcją, impotencja, przyczyny zaburzeń erekcji, leczenie zaburzeń erekcji, jak poprawić erekcję, leki na potencję, terapia psychologiczna zaburzeń erekcji, dieta na erekcję, specjalista zaburzenia erekcji",
 	"robots": "index, follow",
-	"url": "https://twojadomena.pl/",
-	"cssUrl": "/src/styles/index.css",
-	"og_image": "https://twojadomena.pl/dist/img/og_image_vitetemplate.webp"
+	"url": "https://twojadomena.pl/"
 }

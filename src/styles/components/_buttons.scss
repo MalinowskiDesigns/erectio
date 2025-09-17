@@ -7,7 +7,7 @@
 	@extend %button-base;
 	&--primary {
 		box-sizing: border-box;
-		border: 0.1rem solid $color-primary;
+		border: 1px solid $color-primary;
 		color: $color-white;
 		background-color: $color-primary;
 
