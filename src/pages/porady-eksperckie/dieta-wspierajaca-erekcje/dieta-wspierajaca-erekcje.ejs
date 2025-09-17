@@ -1,0 +1,26 @@
+<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "Article",
+		"@id": "<%= (meta.url || (VITE_SITE_URL + '/porady-eksperckie/dieta-wspierajaca-erekcje')).replace(/\/$/, '') %>#article",
+		"url": "<%= meta.url || (VITE_SITE_URL + '/porady-eksperckie/dieta-wspierajaca-erekcje') %>",
+		"headline": "<%= meta.articleHeadline || meta.title %>",
+		"description": "<%= meta.description %>",
+		"inLanguage": "pl",
+		"author": {
+			"@type": "Person",
+			"name": "<%= meta.author || 'Redakcja Erectio' %>"
+		},
+		"datePublished": "<%= meta.datePublished || '2025-09-01' %>",
+		"dateModified": "<%= meta.dateModified || meta.datePublished || '2025-09-01' %>",
+		"image": "<%= meta.articleImage || (VITE_SITE_URL + '/og_image.webp') %>",
+		"publisher": { "@id": "<%= VITE_SITE_URL %>/#organization" },
+		"articleSection": "Porady eksperckie",
+		"about": {
+			"@type": "MedicalCondition",
+			"name": "Zaburzenia erekcji (Erectile dysfunction)"
+		},
+		"keywords": "<%= meta.keywords %>",
+		"mainEntityOfPage": "<%= meta.url || (VITE_SITE_URL + '/porady-eksperckie/dieta-wspierajaca-erekcje') %>"
+	}
+</script>

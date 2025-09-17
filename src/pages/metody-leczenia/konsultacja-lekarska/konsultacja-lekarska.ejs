@@ -1,0 +1,78 @@
+<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "MedicalWebPage",
+		"@id": "<%= (meta.url || (VITE_SITE_URL + '/metody-leczenia/konsultacja-lekarska')).replace(/\/$/, '') %>#webpage",
+		"url": "<%= meta.url || (VITE_SITE_URL + '/metody-leczenia/konsultacja-lekarska') %>",
+		"name": "Konsultacja lekarska – diagnostyka zaburzeń erekcji",
+		"description": "<%= meta.description %>",
+		"inLanguage": "pl",
+		"about": {
+			"@type": "MedicalCondition",
+			"name": "Zaburzenia erekcji (Erectile dysfunction)"
+		},
+		"isPartOf": { "@id": "<%= VITE_SITE_URL %>/#website" },
+		"publisher": { "@id": "<%= VITE_SITE_URL %>/#organization" }
+	}
+</script>
+
+<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "HowTo",
+		"inLanguage": "pl",
+		"name": "Wizyta u lekarza krok po kroku – zaburzenia erekcji",
+		"description": "Od pierwszego kontaktu i wywiadu, przez badania laboratoryjne, po diagnostykę dodatkową w kierunku zaburzeń erekcji.",
+		"step": [
+			{
+				"@type": "HowToStep",
+				"name": "Pierwszy kontakt z lekarzem",
+				"text": "Przygotuj się na szczegółowy wywiad: okoliczności pojawiania się problemu, przyjmowane leki, styl życia. Zabierz wyniki ostatnich badań i dokumentację."
+			},
+			{
+				"@type": "HowToStep",
+				"name": "Badania laboratoryjne",
+				"text": "Lekarz może zlecić podstawowe badania: testosteron, prolaktyna, glukoza, lipidogram oraz inne testy pomocne w ocenie ogólnego stanu zdrowia."
+			},
+			{
+				"@type": "HowToStep",
+				"name": "Diagnostyka dodatkowa",
+				"text": "W razie potrzeby wykonuje się m.in. USG dopplerowskie naczyń prącia, ocenę struktur prącia lub inne badania, aby ustalić przyczyny zaburzeń."
+			}
+		]
+	}
+</script>
+
+<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "FAQPage",
+		"inLanguage": "pl",
+		"mainEntity": [
+			{
+				"@type": "Question",
+				"name": "Czy podczas diagnostyki potrzebne są inwazyjne badania?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Zdecydowana większość badań jest nieinwazyjna i bezbolesna. Zaczyna się od wywiadu i podstawowych badań laboratoryjnych; obrazowanie (np. USG doppler) jest nieinwazyjne."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Od którego specjalisty warto zacząć?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "W zależności od objawów: internista/lekarz rodzinny na start, urolog przy podejrzeniu przyczyn fizycznych, seksuolog gdy dominuje stres, lęk lub trudności w relacji."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Jakie badania mogą być zlecane na początku?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Najczęściej: testosteron, prolaktyna, lipidogram, glukoza, a także – jeśli potrzebne – badania obrazowe takie jak USG dopplerowskie naczyń prącia."
+				}
+			}
+		]
+	}
+</script>

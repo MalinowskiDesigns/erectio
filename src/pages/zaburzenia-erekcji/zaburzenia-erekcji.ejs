@@ -1,0 +1,17 @@
+<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "MedicalWebPage",
+		"@id": "<%= (meta.url || (VITE_SITE_URL + '/zaburzenia-erekcji')).replace(/\/$/, '') %>#webpage",
+		"url": "<%= meta.url || (VITE_SITE_URL + '/zaburzenia-erekcji') %>",
+		"name": "<%= meta.schemaName || meta.title %>",
+		"description": "<%= meta.description %>",
+		"inLanguage": "pl",
+		"about": {
+			"@type": "MedicalCondition",
+			"name": "Zaburzenia erekcji (Erectile dysfunction)"
+		},
+		"isPartOf": { "@id": "<%= VITE_SITE_URL %>/#website" },
+		"publisher": { "@id": "<%= VITE_SITE_URL %>/#organization" }
+	}
+</script>

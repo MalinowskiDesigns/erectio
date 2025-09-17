@@ -1,0 +1,52 @@
+<!-- MedicalWebPage -->
+<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "MedicalWebPage",
+		"@id": "<%= (meta.url || (VITE_SITE_URL + '/metody-leczenia/zmiana-stylu-zycia')).replace(/\/$/, '') %>#webpage",
+		"url": "<%= meta.url || (VITE_SITE_URL + '/metody-leczenia/zmiana-stylu-zycia') %>",
+		"name": "Zmiana stylu życia – wsparcie erekcji",
+		"description": "<%= meta.description %>",
+		"inLanguage": "pl",
+		"about": {
+			"@type": "MedicalCondition",
+			"name": "Zaburzenia erekcji (Erectile dysfunction)"
+		},
+		"medicalSpecialty": ["Urology", "Nutrition"],
+		"isPartOf": { "@id": "<%= VITE_SITE_URL %>/#website" },
+		"publisher": { "@id": "<%= VITE_SITE_URL %>/#organization" }
+	}
+</script>
+
+<!-- HowTo: praktyczne kroki -->
+<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "HowTo",
+		"inLanguage": "pl",
+		"name": "Jak poprawić erekcję zmianą stylu życia",
+		"description": "Kroki skupione na diecie, aktywności fizycznej, redukcji stresu oraz jakości snu – podejście wspierające sprawność seksualną.",
+		"step": [
+			{
+				"@type": "HowToStep",
+				"name": "Dieta poprawiająca krążenie",
+				"text": "Zwiększ spożycie warzyw, owoców jagodowych, pełnych ziaren, ryb i oliwy; ogranicz cukry proste i tłuszcze trans; zadbaj o odpowiednią podaż płynów."
+			},
+			{
+				"@type": "HowToStep",
+				"name": "Regularna aktywność fizyczna",
+				"text": "Celuj w min. 150 minut umiarkowanego ruchu tygodniowo; łącz cardio z treningiem siłowym dla poprawy krążenia i gospodarki hormonalnej."
+			},
+			{
+				"@type": "HowToStep",
+				"name": "Redukcja stresu",
+				"text": "Praktykuj techniki oddechowe, uważność, relaksację mięśni; rozważ psychoterapię, jeśli lęk lub napięcie utrudniają współżycie."
+			},
+			{
+				"@type": "HowToStep",
+				"name": "Sen i regeneracja",
+				"text": "Ustal stałe pory snu (7–9 h); ogranicz kofeinę i ekrany przed snem; dbaj o higienę snu, by wspierać równowagę hormonalną."
+			}
+		]
+	}
+</script>

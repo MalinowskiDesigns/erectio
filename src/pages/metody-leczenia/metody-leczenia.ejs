@@ -1,0 +1,88 @@
+<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "CollectionPage",
+	  "@id": "<%= (meta.url || (VITE_SITE_URL + '/metody-leczenia/')).replace(/\/$/, '') %>#webpage",
+	  "url": "<%= meta.url || (VITE_SITE_URL + '/metody-leczenia/') %>",
+	  "name": "Metody leczenia",
+	  "description": "<%= meta.description %>",
+	  "inLanguage": "pl",
+	  "isPartOf": { "@id": "<%= VITE_SITE_URL %>/#website" },
+	  "publisher": { "@id": "<%= VITE_SITE_URL %>/#organization" },
+	  "mainEntity": {
+	    "@type": "ItemList",
+	    "itemListElement": [
+	      <% if (meta.methods && meta.methods.length) { %>
+	        <% meta.methods.forEach(function(m, i){ %>
+	        {
+	          "@type": "ListItem",
+	          "position": <%= i + 1 %>,
+	          "item": {
+	            "@type": "WebPage",
+	            "@id": "<%= m.url %>#webpage",
+	            "url": "<%= m.url %>",
+	            "name": "<%= m.name %>",
+	            "inLanguage": "pl",
+	            "isPartOf": { "@id": "<%= VITE_SITE_URL %>/#website" },
+	            "publisher": { "@id": "<%= VITE_SITE_URL %>/#organization" }
+	          }
+	        }<%= i + 1 < meta.methods.length ? ',' : '' %>
+	        <% }); %>
+	      <% } else { %>
+	        {
+	          "@type": "ListItem",
+	          "position": 1,
+	          "item": {
+	            "@type": "WebPage",
+	            "@id": "<%= VITE_SITE_URL %>/metody-leczenia/zmiana-stylu-zycia#webpage",
+	            "url": "<%= VITE_SITE_URL %>/metody-leczenia/zmiana-stylu-zycia",
+	            "name": "Zmiana stylu życia",
+	            "inLanguage": "pl",
+	            "isPartOf": { "@id": "<%= VITE_SITE_URL %>/#website" },
+	            "publisher": { "@id": "<%= VITE_SITE_URL %>/#organization" }
+	          }
+	        },
+	        {
+	          "@type": "ListItem",
+	          "position": 2,
+	          "item": {
+	            "@type": "WebPage",
+	            "@id": "<%= VITE_SITE_URL %>/metody-leczenia/terapia-psychologiczna#webpage",
+	            "url": "<%= VITE_SITE_URL %>/metody-leczenia/terapia-psychologiczna",
+	            "name": "Terapia psychologiczna",
+	            "inLanguage": "pl",
+	            "isPartOf": { "@id": "<%= VITE_SITE_URL %>/#website" },
+	            "publisher": { "@id": "<%= VITE_SITE_URL %>/#organization" }
+	          }
+	        },
+	        {
+	          "@type": "ListItem",
+	          "position": 3,
+	          "item": {
+	            "@type": "WebPage",
+	            "@id": "<%= VITE_SITE_URL %>/metody-leczenia/leczenie-farmakologiczne#webpage",
+	            "url": "<%= VITE_SITE_URL %>/metody-leczenia/leczenie-farmakologiczne",
+	            "name": "Leczenie farmakologiczne",
+	            "inLanguage": "pl",
+	            "isPartOf": { "@id": "<%= VITE_SITE_URL %>/#website" },
+	            "publisher": { "@id": "<%= VITE_SITE_URL %>/#organization" }
+	          }
+	        },
+	        {
+	          "@type": "ListItem",
+	          "position": 4,
+	          "item": {
+	            "@type": "WebPage",
+	            "@id": "<%= VITE_SITE_URL %>/metody-leczenia/konsultacja-lekarska#webpage",
+	            "url": "<%= VITE_SITE_URL %>/metody-leczenia/konsultacja-lekarska",
+	            "name": "Konsultacja lekarska",
+	            "inLanguage": "pl",
+	            "isPartOf": { "@id": "<%= VITE_SITE_URL %>/#website" },
+	            "publisher": { "@id": "<%= VITE_SITE_URL %>/#organization" }
+	          }
+	        }
+	      <% } %>
+	    ]
+	  }
+	}
+</script>

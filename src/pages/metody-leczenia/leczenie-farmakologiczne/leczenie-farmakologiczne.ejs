@@ -1,0 +1,60 @@
+<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "MedicalWebPage",
+		"@id": "<%= (meta.url || (VITE_SITE_URL + '/metody-leczenia/leczenie-farmakologiczne')).replace(/\/$/, '') %>#webpage",
+		"url": "<%= meta.url || (VITE_SITE_URL + '/metody-leczenia/leczenie-farmakologiczne') %>",
+		"name": "<%= meta.schemaName || meta.title || 'Leczenie farmakologiczne – zaburzenia erekcji' %>",
+		"description": "<%= meta.description %>",
+		"inLanguage": "pl",
+		"about": {
+			"@type": "MedicalCondition",
+			"name": "Zaburzenia erekcji (Erectile dysfunction)"
+		},
+		"medicalSpecialty": "Urology",
+		"isPartOf": { "@id": "<%= VITE_SITE_URL %>/#website" },
+		"publisher": { "@id": "<%= VITE_SITE_URL %>/#organization" }
+	}
+</script>
+
+<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "FAQPage",
+		"inLanguage": "pl",
+		"mainEntity": [
+			{
+				"@type": "Question",
+				"name": "Czy inhibitory PDE5 działają bez stymulacji seksualnej?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Nie. Leki z grupy inhibitorów PDE5 wymagają pobudzenia seksualnego, aby zadziałać."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Jak długo działa typowy lek na zaburzenia erekcji?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Czas działania zależy od substancji czynnej; zwykle efekt utrzymuje się od kilku do kilkunastu godzin."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Kto nie powinien stosować leków na erekcję?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Przeciwwskazaniem jest m.in. jednoczesne przyjmowanie azotanów oraz niektóre choroby sercowo-naczyniowe. Decyzję podejmuje lekarz."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Czy leki „leczą” przyczynę zaburzeń erekcji?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Leki poprawiają odpowiedź fizjologiczną, ale nie usuwają przyczyny. Równolegle warto diagnozować i leczyć źródło problemu."
+				}
+			}
+		]
+	}
+</script>

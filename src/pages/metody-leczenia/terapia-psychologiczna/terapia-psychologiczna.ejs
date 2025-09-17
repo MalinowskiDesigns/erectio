@@ -1,0 +1,87 @@
+<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "MedicalWebPage",
+		"@id": "<%= (meta.url || (VITE_SITE_URL + '/metody-leczenia/terapia-psychologiczna')).replace(/\/$/, '') %>#webpage",
+		"url": "<%= meta.url || (VITE_SITE_URL + '/metody-leczenia/terapia-psychologiczna') %>",
+		"name": "Terapia psychologiczna – zaburzenia erekcji",
+		"description": "<%= meta.description %>",
+		"inLanguage": "pl",
+		"about": {
+			"@type": "MedicalCondition",
+			"name": "Zaburzenia erekcji (Erectile dysfunction)"
+		},
+		"medicalSpecialty": "Psychology",
+		"isPartOf": { "@id": "<%= VITE_SITE_URL %>/#website" },
+		"publisher": { "@id": "<%= VITE_SITE_URL %>/#organization" }
+	}
+</script>
+
+<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "HowTo",
+		"inLanguage": "pl",
+		"name": "Terapia psychologiczna – jak się przygotować i pracować między sesjami",
+		"description": "Praktyczne kroki: przygotowanie do pierwszej wizyty, praca na sesji i działania między spotkaniami.",
+		"step": [
+			{
+				"@type": "HowToStep",
+				"name": "Przygotowanie do pierwszej wizyty",
+				"text": "Zapisz cele terapii i najczęstsze sytuacje, w których pojawia się problem; przygotuj listę leków i chorób współistniejących."
+			},
+			{
+				"@type": "HowToStep",
+				"name": "Praca podczas sesji",
+				"text": "Bądź szczery; omawiaj przekonania, lęk i stres; ćwicz techniki zalecone przez terapeutę (np. relaksacja, uważność, komunikacja w parze)."
+			},
+			{
+				"@type": "HowToStep",
+				"name": "Między sesjami",
+				"text": "Wykonuj zadania domowe; notuj postępy i trudności; utrwalaj nowe nawyki; rozważ włączenie partnera w terapię, jeśli to wskazane."
+			}
+		]
+	}
+</script>
+
+<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "FAQPage",
+		"inLanguage": "pl",
+		"mainEntity": [
+			{
+				"@type": "Question",
+				"name": "Jak długo trwa terapia psychologiczna przy zaburzeniach erekcji?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "To zależy od celu i przyczyn; zwykle kilka–kilkanaście tygodni regularnych sesji. Terapeuta ustala plan indywidualnie."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Czy efekty terapii są trwałe?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Tak, jeśli wdrażasz techniki w codzienność i pracujesz nad nawykami. Zaleca się okresowe sesje podtrzymujące."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Czy można łączyć terapię indywidualną z terapią par?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Tak. Połączenie często przyspiesza poprawę komunikacji i redukcję napięcia w relacji, co wspiera efekty terapii."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Czy terapia pomaga, gdy przyczyna jest somatyczna?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Może pomóc w redukcji lęku i poprawie pewności siebie, a równolegle warto leczyć przyczynę medyczną we współpracy z lekarzem."
+				}
+			}
+		]
+	}
+</script>

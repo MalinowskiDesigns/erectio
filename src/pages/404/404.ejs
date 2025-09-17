@@ -1,0 +1,15 @@
+<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "WebPage",
+		"@id": "<%= (meta.url || (VITE_SITE_URL + '/404')).replace(/\/$/, '') %>#webpage",
+		"url": "<%= meta.url || (VITE_SITE_URL + '/404') %>",
+		"name": "404 – Strona nie została znaleziona",
+		"description": "<%= meta.description %>",
+		"inLanguage": "pl",
+		"isPartOf": { "@id": "<%= VITE_SITE_URL %>/#website" },
+		"publisher": { "@id": "<%= VITE_SITE_URL %>/#organization" },
+		"datePublished": "<%= meta.datePublished || '2025-09-01' %>",
+		"dateModified": "<%= meta.dateModified || '2025-09-01' %>"
+	}
+</script>
