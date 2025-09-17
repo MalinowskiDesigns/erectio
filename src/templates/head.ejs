@@ -46,18 +46,52 @@
 		async
 	></script>
 
-	<!-- JSON-LD Schema.org -->
-	<!-- <script type="application/ld+json">
+	<!-- Organization (stałe dane firmy) -->
+	<script type="application/ld+json">
 		{
 			"@context": "https://schema.org",
 			"@type": "Organization",
-			"name": "Vite Template – Szablon Multipage",
-			"legalName": "Vite Template",
-			"description": "<%= meta.description %>",
-			"url": "<%= meta.url %>",
-			"logo": "<%= meta.VITE_SITE_URL %>/logo.svg",
-			"image": "<%= meta.VITE_SITE_URL %>/logo.svg"
-			/* Dodaj tu inne statyczne dane, jeśli potrzebujesz: kontakt, adres itp. */
+			"@id": "<%= VITE_SITE_URL %>/#organization",
+			"name": "IBSA Poland Sp. z o.o.",
+			"legalName": "IBSA Poland Sp. z o.o.",
+			"brand": { "@type": "Brand", "name": "Erectio" },
+			"url": "<%= VITE_SITE_URL %>/",
+			"email": "kontakt@ibsa.pl",
+			"taxID": "PL5213600577",
+			"identifier": {
+				"@type": "PropertyValue",
+				"propertyID": "KRS",
+				"value": "0000383362"
+			},
+			"address": {
+				"@type": "PostalAddress",
+				"streetAddress": "ul. Jana Pawła II 29",
+				"postalCode": "00-867",
+				"addressLocality": "Warszawa",
+				"addressCountry": "PL"
+			},
+			"contactPoint": [
+				{
+					"@type": "ContactPoint",
+					"contactType": "informacje i zapytania",
+					"email": "kontakt@ibsa.pl",
+					"availableLanguage": ["pl"],
+					"areaServed": "PL"
+				}
+			]
 		}
-	</script> -->
+	</script>
+
+	<!-- WebSite (stały identyfikator serwisu) -->
+	<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "WebSite",
+			"@id": "<%= VITE_SITE_URL %>/#website",
+			"url": "<%= VITE_SITE_URL %>/",
+			"name": "Erectio",
+			"inLanguage": "pl",
+			"publisher": { "@id": "<%= VITE_SITE_URL %>/#organization" }
+		}
+	</script>
 </head>
