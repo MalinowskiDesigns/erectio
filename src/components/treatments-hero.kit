@@ -23,12 +23,17 @@
 			</div>
 		</div>
 
-		<div class="hero__video">
-			<div class="hero__thumbnail" role="button" aria-label="Odtwórz wideo">
+		<div class="hero__video" data-consent-target="video">
+			<div
+				class="hero__thumbnail"
+				role="button"
+				tabindex="0"
+				aria-label="Odtwórz wideo"
+			>
 				<img
 					src="/src/assets/images/treatments-hero-doctor.webp"
 					loading="lazy"
-					alt="Dr. Maciej "
+					alt="Dr. Maciej"
 					class="hero__thumbnail-video"
 				/>
 				<div class="hero__play-button">
@@ -36,16 +41,22 @@
 						<use href="#i-play-btn"></use>
 					</svg>
 				</div>
+				<div class="video__consent-hint" aria-hidden="true">
+					Aby odtworzyć, zaakceptuj ciasteczka.
+				</div>
 			</div>
+
 			<iframe
 				class="hero__iframe"
-				src="https://www.youtube.com/embed/f0ENpxfILho?si=crixjq-rHzUsqX7H&autoplay=1"
+				data-src="https://www.youtube-nocookie.com/embed/f0ENpxfILho?si=crixjq-rHzUsqX7H&autoplay=1"
 				title="Dr. Maciej Polak o skutkach zaburzeń erekcji"
 				frameborder="0"
 				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 				allowfullscreen
 				width="100%"
 				height="auto"
+				loading="lazy"
+				referrerpolicy="strict-origin-when-cross-origin"
 			></iframe>
 		</div>
 	</div>
