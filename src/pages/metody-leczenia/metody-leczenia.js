@@ -6,4 +6,3 @@ import '@common/nav-handle.js';
 import '@common/scroller.js';
 import '@js/play-btn.js';
 import '@js/specialists.js';
-import '@js/video-consent.js';
